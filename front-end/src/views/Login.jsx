@@ -14,14 +14,14 @@ const Login = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
-    /*axios.get('http://localhost:5000/api/users')
+    axios.get('http://localhost:5000/api/users')
       .then(response => {
         console.log(response.data);
       })
       .catch(error => {
         console.log(error);
-      });*/
-    //console.log(user);
+      });
+    console.log(user);
   };
 
   const onSubmit = () => {
@@ -53,6 +53,9 @@ const Login = () => {
         </div>
         <div className="btnLogin">
           <button type="submit" className="btn btn-primary">Iniciar sesion</button>
+        </div>
+        <div className="btnRegister">
+          <button type="" className="btn btn-primary">Regístrese</button>
         </div>
       </form>
     </div>
