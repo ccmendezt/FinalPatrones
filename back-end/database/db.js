@@ -13,7 +13,7 @@ class Database {
 
       Database.instance = this;
     }
-    return Database.instance;
+    return Database.instance.connection;
   }
 
   query(sql, args) {

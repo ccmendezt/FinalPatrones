@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Register() {
 
@@ -32,6 +33,10 @@ function Register() {
     }
   };
 
+  const handleCookie = () => {
+    console.log(Cookies.get('jwt'));
+  }
+
   return (  
     <div>
       {registrado ? 
@@ -59,6 +64,7 @@ function Register() {
                 <input type='text' id='cardNumber' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
               </div>
               <button onClick={handleSignup}>Registrarse</button>
+              <button onClick={handleCookie}>ObtenerCookie</button>
             </form>
             {<div>{message}</div>}
           </div>

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const connectionDB = require('../database/db');
+const serialize = require('cookie');
 const { promisify } = require('util');
 
 //Metodo para registrar un usuario
@@ -10,6 +11,7 @@ exports.register = async (req, res) => {
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
     const cardNumber = req.body.cardNumber;
+
 
     if (password !== confirmPassword || password === "" || confirmPassword === "" || email === "" || cardNumber === "") {
       console.log("Las contraseñas no coinciden");
@@ -38,39 +40,38 @@ exports.login = async (req, res) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-    //const sql = 'SELECT * FROM users WHERE email = ?';
-
-    console.log(email);
-    console.log(password);
+    const sql = 'SELECT * FROM users WHERE email = ?';
 
     if (!email || !password) {
       return res.status(400).send({ error: "Introduce un email y una contraseña" });
     }
 
-    connectionDB.query("SELECT * FROM users WHERE email = ?", [email], (err, results) => {
+    connectionDB.query(sql, [email], async (err, results) => {
       if (err) {
         console.log(err);
       } else {
         if (results.length == 0) {
           return res.status(400).send({ error: "El usuario no existe" });
+        } else {
+          if (results.length == 0 || !(await bcryptjs.compare(password, results[0].password))) {
+            return res.status(400).send({ error: "Contraseña incorrecta" });
+          } else {
+            const id = results[0].id;
+            const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+              expiresIn: process.env.JWT_TIEMPO_EXPIRACION
+            });
+            const cookieOptions = {
+              expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRACION * 24),
+              httpOnly: true
+            }
+            //console.log("El token es: " + token + " para el usuario " + email + " con id " + id + "");
+            res.cookie("jwt" , token, cookieOptions);
+            res.status(200).send({ message: 'Inicio de sesión exitoso', token, cookieOptions});
+            //res.cookie('miCookie', 'miValor', { maxAge: 3600000, httpOnly: true });
+            //res.cookie('tokenJWT', token, { maxAge: 3600000, httpOnly: true });
+            //res.send('¡Cookie establecida!');
+          }
         }
-        // } else {
-        //   if (results.length == 0 || !(await bcryptjs.compare(password, results[0].password))) {
-        //     return res.status(400).send({ error: "Contraseña incorrecta" });
-        //   } else {
-        //     const id = results[0].id;
-        //     const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
-        //       expiresIn: process.env.JWT_TIEMPO_EXPIRACION
-        //     });
-        //     console.log("El token es: " + token + " para el usuario " + email + " con id " + id + "");
-        //     const cookieOptions = {
-        //       expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRACION * 24 * 60 * 60 * 1000),
-        //       httpOnly: true
-        //     }
-        //     res.cookie('jwt', token, cookieOptions);
-        //     res.status(200).send({ token });
-        //   }
-        // }
       }
     })
   } catch (error) {
@@ -85,7 +86,7 @@ exports.getAllUsers = async (req, res) => {
 
     connectionDB.query(sql, (err, result) => {
       if (err) { console.log(err) };
-      console.log(result);
+      //console.log(result);
       res.send(result)
     });
   } catch (error) {
