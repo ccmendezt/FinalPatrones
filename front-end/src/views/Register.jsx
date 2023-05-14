@@ -12,26 +12,24 @@ function Register() {
   const [registrado, setRegistrado] = useState(false);
 
   const handleSignup = async () => {
-    const response = await axios.post('http://localhost:5000/api/users/register', {
-      email,
-      password,
-      confirmPassword,
-      cardNumber
-    });
-
-    const data = response;
-    console.log(data.data);
-    // if (response.ok) {
-    //   setMessage('Usuario registrado con éxito');
-    //   setEmail('');
-    //   setPassword('');
-    //   setConfirmPassword('');
-    //   setCardNumber('');
-    //   setRegistrado(true);
-    // } else {
-    //   setMessage(data);
-    //   console.log(data);
-    // }
+    try{
+      const response = await axios.post('http://localhost:5000/api/users/register', {
+        email,
+        password,
+        confirmPassword,
+        cardNumber
+      });
+      if (response.status === 200) {
+        setMessage('Usuario registrado con éxito');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setCardNumber('');
+        setRegistrado(true);
+      }
+    }catch(e){
+      console.log(e.response.data);
+    }
   };
 
   return (  

@@ -26,7 +26,7 @@ app.use(express.json())
 dotenv.config({ path: './env/.env' })
 
 //Para trabajar con cookies
-//app.use(cookieParser())
+app.use(cookieParser())
 
 app.get('/', (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*")

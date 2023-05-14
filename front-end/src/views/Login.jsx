@@ -8,20 +8,20 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onSubmit = () => {
-    //Peticion a la API para iniciar sesion
-    //axios.post('http://localhost:5000/api/users/login', {email, password})
-    axios.post('http://localhost:5000/api/users/login', {
-      email,
-      password
-    })
-      .then(response => {
-        console.log(response)
-        //localStorage.setItem('token', response.data.token);
-      })
-      .catch(error => {
-        console.log(error);
+  const onSubmit = async () => {
+    try{
+      const response = await axios.post('http://localhost:5000/api/users/login', {
+        email,
+        password
       });
+      if(response.status === 200){
+        console.log("Hlaaaaa");
+        console.log(response.data);
+        // localStorage.setItem('jwt', response.data.jwt);
+      }
+    }catch(e){
+      console.log(e.response.data);
+    }
   }
 
 return (
