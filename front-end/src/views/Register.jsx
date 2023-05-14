@@ -1,11 +1,10 @@
+import axios from 'axios';
 import { useState } from 'react';
-import {
-  BrowserRouter as Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Register() {
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [cardNumber, setCardNumber] = useState('');
@@ -13,22 +12,26 @@ function Register() {
   const [registrado, setRegistrado] = useState(false);
 
   const handleSignup = async () => {
-    const response = await fetch('http://localhost:-------------------', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password, confirmPassword, cardNumber})
+    const response = await axios.post('http://localhost:5000/api/users/register', {
+      email,
+      password,
+      confirmPassword,
+      cardNumber
     });
-    const data = await response.json();
-    if (response.ok) {
-      setMessage('Usuario registrado con éxito');
-      setUsername('');
-      setPassword('');
-      setConfirmPassword('');
-      setCardNumber('');
-      setRegistrado(true);
-    } else {
-      setMessage(data.error);
-    }
+
+    const data = response;
+    console.log(data.data);
+    // if (response.ok) {
+    //   setMessage('Usuario registrado con éxito');
+    //   setEmail('');
+    //   setPassword('');
+    //   setConfirmPassword('');
+    //   setCardNumber('');
+    //   setRegistrado(true);
+    // } else {
+    //   setMessage(data);
+    //   console.log(data);
+    // }
   };
 
   return (  
@@ -42,8 +45,8 @@ function Register() {
             <h1>Registro</h1>
             <form onSubmit={(e) => e.preventDefault()}>
               <div>
-                <label htmlFor="username">Correo electronico:</label>
-                <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <label htmlFor="email">Correo electronico:</label>
+                <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div>
                 <label htmlFor="password">Contraseña:</label>
@@ -59,7 +62,7 @@ function Register() {
               </div>
               <button onClick={handleSignup}>Registrarse</button>
             </form>
-            {/* <div>{message}</div> */}
+            {<div>{message}</div>}
           </div>
         }
         

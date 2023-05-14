@@ -13,17 +13,12 @@ import React from 'react';
 
 function App() {
   return (
-    <Router>
+    <div className="App">
         <Routes>
-          <Route path="/" element={<Login/>} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
-      </Router>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <Login />
-    //   </header>
-    // </div>
+    </div>
   );
 }
 

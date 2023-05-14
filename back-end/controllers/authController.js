@@ -3,6 +3,33 @@ const bcryptjs = require('bcryptjs');
 const connectionDB = require('../database/db');
 const { promisify } = require('util');
 
+//Metodo para registrar un usuario
+exports.register = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+    const cardNumber = req.body.cardNumber;
+
+    if (password !== confirmPassword || password === "" || confirmPassword === "" || email === "" || cardNumber === "") {
+      //res.send("Las contraseñas no coinciden");
+      console.log("Las contraseñas no coinciden");
+    } else {
+      let passHash = await bcryptjs.hash(password, 8);
+      //console.log(passHash);
+      connectionDB.query("INSERT INTO users (email, password, creditCard) VALUES (?, ?, ?)", [email, passHash, cardNumber], (err, result) => {
+        if (err) { console.log(err) };
+        //res.status(200).json({ data: result });
+        // console.log(result);
+        res.send("Usuario registrado correctamente")
+
+      })
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 //Metodo para logear un usuario
 exports.login = async (req, res) => {
   try {
@@ -10,14 +37,6 @@ exports.login = async (req, res) => {
     const password = req.body.password;
     const sql = 'SELECT * FROM users';
 
-    return new Promise((resolve, reject) => {
-      this.connection.query(sql, (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve(result);
-      });
-    });
 
     // connectionDB.query('SELECT * FROM users WHERE user = ?', [user], async (error, results) => {
     //   if(results.lenght == 0){ //Añadir validacion de password incorrecta
@@ -35,6 +54,21 @@ exports.login = async (req, res) => {
     //     res.cookie('jwt', token, cookieOptions);
     //   }
     // });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//Metodo para obtener todos los usuarios
+exports.getAllUsers = async (req, res) => {
+  try {
+    const sql = 'SELECT * FROM users';
+
+    connectionDB.query(sql, (err, result) => {
+      if (err) { console.log(err) };
+      console.log(result);
+      res.send(result)
+    });
   } catch (error) {
     console.log(error);
   }
