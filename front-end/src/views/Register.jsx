@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import "../styles/register.css"
+import Logo from '../images/Logo.PNG'
 
 function Register() {
 
@@ -38,6 +40,7 @@ function Register() {
   }
 
   return (  
+
     <div>
       {registrado ? 
           <Link to="/">
@@ -45,26 +48,28 @@ function Register() {
           </Link>
         : 
           <div>
+            <div id="logo">
+              <img src={Logo}  alt="Logotipo"/>
+            </div>
             <h1>Registro</h1>
             <form onSubmit={(e) => e.preventDefault()}>
+
               <div>
-                <label htmlFor="email">Correo electronico:</label>
-                <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo electrónico'/>
               </div>
               <div>
-                <label htmlFor="password">Contraseña:</label>
-                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña'/>
               </div>
+
               <div>
-                <label htmlFor="confirmpassword">Confirmar contraseña:</label>
-                <input type="password" id="confirmpassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                <input type="password" id="confirmpassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirmar Contraseña'/>
               </div>
+
               <div>
-                <label htmlFor='cardNumber'>Numero de tarjeta:</label>
-                <input type='text' id='cardNumber' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
+                <input type='text' id='cardNumber' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder='Número de tarjeta'/>
               </div>
-              <button onClick={handleSignup}>Registrarse</button>
-              <button onClick={handleCookie}>ObtenerCookie</button>
+              <button onClick={handleSignup} className="btn" >Registrarse</button>
+              <button onClick={handleCookie} className="btn" >Obtener Cookie</button>
             </form>
             {<div>{message}</div>}
           </div>
