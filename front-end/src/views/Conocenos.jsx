@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from '../components/Navbar'
-import Car from '../images/car.avif'
+import Car from '../images/niceCar.jpg'
 import Footer from '../components/Footer'
 function Conocenos() {
     return (
@@ -11,7 +11,7 @@ function Conocenos() {
                     <img src={Car}></img>
                 </div>
                 <div className='set-middle'>
-                    <div className='container'>
+                    <div className='container px-5'>
                         <h2>PAR-KUD COLOMBIA</h2>
                         <p className='text-align-justify container'>
                             Par-kud Colombia ha ideado una nueva forma de parquear en las ciudades de Colombia,

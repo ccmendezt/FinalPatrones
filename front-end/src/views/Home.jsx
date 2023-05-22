@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Nav></Nav>
       <div className='col-12'>
-        <img src={banner} style={{ width: "100em", height: "90%" }}></img>
+        <img src={banner} style={{ height: "90%" }}></img>
       </div>
       <div className='d-flex container'>
         <div className='col-6 mt-5'>
@@ -17,13 +17,13 @@ export default function Home() {
           <button className='btn btn-success'>Reserva Ahora</button>
         </div>
         <div className='col-6 mt-5 card-group'>
-          <div className='card col-2'>
+          <div className='card mx-1'>
             <img className='img-home' src={car}></img>
           </div>
-          <div className='card col-2'>
+          <div className='card mx-1'>
             <img className='img-home' src={car}></img>
           </div>
-          <div className='card col-2'>
+          <div className='card mx-1'>
             <img className='img-home' src={car}></img>
           </div>
 

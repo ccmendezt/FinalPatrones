@@ -1,5 +1,4 @@
 import React from 'react'
-import '../styles/nav.css'
 import imagen1 from '../images/logo1.png'
 import {House,PersonCircle,PersonBadge,PCircle,Shop} from 'react-bootstrap-icons';
 
