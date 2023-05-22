@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import "../styles/login.css";
+import "../styles/main.css";
 import { Link } from 'react-router-dom';
 import Logo from '../images/Logo.PNG'
 
@@ -38,19 +39,13 @@ const Login = () => {
 
     <div className="container">
       <div id="logo">
-              <img src={Logo}  alt="Logotipo"/>
-            </div>
-      <h1 className="titleIniciarSesion">Iniciar Sesion</h1>
+        <img src={Logo}  alt="Logotipo"/>
+      </div>
+      <h1 className="titleIniciarSesion">Iniciar Sesión</h1>
       <form>
-        <div>
-          <div >
+        <div style={{display:"inline-block"}}>
             <input type="text" value={email} className="form-control" id="inputUsuario" onChange={(e) => setEmail(e.target.value)} placeholder="Usuario"/>
-          </div>
-        </div>
-        <div>
-          <div>
             <input type="password" value={password} className="form-control" id="inputPassword" onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña"/>
-          </div>
         </div>
         <div className="btnLogin">
           {/* {<button className="btn btn-primary" onClick={onSubmit}>Iniciar sesion</button>} */}

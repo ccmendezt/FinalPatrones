@@ -10,6 +10,7 @@ import {
 import Login from './views/Login';
 import Register from './views/Register';
 import React from 'react';
+import Home from './views/Home';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home/>}/>
         </Routes>
     </div>
   );

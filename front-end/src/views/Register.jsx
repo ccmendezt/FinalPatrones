@@ -53,21 +53,10 @@ function Register() {
             </div>
             <h1>Registro</h1>
             <form onSubmit={(e) => e.preventDefault()}>
-
-              <div>
                 <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo electrónico'/>
-              </div>
-              <div>
                 <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña'/>
-              </div>
-
-              <div>
                 <input type="password" id="confirmpassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirmar Contraseña'/>
-              </div>
-
-              <div>
                 <input type='text' id='cardNumber' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder='Número de tarjeta'/>
-              </div>
               <button onClick={handleSignup} className="btn" >Registrarse</button>
               <button onClick={handleCookie} className="btn" >Obtener Cookie</button>
             </form>
