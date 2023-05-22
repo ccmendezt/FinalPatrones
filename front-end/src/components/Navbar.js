@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/nav.css'
 import imagen1 from '../images/logo1.png'
+import {House,PersonCircle,PersonBadge,PCircle,Shop} from 'react-bootstrap-icons';
 
 function Nav() {
     return (
@@ -16,11 +17,11 @@ function Nav() {
 
                 <nav id="navbar" className="navbar">
                     <ul>
-                        <li><a className="nav-link scrollto" href="/home">Inicio <i class="bi bi-house"></i></a></li>
-                        <li><a className="nav-link scrollto" href="/About">Conocenos <i class="bi bi-person-vcard-fill"></i></a></li>
-                        <li><a className="nav-link scrollto" href="/sucursales">Sucursales<i class="bi bi-cart-check"></i></a></li>
-                        <li><a className="nav-link scrollto" href="/reservas">Reservas <i class="bi bi-box"></i></a></li>
-                        <li className="dropdown"><a className="nav-link scrollto" href="/perfil">Perfil <i class="bi bi-person-circle"> <i className="bi bi-chevron-down"></i></i></a>
+                        <li><a className="nav-link scrollto" href="/home"><House></House>Inicio</a></li>
+                        <li><a className="nav-link scrollto" href="/conocenos"><PersonBadge></PersonBadge>Conocenos</a></li>
+                        <li><a className="nav-link scrollto" href="/sucursales"><Shop></Shop>Sucursales</a></li>
+                        <li><a className="nav-link scrollto" href="/reservas"><PCircle></PCircle>Reservas</a></li>
+                        <li className="dropdown"><a className="nav-link scrollto" href="/perfil"><PersonCircle></PersonCircle>Perfil</a>
                             <ul>
                                 <li><a href="/perfil">Ver perfil</a></li>
                                 <li><a href="/login">Salir</a></li>

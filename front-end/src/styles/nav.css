@@ -1,3 +1,19 @@
+/* -------------------------------------------------------
+  # General 
+  -------------------------------------------------------*/
+.set-middle {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: auto;
+}
+
+/*--------------------------------------------------------------
+  # Navigation Menu
+  --------------------------------------------------------------*/
+/**
+  * Desktop Navigation 
+  */
 .center-nav {
     position: relative;
     display: flex;
@@ -29,12 +45,6 @@
     color: var(--mdb-nav-pills-link-active-color) !important;
 }
 
-/*--------------------------------------------------------------
-  # Navigation Menu
-  --------------------------------------------------------------*/
-/**
-  * Desktop Navigation 
-  */
 .navbar {
     padding: 0;
 }
@@ -161,15 +171,35 @@
     visibility: visible;
 }
 
-.logo{
+.logo {
     padding-top: 1.5rem;
 }
 
-a.logo-text{
+a.logo-text {
     text-decoration: none;
     color: #037f3f !important;
 }
 
-.img-logo{
+.img-logo {
     width: 15%;
+    margin-right: 1rem;
+}
+
+.img-logo-footer {
+    width: 25%;
+    margin-right: 0rem;
+}
+
+.background-banner {
+    background-image: url("../images/bannerParkud1.png");
+    height: 30rem;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
+/* Conocenos */
+
+.text-align-justify {
+    text-align: justify;
 }

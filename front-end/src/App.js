@@ -11,6 +11,7 @@ import Login from './views/Login';
 import Register from './views/Register';
 import React from 'react';
 import Home from './views/Home';
+import Conocenos from './views/Conocenos';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home/>}/>
+          <Route path="/conocenos" element={<Conocenos/>}/>
         </Routes>
     </div>
   );
