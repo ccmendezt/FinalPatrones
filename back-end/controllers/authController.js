@@ -38,15 +38,15 @@ exports.register = async (req, res) => {
 //Metodo para logear un usuario
 exports.login = async (req, res) => {
   try {
-    const email = req.body.email;
+    const usuario = req.body.usuario;
     const password = req.body.password;
-    const sql = 'SELECT * FROM usuario WHERE email = ?';
+    const sql = 'SELECT * FROM usuario WHERE usuario = ?';
 
-    if (!email || !password) {
-      return res.status(400).send({ error: "Introduce un email y una contraseña" });
+    if (!usuario || !password) {
+      return res.status(400).send({ error: "Introduce un usuario y una contraseña" });
     }
 
-    connectionDB.query(sql, [email], async (err, results) => {
+    connectionDB.query(sql, [usuario], async (err, results) => {
       if (err) {
         console.log(err);
       } else {
