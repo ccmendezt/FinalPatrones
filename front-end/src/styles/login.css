@@ -70,3 +70,7 @@ input[type="password"]{
 input[type="password"]:focus{
     box-shadow: 0px 0px 5px #d6d6d6 inset;
 }
+
+.error-message {
+  color: red;
+}

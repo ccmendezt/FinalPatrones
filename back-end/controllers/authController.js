@@ -5,8 +5,8 @@ const serialize = require('cookie');
 const { promisify } = require('util');
 const crypto = require('crypto');
 const enviarCorreo = require('../templates/enviarCorreo')
+const creditCardController = require('./creditCardController');
 
-//Metodo para registrar un usuario
 exports.register = async (req, res) => {
   try {
     const nombre = req.body.nombre;
@@ -15,22 +15,31 @@ exports.register = async (req, res) => {
     const email = req.body.email;
     const cardNumber = req.body.cardNumber;
     const passGenerate = generarPassword();
-    if (email === "" || nombre === "" || apellido === "" || usuario === "") {
+    if (email === "" || nombre === "" || apellido === "" || usuario === "" || cardNumber === "") {
       res.status(500).send({ error: "Completa todos los campos" })
     } else {
-      let idTarjeta = null;
-      if (cardNumber === "") {
-        idTarjeta = null;
+      
+      const isCreditCardValid = creditCardController.verifyCreditCard(cardNumber);// vrificar si la tarjeta de credito es valida
+    
+      if (!isCreditCardValid) {
+        res.status(400).send({ error: 'El número de tarjeta de crédito no es válido' });
+        return;
+      }else{
+        const identifierCard = creditCardController.identifyCreditCard(cardNumber);// identificar la tarjeta de credito
+        console.log(identifierCard);
       }
+      let idTarjeta = cardNumber;
+      
       let passHash = await bcryptjs.hash(passGenerate, 8);
-      connectionDB.query("INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, usuario, email, passHash, '2', idTarjeta], (err, result) => {
+      connectionDB.query("INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, usuario, email, passHash, '3', idTarjeta], (err, result) => {
         if (err) { console.log(err); }
       })
-      enviarCorreo.enviarEmail(nombre, apellido, email, usuario, passGenerate); //Envio de correo electronico a nuevo usuario
+      enviarCorreo.enviarEmail(nombre, apellido, email, usuario, passGenerate); //Envio de correo electronico a nuevo usuario
       res.send("Usuario registrado correctamente")
     }
-  } catch (error) { console.log(error); }
+  } catch (error) { console.log(error); }
 }
+
 
 //Metodo para logear un usuario
 exports.login = async (req, res) => {
