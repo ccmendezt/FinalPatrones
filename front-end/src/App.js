@@ -13,6 +13,8 @@ import React from 'react';
 import Home from './views/Home';
 import Conocenos from './views/Conocenos';
 import Sucursales from './views/Sucursales';
+import Reservas from './views/Reservas';
+import Perfil from './views/Perfil';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/home" element={<Home/>}/>
           <Route path="/conocenos" element={<Conocenos/>}/>
           <Route path="/sucursales" element={<Sucursales/>}/>
+          <Route path="/reserva" element={<Reservas/>}/>
+          <Route path="/perfil" element={<Perfil/>}/>
         </Routes>
     </div>
   );

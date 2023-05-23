@@ -19,11 +19,11 @@ function Nav() {
                         <li><a className="nav-link scrollto" href="/home"><House></House>Inicio</a></li>
                         <li><a className="nav-link scrollto" href="/conocenos"><PersonBadge></PersonBadge>Conocenos</a></li>
                         <li><a className="nav-link scrollto" href="/sucursales"><Shop></Shop>Sucursales</a></li>
-                        <li><a className="nav-link scrollto" href="/reservas"><PCircle></PCircle>Reservas</a></li>
+                        <li><a className="nav-link scrollto" href="/reserva"><PCircle></PCircle>Reservas</a></li>
                         <li className="dropdown"><a className="nav-link scrollto" href="/perfil"><PersonCircle></PersonCircle>Perfil</a>
                             <ul>
                                 <li><a href="/perfil">Ver perfil</a></li>
-                                <li><a href="/login">Salir</a></li>
+                                <li><a href="/">Salir</a></li>
                             </ul>
                         </li>
                     </ul>

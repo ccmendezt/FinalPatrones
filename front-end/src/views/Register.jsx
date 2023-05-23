@@ -49,7 +49,7 @@ function Register() {
         : 
           <div>
             <div id="logo">
-              <img src={Logo}  alt="Logotipo"/>
+              <img src={Logo} style={{width:'auto'}}  alt="Logotipo"/>
             </div>
             <h1>Registro</h1>
             <form onSubmit={(e) => e.preventDefault()}>

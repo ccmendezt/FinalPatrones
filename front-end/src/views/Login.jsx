@@ -39,7 +39,7 @@ const Login = () => {
 
     <div className="container">
       <div id="logo">
-        <img src={Logo}  alt="Logotipo"/>
+        <img src={Logo} style={{width:'auto'}} alt="Logotipo"/>
       </div>
       <h1 className="titleIniciarSesion">Iniciar Sesión</h1>
       <form>

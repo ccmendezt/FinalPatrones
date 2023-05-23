@@ -15,7 +15,7 @@ function Sucursales() {
                                 <h5 class="card-title">Teusaquillo</h5>
                                 <p class="card-text">Esta es la sucursal de Teusaquillo</p>
                                 <p class="card-text"><small class="text-body-secondary">Calle 34 # 9 - 56 </small></p>
-
+                                <button className='btn btn-success'>Reservar</button>
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@ function Sucursales() {
                                 <h5 class="card-title">Chapinero</h5>
                                 <p class="card-text">Esta es la sucursal de Chapinero</p>
                                 <p class="card-text"><small class="text-body-secondary">Calle 34 # 9 - 56 </small></p>
-
+                                <button className='btn btn-success'>Reservar</button>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@ function Sucursales() {
                                 <h5 class="card-title">Suba</h5>
                                 <p class="card-text">Esta es la sucursal de Suba</p>
                                 <p class="card-text"><small class="text-body-secondary">Calle 34 # 9 - 56 </small></p>
-
+                                <button className='btn btn-success'>Reservar</button>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ function Sucursales() {
                                 <h5 class="card-title">Normandia</h5>
                                 <p class="card-text">Esta es la sucursal de Normandia</p>
                                 <p class="card-text"><small class="text-body-secondary">Calle 34 # 9 - 56 </small></p>
-
+                                <button className='btn btn-success'>Reservar</button>
                             </div>
                         </div>
                     </div>
