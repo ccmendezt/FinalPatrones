@@ -4,10 +4,7 @@ const connectionDB = require('../database/db');
 const serialize = require('cookie');
 const { promisify } = require('util');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
-const ejs = require('ejs');
-const fs = require('fs');
-// const plantilla = fs.readFileSync('./templateRegister.ejs', 'utf-8'); // Carga y renderiza la plantilla de correo electrónico
+const enviarCorreo = require('../templates/enviarCorreo')
 
 //Metodo para registrar un usuario
 exports.register = async (req, res) => {
@@ -29,7 +26,7 @@ exports.register = async (req, res) => {
       connectionDB.query("INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, usuario, email, passHash, '2', idTarjeta], (err, result) => {
         if (err) { console.log(err); }
       })
-      enviarEmail(nombre, apellido, email, usuario, passGenerate);//Envio de correo
+      enviarCorreo.enviarEmail(nombre, apellido, email, usuario, passGenerate); //Envio de correo electronico a nuevo usuario
       res.send("Usuario registrado correctamente")
     }
   } catch (error) { console.log(error); }
@@ -67,7 +64,6 @@ exports.login = async (req, res) => {
             //console.log("El token es: " + token + " para el usuario " + email + " con id " + id + "");
             //res.cookie("jwt" , token, cookieOptions);)
             res.status(200).send({ message: 'Inicio de sesión exitoso', token });
-            //res.send('¡Cookie establecida!');
           }
         }
       }
@@ -94,7 +90,6 @@ function generarPassword() {
   const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const longitud = 8;
   let password = '';
-
   while (password.length < longitud || !contieneRequisitos(password)) {
     password = '';
     for (let i = 0; i < longitud; i++) {
@@ -102,49 +97,9 @@ function generarPassword() {
       password += caracteres[indice];
     }
   }
-
   return password;
 }
 
 function contieneRequisitos(password) {
   return /\d/.test(password) && /[A-Z]/.test(password) && /[a-z]/.test(password);
-}
-
-function enviarEmail(nombre, apellido, email, usuario, password) {
-  // Configuración del transporte de correo
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'parkudcolombia@gmail.com',
-      pass: 'dmqgugraaponotaz'
-    }
-  });
-  
-  const datos = {
-    nombre: nombre,
-    apellido: apellido,
-    usuario: usuario,
-    password: password
-  };
-
-  console.log(datos);
-
-  // const contenidoCorreo = ejs.render(plantilla, datos);
-
-  // Definición del mensaje de correo con el contenido personalizado
-  const mensajeCorreo = {
-    from: 'parkudcolombia@gmail.com',
-    to: email,
-    subject: '¡Registro Exitoso! - ParkUD Colombia',
-    text: 'Este es un mensaje de prueba enviado desde Node.js con sendmail.'
-  };
-
-  // Envío del correo electrónico
-  transporter.sendMail(mensajeCorreo, function (error, info) {
-    if (error) {
-      console.log('Error al enviar el correo electrónico:', error);
-    } else {
-      console.log('Correo electrónico enviado:', info.response);
-    }
-  });
 }
