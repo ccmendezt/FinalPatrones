@@ -2,6 +2,11 @@ import React from 'react'
 import imagen1 from '../images/logo1.png'
 import {House,PersonCircle,PersonBadge,PCircle,Shop} from 'react-bootstrap-icons';
 
+function handleLogout() {
+    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    window.location.href = '/home';
+    }
+
 function Nav() {
     return (
         <>
@@ -19,11 +24,11 @@ function Nav() {
                         <li><a className="nav-link scrollto" href="/home"><House></House>Inicio</a></li>
                         <li><a className="nav-link scrollto" href="/conocenos"><PersonBadge></PersonBadge>Conocenos</a></li>
                         <li><a className="nav-link scrollto" href="/sucursales"><Shop></Shop>Sucursales</a></li>
-                        <li><a className="nav-link scrollto" href="/reserva"><PCircle></PCircle>Reservas</a></li>
+                        <li><a className="nav-link scrollto" href="/reservas"><PCircle></PCircle>Reservas</a></li>
                         <li className="dropdown"><a className="nav-link scrollto" href="/perfil"><PersonCircle></PersonCircle>Perfil</a>
                             <ul>
                                 <li><a href="/perfil">Ver perfil</a></li>
-                                <li><a href="/">Salir</a></li>
+                                <li><a href="/" onClick={handleLogout}>Salir</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -29,6 +29,7 @@ const Login = () => {
         Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 2  }); // 2 minutos
         //console.log(Cookies.get('CookieCamilo'));
         //localStorage.setItem('jwt', response.data.token);
+        window.location.href = '/home';
       }
     } catch (error) {
       console.log(error.response.data);
@@ -48,7 +49,6 @@ const Login = () => {
             <input type="password" value={password} className="form-control" id="inputPassword" onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña"/>
         </div>
         <div className="btnLogin">
-          {/* {<button className="btn btn-primary" onClick={onSubmit}>Iniciar sesion</button>} */}
           <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesion</button>
         </div>
         <Link to="/register">

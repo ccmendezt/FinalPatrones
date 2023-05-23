@@ -32,24 +32,16 @@ function Register() {
         setEmail('');
         setCardNumber('');
         setRegistrado(true);
+        window.location.href = '/home';
       }
     } catch (e) {
       console.log(e.response.data);
     }
   };
 
-  const handleCookie = () => {
-    console.log(Cookies.get('jwt'));
-  }
-
   return (
 
     <div>
-      {registrado ?
-        <Link to="/">
-          <button>Regresar</button>
-        </Link>
-        :
         <div>
           <div id="logo">
             <img src={Logo} style={{ width: 'auto' }} alt="Logotipo" />
@@ -64,14 +56,16 @@ function Register() {
             <input type="password" id="confirmpassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirmar Contraseña' /> */}
             <input type='text' id='cardNumber' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder='Número de tarjeta' />
             <button onClick={handleSignup} className="btn" >Registrarse</button>
-            <button onClick={handleCookie} className="btn" >Obtener Cookie</button>
+            <Link to="/">
+              <div className="btnLogin">
+                <button type="button" className="btn">Cancelar</button>
+              </div>
+            </Link>
           </form>
           {<div>{message}</div>}
         </div>
-      }
-
     </div>
   );
 }
 
-export default Register;
+export default Register;
