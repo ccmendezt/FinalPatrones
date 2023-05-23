@@ -10,12 +10,13 @@ const Login = () => {
 
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
+  const apiUrl = process.env.REACT_APP_API_URL;
   // const miCookie = Cookies.get('miCookie');
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      const response = await axios.post(`${apiUrl}/users/login`, {
         usuario,
         password
       });

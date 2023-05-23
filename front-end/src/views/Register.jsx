@@ -14,10 +14,11 @@ function Register() {
   const [cardNumber, setCardNumber] = useState('');
   const [message, setMessage] = useState('');
   const [registrado, setRegistrado] = useState(false);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', {
+      const response = await axios.post(`${apiUrl}/users/register`, {
         nombre,
         apellido,
         usuario,

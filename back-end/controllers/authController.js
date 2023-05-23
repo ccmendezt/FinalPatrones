@@ -6,9 +6,12 @@ const { promisify } = require('util');
 const crypto = require('crypto');
 const enviarCorreo = require('../templates/enviarCorreo')
 const creditCardController = require('./creditCardController');
+const axios = require('axios');
+const { Console } = require('console');
 
 exports.register = async (req, res) => {
   try {
+    const apiUrl = process.env.API_URL;
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
     const usuario = req.body.usuario;
@@ -18,26 +21,46 @@ exports.register = async (req, res) => {
     if (email === "" || nombre === "" || apellido === "" || usuario === "" || cardNumber === "") {
       res.status(500).send({ error: "Completa todos los campos" })
     } else {
-      
       const isCreditCardValid = creditCardController.verifyCreditCard(cardNumber);// vrificar si la tarjeta de credito es valida
-    
       if (!isCreditCardValid) {
         res.status(400).send({ error: 'El número de tarjeta de crédito no es válido' });
         return;
-      }else{
+      } else {
         const identifierCard = creditCardController.identifyCreditCard(cardNumber);// identificar la tarjeta de credito
         console.log(identifierCard);
       }
-      let idTarjeta = cardNumber;
-      
+      // metodo get de axios para obtener id tarjeta de credito
+      // axios.get(`${apiUrl}/card/${cardNumber}`)
+      //   .then(response => {
+      //     console.log(response.data);
+      //   }).catch(error => {
+      //     console.error(error);
+      //   });
+      var idTarjeta = null;
+      axios.post(`${apiUrl}/card`, { cardNumber })
+        .then(response => {
+          console.log(response.data);
+          idTarjeta = response.data.id;
+        }).catch(error => {
+          console.error(error);
+        });
+      connectionDB.query("SELECT idTarjeta FROM tarjetacredito WHERE numeroTarjeta = ?", [cardNumber], (err, result) => {
+        if (err) { console.log(err); }
+        else {
+          console.log(result);
+        }
+      })
+      // console.log(idTarjeta);
+
       let passHash = await bcryptjs.hash(passGenerate, 8);
+
       connectionDB.query("INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, usuario, email, passHash, '3', idTarjeta], (err, result) => {
         if (err) { console.log(err); }
       })
       enviarCorreo.enviarEmail(nombre, apellido, email, usuario, passGenerate); //Envio de correo electronico a nuevo usuario
       res.send("Usuario registrado correctamente")
     }
-  } catch (error) { console.log(error); }
+  } catch (error) { console.log(error); }
 }
 
 
