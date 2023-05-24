@@ -36,28 +36,40 @@ exports.register = async (req, res) => {
           const identifierCard = creditCardController.identifyCreditCard(cardNumber);// identificar la tarjeta de credito
           console.log(identifierCard);
         }
-        // metodo get de axios para obtener id tarjeta de credito
-        axios.get(`${apiUrl}/card/${cardNumber}`)
-          .then(response => {
-            console.log(response.data);
-          }).catch(error => {
-            console.error(error);
-          });
-        var idTarjeta = null;
-        axios.post(`${apiUrl}/card`, { cardNumber })
-          .then(response => {
-            console.log(response.data);
-            idTarjeta = response.data.id;
-          }).catch(error => {
-            console.error(error);
-          });
-        connectionDB.query("SELECT idTarjeta FROM tarjetacredito WHERE numeroTarjeta = ?", [cardNumber], (err, result) => {
-          if (err) { console.log(err); }
-          else {
-            console.log(result);
-          }
-        })
-        // console.log(idTarjeta);
+
+      /////////////////////////////////////////////////////////
+
+      var idTarjeta = null;
+      try {
+        idTarjeta = null;
+        const response = await axios.get(`${apiUrl}/card/${cardNumber}`);
+        if (response.data[0]) {
+          // El número de tarjeta ya existe en la base de datos
+            idTarjeta = response.data[0].idTarjeta;
+            console.log(`El número de tarjeta ya existe y es ${idTarjeta}`);
+            //console.log(response.data);
+        } else {
+            try {
+              const cardResponse = await axios.post(`${apiUrl}/card`, { cardNumber });
+              const cardId = cardResponse.data.id;
+            
+              connectionDB.query("SELECT idTarjeta FROM tarjetacredito WHERE numeroTarjeta = ?", [cardNumber], (err, result) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log(result);
+                  idTarjeta = cardId 
+                }
+              });
+            } catch (error) {
+              console.error(error);
+            }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+  
+      ///////////////////////////////////////////
 
         let passHash = await bcryptjs.hash(passGenerate, 8);
 
