@@ -7,7 +7,7 @@ function Operatividad() {
   return (
     <div>
         <AdminNav></AdminNav>
-        <Mapa></Mapa>
+        {/* <Mapa></Mapa> */}
         <Footer></Footer>
     </div>
   )
