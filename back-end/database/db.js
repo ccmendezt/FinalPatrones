@@ -9,8 +9,7 @@ class Database {
         password: process.env.DB_PASS,
         database: process.env.DB_DATABASE
       });
-      console.log('¡Conectado a la base de datos MySQL!')
-
+      console.log('¡Conectado a la base de datos MySQL!'
       Database.instance = this;
     }
     return Database.instance.connection;
