@@ -54,14 +54,20 @@ h1{
 .btn-success{
     background: rgb(71, 168, 5);
 }
+.btn-danger{
+    background: rgb(245, 27, 19);
+}
 
 .btn-success:hover{
+    background: black;
+}
+.btn-danger:hover{
     background: black;
 }
 
 textarea, select, input, button { outline: none; }
 
-input[type="text"]{
+/* input[type="text"]{
     width: 250px;
     height: 35px;
     border: 1px solid  #ccc;
@@ -85,4 +91,4 @@ input[type="password"]{
 
 input[type="password"]:focus{
     box-shadow: 0px 0px 5px #d6d6d6 inset;
-}
+} */

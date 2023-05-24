@@ -1,7 +1,7 @@
 /* -------------------------------------------------------
   # General 
   -------------------------------------------------------*/
-.set-middle {
+.set-middle{
     display: flex;
     align-content: center;
     justify-content: center;
@@ -17,6 +17,11 @@ img{
 .text-left{
     text-align: start;
 }
+
+.text-right{
+    text-align: end;
+}
+
 /*--------------------------------------------------------------
   # Navigation Menu
   --------------------------------------------------------------*/
