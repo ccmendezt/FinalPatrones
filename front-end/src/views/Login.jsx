@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import "../styles/login.css";
 import "../styles/main.css";
 import { Link } from 'react-router-dom';
 import Logo from '../images/Logo.PNG'
+import ReCaptcha from "react-google-recaptcha"
+
 
 const Login = () => {
-
+  const captchaRef = useRef(null)
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -15,10 +17,13 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const tokenCaptcha = captchaRef.current.getValue();
+    captchaRef.current.reset();
     try {
       const response = await axios.post(`${apiUrl}/users/login`, {
         usuario,
-        password
+        password,
+        tokenCaptcha
       });
       if (response.status === 200) {
         console.log(response.data);
@@ -45,12 +50,13 @@ const Login = () => {
         <div className="btnLogin">
           <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesion</button>
         </div>
-        <Link to="/register">
-          <div className="btnRegister">
-            <button type="button" className="btn">Regístrese</button>
-          </div>
-        </Link>
+        <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
       </form>
+      <div className="btnRegister">
+        <Link to="/register">
+          <button type="button" className="btn">Regístrese</button>
+        </Link>
+      </div>
     </div>
   );
 };
