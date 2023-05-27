@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 
 // Función para validar el token
 exports.validarToken = (req, res, next) => {
-	// Obtener el token del encabezado de autorización
+	// Obtener el token del encabezado de la solicitud
 	const token = req.headers.authorization;
 
 	// Verificar si el token existe
 	if (!token) {
-		return res.status(401).json({ mensaje: 'Acceso no autorizado'});
+		return res.status(401).json({ mensaje: 'Acceso no autorizado' });
 	}
 
 	try {
@@ -21,6 +21,6 @@ exports.validarToken = (req, res, next) => {
 		next();
 	} catch (error) {
 		// Error al verificar el token
-		return res.status(401).json({ mensaje: 'Token inválido', status: false });
+		return res.status(401).json({ mensaje: 'Token inválido', statusToken: false });
 	}
 }

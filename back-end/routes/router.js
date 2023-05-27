@@ -12,9 +12,8 @@ router.get('/', (req, res) => {
 
 //Rutas para las vistas
 router.get("/users/", authController.getAllUsers); //Obtener todos los usuarios
-router.get("/verifyToken/", jwtController.validarToken, (req, res) => {
+router.get("/jwt/", jwtController.validarToken, (req, res) => {
   // El token es válido, puedes acceder a los datos del usuario decodificados
-
   // Enviar una respuesta al cliente
   res.json({ mensaje: 'Acceso autorizado JWT Válido', statusToken: true });
 });

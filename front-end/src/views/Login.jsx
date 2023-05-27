@@ -6,6 +6,7 @@ import "../styles/main.css";
 import { Link } from 'react-router-dom';
 import Logo from '../images/Logo.PNG'
 import ReCaptcha from "react-google-recaptcha"
+import Autenticador from '../components/Authenticator';
 
 
 const Login = () => {
@@ -26,7 +27,9 @@ const Login = () => {
       });
       if (response.status === 200) {
         console.log(response.data);
-        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) }); // 1 minuto
+        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
+        //console.log(Cookies.get('jwt'));
+        
         window.location.href = '/home';
       }
     } catch (error) {
