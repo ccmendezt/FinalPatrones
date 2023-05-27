@@ -41,6 +41,11 @@ h1{
   text-decoration: none;
 }
 
+.cardLoggin{
+  width: 30rem;
+  box-shadow: 1px 1px 1px 1px grey;
+}
+
 textarea, select, input, button { outline: none; }
 
 /* input[type="text"]{

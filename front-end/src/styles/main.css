@@ -217,3 +217,12 @@ a.logo-text {
 .text-align-justify {
     text-align: justify;
 }
+
+/* captcha */
+
+.captcha{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+}

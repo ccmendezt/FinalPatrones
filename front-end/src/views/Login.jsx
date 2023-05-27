@@ -40,26 +40,29 @@ const Login = () => {
   return (
 
     <div className="container">
-      <div id="logo">
-        <img src={Logo} style={{ width: 'auto' }} alt="Logotipo" />
-      </div>
-      <h1 className="titleIniciarSesion">Iniciar Sesión</h1>
-      <form>
-        <div style={{ display: "inline-block" }}>
-          <input type="text" value={usuario} className="form-control" id="inputUsuario" onChange={(e) => setUsuario(e.target.value)} placeholder="Usuario" />
-          <input type="password" value={password} className="form-control" id="inputPassword" onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
+      <div className="card cardLoggin m-auto my-5 py-5">
+
+        <div id="logo">
+          <img src={Logo} style={{ width: 'auto' }} alt="Logotipo" />
         </div>
-        <div className="btnLogin">
-          <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesion</button>
+        <h1 className="titleIniciarSesion">Iniciar Sesión</h1>
+        <form>
+          <div style={{ display: "inline-block" }}>
+            <input type="text" value={usuario} className="form-control inputReg" id="inputUsuario" onChange={(e) => setUsuario(e.target.value)} placeholder="Usuario" />
+            <input type="password" value={password} className="form-control inputReg" id="inputPassword" onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
+          </div>
+          <div className="captcha">
+            <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+          </div>
+          <div className="btnLogin">
+            <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesion</button>
+          </div>
+        </form>
+        <div className="btnRegister">
+          <Link to="/register">
+            <button type="button" className="btn">Regístrese</button>
+          </Link>
         </div>
-        <div>
-          <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
-        </div>
-      </form>
-      <div className="btnRegister">
-        <Link to="/register">
-          <button type="button" className="btn">Regístrese</button>
-        </Link>
       </div>
     </div>
   );
