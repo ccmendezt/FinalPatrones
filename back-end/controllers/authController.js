@@ -8,11 +8,12 @@ const enviarCorreo = require('../templates/enviarCorreo')
 const creditCardController = require('./creditCardController');
 const axios = require('axios');
 const { Console } = require('console');
+const controllerJWT = require('./jwtController');
 
 exports.register = async (req, res) => {
   const tokenCaptcha = req.body.tokenCaptcha;
   const response = await axios.post(
-    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${tokenCaptcha}`
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_CAPTCHA}&response=${tokenCaptcha}`
   );
   if (response.data.success == false) {
     res.status(400).send("Captcha no verificado")
@@ -88,7 +89,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const tokenCaptcha = req.body.tokenCaptcha;
   const response = await axios.post(
-    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${tokenCaptcha}`
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_CAPTCHA}&response=${tokenCaptcha}`
   );
   if (response.data.success == false) {
     res.status(400).send("Captcha no verificado")
@@ -117,6 +118,7 @@ exports.login = async (req, res) => {
               const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_TIEMPO_EXPIRACION
               });
+              // controllerJWT.verifyJWT(token);
               // const cookieOptions = {
               //   expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRACION * 24),
               //   httpOnly: true

@@ -13,7 +13,6 @@ const Login = () => {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
-  // const miCookie = Cookies.get('miCookie');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,7 +26,7 @@ const Login = () => {
       });
       if (response.status === 200) {
         console.log(response.data);
-        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 2 }); // 2 minutos
+        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) }); // 1 minuto
         window.location.href = '/home';
       }
     } catch (error) {
@@ -50,7 +49,9 @@ const Login = () => {
         <div className="btnLogin">
           <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesion</button>
         </div>
-        <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+        <div>
+          <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+        </div>
       </form>
       <div className="btnRegister">
         <Link to="/register">

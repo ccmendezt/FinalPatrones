@@ -60,7 +60,10 @@ function Register() {
           {/* <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' />
             <input type="password" id="confirmpassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirmar Contraseña' /> */}
           <input type='text' id='cardNumber' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder='Número de tarjeta' />
-          <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+
+          <div>
+            <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+          </div>
           <button onClick={handleSignup} className="btn" >Registrarse</button>
           <Link to="/">
             <div className="btnLogin">
