@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/authController')
 const cardController = require('../controllers/creditCardController')
+const usersController = require('../controllers/usersController')
 const connectionDB = require('../database/db');
 const jwtController = require('../controllers/jwtController');
 
@@ -26,6 +27,9 @@ router.post("/users/login", authController.login); //Logear un usuario
 router.post("/card/", cardController.cardRegister); //Crear una tarjeta de credito
 router.get("/card/:cardnumber", cardController.getCardId); //Obtener id de tarjeta de credito
 router.get("/card/", cardController.getCards); //Listar todas las tarjetas de credito
+
+//Rutas para los metodos del controlador de usuarios
+router.post("/users/role", usersController.getUserRole); //Obtener el rol de un usuario
 
 
 module.exports = router

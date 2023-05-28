@@ -28,8 +28,7 @@ const Login = () => {
       if (response.status === 200) {
         console.log(response.data);
         Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
-        //console.log(Cookies.get('jwt'));
-        
+        Cookies.set('idRole', response.data.idRole, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
         window.location.href = '/home';
       }
     } catch (error) {
