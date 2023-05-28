@@ -1,5 +1,5 @@
 import React from 'react'
-import imagen1 from '../images/logo1.png'
+import imagen1 from '../../images/logo1.png'
 import { House, PersonCircle, PersonBadge, PCircle, Shop } from 'react-bootstrap-icons';
 
 function handleLogout() {

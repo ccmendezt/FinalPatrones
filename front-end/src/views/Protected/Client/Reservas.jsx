@@ -1,7 +1,7 @@
 import React from 'react'
-import Nav from '../components/Navbar'
-import Footer from '../components/Footer'
-import imagen from '../images/parqueaderoT.jpg'
+import Nav from '../../../components/PageComponents/Navbar'
+import Footer from '../../../components/PageComponents/Footer'
+import imagen from '../../../images/parqueaderoT.jpg'
 
 function Reservas() {
   return (

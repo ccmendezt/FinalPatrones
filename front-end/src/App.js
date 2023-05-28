@@ -1,36 +1,60 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './views/Login';
-import Register from './views/Register';
-import Home from './views/Home';
-import Conocenos from './views/Conocenos';
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import PerfilAdmin from './views/PerfilAdmin';
-import Administracion from './views/Administracion';
-import Reportes from './views/Reportes';
-import Estadisticas from './views/Estadisticas';
-import Operatividad from './views/Operatividad';
+import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import Cookies from 'js-cookie';
+
+//No protected
+import Login from './views/NoProtected/Login';
+import Register from './views/NoProtected/Register';
+
+//Protected Client
+import Home from './views/Protected/Client/Home';
+import Conocenos from './views/Protected/Client/Conocenos';
+import Reservas from './views/Protected/Client/Reservas';
+import Sucursales from './views/Protected/Client/Sucursales';
+import Perfil from './views/Protected/Client/Perfil';
+
+//Protected Admin
+import PerfilAdmin from './views/Protected/Admin/PerfilAdmin';
+import Administracion from './views/Protected/Admin/Administracion.jsx';
+import Reportes from './views/Protected/Admin/Reportes';
+import Estadisticas from './views/Protected/Admin/Estadisticas';
+import Operatividad from './views/Protected/Admin/Operatividad.jsx';
+
+
 import Create from './views/Create';
 import Edit from './views/Edit';
 
+
 function App() {
+  const idRole = parseInt(Cookies.get('idRole'));
   return (
     <div className="App">
       <Routes>
-        {/* Rutas para el cliente */}
+        {/* Rutas sin proteccion */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route element={<ProtectedRoute />}>
+
+
+        {/* Rutas para el cliente */}
+        <Route element={<ProtectedRoute isAllowed={!!idRole && idRole===3}/>}>
           <Route path="/home" element={<Home />} />
           <Route path="/conocenos" element={<Conocenos />} />
+          <Route path="/reservas" element={<Reservas />} />
+          <Route path="/sucursales" element={<Sucursales />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Route>
 
+
         {/* rutas para la Administracion */}
-        <Route path="/admin" element={<Administracion />} />
-        <Route path="/reportes" element={<Reportes />} />
-        <Route path="/estadisticas" element={<Estadisticas />} />
-        <Route path="/operatividad" element={<Operatividad />} />
-        <Route path="/perfilAdmin" element={<PerfilAdmin />} />
+        <Route element={<ProtectedRoute isAllowed={!!idRole && idRole===1}/>}>
+          <Route path="/admin" element={<Administracion />} />
+          <Route path="/reportes" element={<Reportes />} />
+          <Route path="/estadisticas" element={<Estadisticas />} />
+          <Route path="/operatividad" element={<Operatividad />} />
+          <Route path="/PerfilAdmin" element={<PerfilAdmin />} />
+        </Route>
+
 
         {/* Rutas para los formularios */}
         <Route path="/sucursal/new" element={<Create />} />

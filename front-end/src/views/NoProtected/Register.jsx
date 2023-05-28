@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import "../styles/register.css"
-import Logo from '../images/Logo.PNG'
+import "../../styles/register.css"
+import Logo from '../../images/Logo.PNG'
 import ReCaptcha from "react-google-recaptcha"
 
 function Register() {

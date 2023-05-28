@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import checkAuthentication from './Authenticator';
 
-export const ProtectedRoute = ({ children, element: Component, onLogout, ...rest }) => {
+export const ProtectedRoute = ({ children, isAllowed, element: Component, onLogout, ...rest }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -21,6 +21,10 @@ export const ProtectedRoute = ({ children, element: Component, onLogout, ...rest
   }
 
   if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (!isAllowed) {
     return <Navigate to="/" replace />;
   }
 
