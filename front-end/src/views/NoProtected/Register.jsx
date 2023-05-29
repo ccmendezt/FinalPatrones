@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import "../styles/register.css"
-import Logo from '../images/Logo.PNG'
+import "../../styles/register.css"
+import Logo from '../../images/Logo.PNG'
 import ReCaptcha from "react-google-recaptcha"
 
 function Register() {
@@ -37,7 +37,7 @@ function Register() {
         setEmail('');
         setCardNumber('');
         setRegistrado(true);
-        window.location.href = '/home';
+        window.location.href = '/';
       }
     } catch (e) {
       console.log(e.response.data);
@@ -61,7 +61,9 @@ function Register() {
             {/* <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' />
             <input type="password" id="confirmpassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Confirmar Contraseña' /> */}
             <input className='inputReg' type='text' id='cardNumber' value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder='Número de tarjeta' />
-            <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+            <div className="captcha">
+              <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
+            </div>
             <button onClick={handleSignup} className="btn" >Registrarse</button>
             <Link to="/">
               <div className="btnLogin">

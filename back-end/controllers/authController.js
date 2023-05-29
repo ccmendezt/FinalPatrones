@@ -1,14 +1,11 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const connectionDB = require('../database/db');
-const serialize = require('cookie');
-const { promisify } = require('util');
 const crypto = require('crypto');
 const enviarCorreo = require('../templates/enviarCorreo')
 const creditCardController = require('./creditCardController');
 const axios = require('axios');
-const { Console } = require('console');
-const controllerJWT = require('./jwtController');
+const apiUrl = process.env.API_URL;
 
 exports.register = async (req, res) => {
   const tokenCaptcha = req.body.tokenCaptcha;
@@ -19,7 +16,6 @@ exports.register = async (req, res) => {
     res.status(400).send("Captcha no verificado")
   } else {
     try {
-      const apiUrl = process.env.API_URL;
       const nombre = req.body.nombre;
       const apellido = req.body.apellido;
       const usuario = req.body.usuario;
@@ -38,42 +34,31 @@ exports.register = async (req, res) => {
           console.log(identifierCard);
         }
 
-      /////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////
 
-      var idTarjeta = null;
-      try {
-        idTarjeta = null;
-        const response = await axios.get(`${apiUrl}/card/${cardNumber}`);
-        if (response.data[0]) {
-          // El número de tarjeta ya existe en la base de datos
+        var idTarjeta = null;
+        try {
+          idTarjeta = null;
+          const response = await axios.get(`${apiUrl}/card/${cardNumber}`);
+          if (response.data[0]) {
+            // El número de tarjeta ya existe en la base de datos
             idTarjeta = response.data[0].idTarjeta;
             console.log(`El número de tarjeta ya existe y es ${idTarjeta}`);
-            //console.log(response.data);
-        } else {
+          } else {
             try {
-              const cardResponse = await axios.post(`${apiUrl}/card`, { cardNumber });
-              const cardId = cardResponse.data.id;
-            
-              connectionDB.query("SELECT idTarjeta FROM tarjetacredito WHERE numeroTarjeta = ?", [cardNumber], (err, result) => {
-                if (err) {
-                  console.log(err);
-                } else {
-                  console.log(result);
-                  idTarjeta = cardId 
-                }
-              });
+              const response = await axios.post(`${apiUrl}/card`, { cardNumber });
+              idTarjeta = response.data
             } catch (error) {
               console.error(error);
             }
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
-      }
-  
-      ///////////////////////////////////////////
+
+        ///////////////////////////////////////////
 
         let passHash = await bcryptjs.hash(passGenerate, 8);
-
         connectionDB.query("INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, usuario, email, passHash, '3', idTarjeta], (err, result) => {
           if (err) { console.log(err); }
         })
@@ -114,18 +99,12 @@ exports.login = async (req, res) => {
             if (results.length == 0 || !(await bcryptjs.compare(password, results[0].password))) {
               return res.status(400).send({ error: "Contraseña incorrecta" });
             } else {
-              const id = results[0].id;
+              const id = results[0].idUsuario;
               const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_TIEMPO_EXPIRACION
               });
-              // controllerJWT.verifyJWT(token);
-              // const cookieOptions = {
-              //   expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRACION * 24),
-              //   httpOnly: true
-              // }
-              //console.log("El token es: " + token + " para el usuario " + email + " con id " + id + "");
-              //res.cookie("jwt" , token, cookieOptions);)
-              res.status(200).send({ message: 'Inicio de sesión exitoso', token });
+              const idRoleResponse = await axios.post(`${apiUrl}/users/role`, { id });
+              res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse.data.idRol });
             }
           }
         }
@@ -133,26 +112,6 @@ exports.login = async (req, res) => {
     } catch (error) {
       console.log(error);
     }
-
-  }
-  if (1 === 1) {
-
-  } else {
-    res.status(400).send({ error: "Error en el captcha" });
-  }
-
-}
-
-//Metodo para obtener todos los usuarios
-exports.getAllUsers = async (req, res) => {
-  try {
-    const sql = 'SELECT * FROM usuario';
-    connectionDB.query(sql, (err, result) => {
-      if (err) { console.log(err) };
-      res.send(result)
-    });
-  } catch (error) {
-    console.log(error);
   }
 }
 

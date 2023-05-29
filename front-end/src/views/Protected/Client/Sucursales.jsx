@@ -1,7 +1,7 @@
 import React from 'react'
-import Footer from '../components/Footer'
-import Nav from '../components/Navbar'
-import imagen from '../images/CAR.jpg'
+import Footer from '../../../components/PageComponents/Footer'
+import Nav from '../../../components/PageComponents/Navbar'
+import imagen from '../../../images/CAR.jpg'
 function Sucursales() {
   return (
     <div>

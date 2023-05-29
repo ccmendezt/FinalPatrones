@@ -1,8 +1,8 @@
 import React from 'react'
-import imagen from '../images/niceCar.jpg'
-import imagenCard from '../images/CreditCard.jpg'
-import Nav from '../components/Navbar'
-import Footer from '../components/Footer'
+import imagen from '../../../images/niceCar.jpg'
+import imagenCard from '../../../images/CreditCard.jpg'
+import Nav from '../../../components/PageComponents/Navbar'
+import Footer from '../../../components/PageComponents/Footer'
 import { CarFront, HandThumbsUpFill, Mailbox, Telephone } from 'react-bootstrap-icons'
 
 

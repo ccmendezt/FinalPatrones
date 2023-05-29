@@ -1,6 +1,12 @@
 import React from 'react'
-import imagen1 from '../images/logo1.png'
+import imagen1 from '../../images/logo1.png'
 import {House,PersonCircle,PersonBadge,PieChartFill,Shop} from 'react-bootstrap-icons';
+
+function handleLogout() {
+    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'idRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    window.location.href = '/home';
+  }
 
 function AdminNav() {
     return (
@@ -10,7 +16,7 @@ function AdminNav() {
                 <div className="logo d-flex">
 
                     <h2 className='center-nav mx-3'>
-                        <a className='logo-text' href="/pefilAdmin"><img src={imagen1} alt="Logo" className="img-logo"></img><span>PAR-KUD</span></a>
+                        <a className='logo-text' href="/PerfilAdmin"><img src={imagen1} alt="Logo" className="img-logo"></img><span>PAR-KUD</span></a>
                     </h2>
                 </div>
 
@@ -20,10 +26,10 @@ function AdminNav() {
                         <li><a className="nav-link scrollto" href="/reportes"><PersonBadge></PersonBadge>Reportes</a></li>
                         <li><a className="nav-link scrollto" href="/estadisticas"><PieChartFill></PieChartFill> Estadisticas</a></li>
                         <li><a className="nav-link scrollto" href="/operatividad"><Shop></Shop>Sucursales</a></li>
-                        <li className="dropdown"><a className="nav-link scrollto" href="/perfilAdmin"><PersonCircle></PersonCircle>Perfil</a>
+                        <li className="dropdown"><a className="nav-link scrollto" href="/PerfilAdmin"><PersonCircle></PersonCircle>Perfil</a>
                             <ul>
-                                <li><a href="/perfil">Ver perfil</a></li>
-                                <li><a href="/">Salir</a></li>
+                                <li><a href="/PerfilAdmin">Ver perfil</a></li>
+                                <li><a href="/" onClick={handleLogout}>Salir</a></li>
                             </ul>
                         </li>
                     </ul>

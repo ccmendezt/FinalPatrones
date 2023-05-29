@@ -1,7 +1,7 @@
 import React from 'react'
-import AdminNav from '../components/AdminNav'
-import Footer from '../components/Footer'
-import imagen from '../images/niceCar.jpg'
+import AdminNav from '../../../components/PageComponents/AdminNav'
+import Footer from '../../../components/PageComponents/Footer'
+import imagen from '../../../images/niceCar.jpg'
 import { Mailbox, Telephone } from 'react-bootstrap-icons'
 
 function PerfilAdmin() {

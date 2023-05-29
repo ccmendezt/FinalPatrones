@@ -1,6 +1,6 @@
 import React from 'react'
-import AdminNav from '../components/AdminNav'
-import Footer from '../components/Footer'
+import AdminNav from '../components/PageComponents/AdminNav'
+import Footer from '../components/PageComponents/Footer'
 // import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 

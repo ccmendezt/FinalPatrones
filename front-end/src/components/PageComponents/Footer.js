@@ -1,5 +1,5 @@
 import React from 'react'
-import imagen1 from '../images/logo1.png'
+import imagen1 from '../../images/logo1.png'
 import { Whatsapp, Facebook, Twitter, Phone, Map, Envelope } from 'react-bootstrap-icons';
 function Footer() {
     return (

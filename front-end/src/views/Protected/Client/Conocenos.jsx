@@ -1,7 +1,7 @@
 import React from 'react'
-import Nav from '../components/Navbar'
-import Car from '../images/niceCar.jpg'
-import Footer from '../components/Footer'
+import Nav from '../../../components/PageComponents/Navbar'
+import Car from '../../../images/niceCar.jpg'
+import Footer from '../../../components/PageComponents/Footer'
 function Conocenos() {
   return (
     <>

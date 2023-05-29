@@ -1,8 +1,8 @@
 import React from 'react'
-import Nav from '../components/Navbar'
-import Footer from '../components/Footer'
-import banner from '../images/bannerParkud1.png'
-import car from '../images/CAR.jpg'
+import Nav from '../../../components/PageComponents/Navbar'
+import Footer from '../../../components/PageComponents/Footer'
+import banner from '../../../images/bannerParkud1.png'
+import car from '../../../images/CAR.jpg'
 
 export default function Home() {
   return (

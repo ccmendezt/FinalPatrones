@@ -1,14 +1,31 @@
-import React from 'react'
-import AdminNav from '../components/AdminNav'
-import Footer from '../components/Footer'
+import React, { useEffect, useState } from 'react';
+import AdminNav from '../../../components/PageComponents/AdminNav'
+import Footer from '../../../components/PageComponents/Footer'
+import axios from 'axios'
 
 function Administracion() {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const [sucursales, setSucursales] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/parking`);
+        console.log(response.data);
+        setSucursales(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <AdminNav></AdminNav>
       <div className='container'>
-        <div className='d-flex' style={{justifyContent:"end"}}>
-        <a href='/sucursal/new'><button className='btn btn-success mx-2'>Nuevo parqueadero</button></a>
+        <div className='d-flex' style={{ justifyContent: "end" }}>
+          <a href='/sucursal/new'><button className='btn btn-success mx-2'>Nuevo parqueadero</button></a>
         </div>
         {/* Componente de sucursal admin */}
         <div className='card my-3'>
