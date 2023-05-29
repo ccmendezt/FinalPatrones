@@ -1,14 +1,10 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const connectionDB = require('../database/db');
-const { promisify } = require('util');
 const crypto = require('crypto');
 const enviarCorreo = require('../templates/enviarCorreo')
 const creditCardController = require('./creditCardController');
 const axios = require('axios');
-const { Console } = require('console');
-const controllerJWT = require('./jwtController');
-const usersController = require('./usersController');
 const apiUrl = process.env.API_URL;
 
 exports.register = async (req, res) => {
@@ -50,17 +46,8 @@ exports.register = async (req, res) => {
             console.log(`El número de tarjeta ya existe y es ${idTarjeta}`);
           } else {
             try {
-              const cardResponse = await axios.post(`${apiUrl}/card`, { cardNumber });
-              const cardId = cardResponse.data.id;
-
-              connectionDB.query("SELECT idTarjeta FROM tarjetacredito WHERE numeroTarjeta = ?", [cardNumber], (err, result) => {
-                if (err) {
-                  console.log(err);
-                } else {
-                  console.log(result);
-                  idTarjeta = cardId
-                }
-              });
+              const response = await axios.post(`${apiUrl}/card`, { cardNumber });
+              idTarjeta = response.data
             } catch (error) {
               console.error(error);
             }
@@ -72,7 +59,6 @@ exports.register = async (req, res) => {
         ///////////////////////////////////////////
 
         let passHash = await bcryptjs.hash(passGenerate, 8);
-
         connectionDB.query("INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta) VALUES (?, ?, ?, ?, ?, ?, ?)", [nombre, apellido, usuario, email, passHash, '3', idTarjeta], (err, result) => {
           if (err) { console.log(err); }
         })
@@ -118,7 +104,7 @@ exports.login = async (req, res) => {
                 expiresIn: process.env.JWT_TIEMPO_EXPIRACION
               });
               const idRoleResponse = await axios.post(`${apiUrl}/users/role`, { id });
-              res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse.data[0].idRol });
+              res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse.data.idRol });
             }
           }
         }
@@ -126,19 +112,6 @@ exports.login = async (req, res) => {
     } catch (error) {
       console.log(error);
     }
-  }
-}
-
-//Metodo para obtener todos los usuarios
-exports.getAllUsers = async (req, res) => {
-  try {
-    const sql = 'SELECT * FROM usuario';
-    connectionDB.query(sql, (err, result) => {
-      if (err) { console.log(err) };
-      res.send(result)
-    });
-  } catch (error) {
-    console.log(error);
   }
 }
 
