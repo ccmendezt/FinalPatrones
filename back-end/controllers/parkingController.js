@@ -5,7 +5,7 @@ const parkingDao = new parkingDAO(connectionDB);
 exports.createParking = async (req, res) => {
   const parking = req.body;
   const result = await parkingDao.createParkingDao(parking);
-  res.json({ result });
+  res.json(result);
 }
 
 exports.getAllParking = async (req, res) => {

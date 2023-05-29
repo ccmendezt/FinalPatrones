@@ -11,14 +11,18 @@ class ParkingDAO {
 			tarifa,
 			cobertura } = parking;
 		const sql = 'INSERT INTO `parqueadero` (`nombreParqueadero`, `direccion`, `tarifa`, `cuposTotales`, `cuposDisp`, `cuposUtilizados`, `idCiudad`, `idTipoParqueadero`, `idHorParqInicio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-		await this.dbConnection.query(sql, [nombre, direccion, tarifa, cupo, cupo, '0', parseInt(ciudad), cobertura, '1'], (err, result) => {
-			if (err) {
-				console.log(err);
-			} else {
-				// console.log(result);
-				return result.insertId;
-			}
+		return new Promise((resolve, reject) => {
+			this.dbConnection.query(sql, [nombre, direccion, tarifa, cupo, cupo, '0', ciudad, cobertura, '1'], (err, result) => {
+				if (err) {
+					console.log(err);
+					reject(err);
+				} else {
+					// console.log(result);
+					resolve(result.insertId);
+				}
+			});
 		});
+		
 	}
 
 	async getAllParkingDao() {
