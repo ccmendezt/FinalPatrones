@@ -17,7 +17,9 @@ function Edit() {
                         <input type="text" className="form-control my-3" id="inputNombre" placeholder="Nombre parqueadero" />
                         <input type="text" className="form-control my-3" id="inputDir" placeholder="Dirección" />
                         <input type="text" className="form-control my-3" id="inputCupo" placeholder="Cupos" />
-                        <input type="text" className="form-control my-3" id="inputTarifa" placeholder="Tarifa" />
+                        <input type="text" className="form-control my-3" id="inputTarifa" placeholder="Tarifa Carro" />
+                        <input type="text" className="form-control my-3" id="inputTarifa" placeholder="Tarifa Moto" />
+                        <input type="text" className="form-control my-3" id="inputTarifa" placeholder="Tarifa Bici" />
                         <select type="select" className="my-3" id="inputCobertura" placeholder="Cobertura">
                             <option value="cubierto">Cubierto</option>
                             <option value="descubierto">Descubierto</option>

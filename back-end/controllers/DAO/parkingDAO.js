@@ -8,11 +8,10 @@ class ParkingDAO {
 			ciudad,
 			direccion,
 			cupo,
-			tarifa,
 			cobertura } = parking;
-		const sql = 'INSERT INTO `parqueadero` (`nombreParqueadero`, `direccion`, `tarifa`, `cuposTotales`, `cuposDisp`, `cuposUtilizados`, `idCiudad`, `idTipoParqueadero`, `idHorParqInicio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		const sql = 'INSERT INTO `parqueadero` (`nombreParqueadero`, `direccion`, `tarifaCarro`, `tarifaMoto`, `tarifaBici`, `cuposTotales`, `cuposDisp`, `cuposUtilizados`, `idCiudad`, `idTipoParqueadero`, `idHorParqInicio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		return new Promise((resolve, reject) => {
-			this.dbConnection.query(sql, [nombre, direccion, tarifa, cupo, cupo, '0', ciudad, cobertura, '1'], (err, result) => {
+			this.dbConnection.query(sql, [nombre, direccion, '90', '35', '5', cupo, cupo, '0', ciudad, cobertura, '1'], (err, result) => {
 				if (err) {
 					console.log(err);
 					reject(err);

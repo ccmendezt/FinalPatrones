@@ -11,7 +11,9 @@ function Create() {
   const [ciudad, setCiudad] = useState('');
   const [direccion, setDireccion] = useState('');
   const [cupo, setCupo] = useState('');
-  const [tarifa, setTarifa] = useState('');
+  const [tarifaCarro, setTarifaCarro] = useState('');
+  const [tarifaMoto, setTarifaMoto] = useState('');
+  const [tarifaBici, setTarifaBici] = useState('');
   const [cobertura, setCobertura] = useState('1');
   const [inicioHorario, setInicioHorario] = useState('');
   const [finHorario, setFinHorario] = useState('');
@@ -24,7 +26,9 @@ function Create() {
         ciudad,
         direccion,
         cupo,
-        tarifa,
+        // tarifaCarro,
+        // tarifaMoto,
+        // tarifaBici,
         cobertura
         // inicioHorario,
         // finHorario
@@ -34,7 +38,9 @@ function Create() {
         setCiudad('');
         setDireccion('');
         setCupo('');
-        setTarifa('');
+        setTarifaCarro('');
+        setTarifaMoto('');
+        setTarifaBici('');
         setCobertura('');
         setInicioHorario('');
         setFinHorario('');
@@ -56,7 +62,9 @@ function Create() {
             <input type="text" className="form-control my-3" id="inputCiu" value={ciudad} onChange={(e) => setCiudad(e.target.value)} placeholder="Ciudad" />
             <input type="text" className="form-control my-3" id="inputDir" value={direccion} onChange={(e) => setDireccion(e.target.value)} placeholder="Dirección" />
             <input type="text" className="form-control my-3" id="inputCupo" value={cupo} onChange={(e) => setCupo(e.target.value)} placeholder="Cupos" />
-            <input type="text" className="form-control my-3" id="inputTarifa" value={tarifa} onChange={(e) => setTarifa(e.target.value)} placeholder="Tarifa" />
+            {/* <input type="text" className="form-control my-3" id="inputTarifa" value={tarifaCarro} onChange={(e) => setTarifaCarro(e.target.value)} placeholder="Tarifa Carro" />
+            <input type="text" className="form-control my-3" id="inputTarifa" value={tarifaMoto} onChange={(e) => setTarifaMoto(e.target.value)} placeholder="Tarifa Moto" />
+            <input type="text" className="form-control my-3" id="inputTarifa" value={tarifaBici} onChange={(e) => setTarifaBici(e.target.value)} placeholder="Tarifa Bici" /> */}
             <select type="select" className="my-3" id="inputCobertura" value={cobertura} onChange={(e) => setCobertura(e.target.value)} placeholder="Cobertura">
               <option value="1" >Cubierto</option>
               <option value="2">Semi-cubierto</option>
