@@ -40,7 +40,7 @@ class CreditCardDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					console.log(result);
+					// console.log(result);
 					resolve(result[0]);
 				}
 			});

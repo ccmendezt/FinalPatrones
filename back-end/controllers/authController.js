@@ -40,9 +40,10 @@ exports.register = async (req, res) => {
         try {
           idTarjeta = null;
           const response = await axios.get(`${apiUrl}/card/${cardNumber}`);
-          if (response.data[0]) {
+          console.log(response.data.idTarjeta);
+          if (response.data.idTarjeta != undefined) {
             // El número de tarjeta ya existe en la base de datos
-            idTarjeta = response.data[0].idTarjeta;
+            idTarjeta = response.data.idTarjeta;
             console.log(`El número de tarjeta ya existe y es ${idTarjeta}`);
           } else {
             try {

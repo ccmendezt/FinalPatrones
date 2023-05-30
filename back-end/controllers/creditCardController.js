@@ -17,7 +17,7 @@ exports.identifyCreditCard = (creditCardNumber) => {
 exports.cardRegister = async (req, res) => {
   const cardNumber = req.body.cardNumber;
   const result = await cardDao.insertCard(cardNumber);
-  console.log(result);
+  // console.log(result);
   res.json(result);
   // try {
   //   connectionDB.query("INSERT INTO tarjetacredito (numeroTarjeta) VALUES (?)", [cardNumber], (err, result) => {
@@ -31,7 +31,7 @@ exports.cardRegister = async (req, res) => {
 exports.getCardId = async (req, res) => {
   const cardNumber = req.params.cardnumber;
   const result = await cardDao.getIdCard(cardNumber);
-  console.log(result);
+  // console.log(result);
   res.json(result);
   // try {
   //   connectionDB.query("SELECT idTarjeta FROM tarjetacredito WHERE numeroTarjeta = ?", [cardNumber], (err, result) => {
