@@ -17,7 +17,7 @@ exports.enviarEmail = (nombre, apellido, email, usuario, password) => {
 		subject: '¡Registro Exitoso! - PAR-KUD Colombia',
 		html: `
     <h2>¡Hola ${nombre} ${apellido}!</h2>
-		<p>Desde PAR-KUD Colombia estamos felices de tenerte así que a continuación te daré tus credenciales de inicio de sesión.</p>
+		<p>Desde PAR-KUD Colombia estamos felices de tenerte así que a continuación te proporcionaremos tus credenciales de inicio de sesión.</p>
 		<p><b>Usuario:</b> ${usuario}</p>
 		<p><b>Contraseña:</b> ${password}</p>
 		<p>¡Saludos!</p>

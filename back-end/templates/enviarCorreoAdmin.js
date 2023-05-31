@@ -17,7 +17,7 @@ exports.enviarEmail = (nombre, apellido, email, usuario, password) => {
 		subject: '¡Registro de Administrador Exitoso! - PAR-KUD Colombia',
 		html: `
     <h2>¡Hola ${nombre} ${apellido}!</h2>
-		<p>Desde PAR-KUD Colombia estamos felices de que te unas a la familia de esta empresa, por eso estamos orgullosos de que seas un nuevo administrador, así que aquí están todos tus datos:</p>
+		<p>Desde PAR-KUD Colombia estamos felices de que te unas a la familia de esta empresa, por eso estamos orgullosos de que seas un nuevo administrador, así que aquí están todos tus datos para utilizar la plataforma:</p>
 		<p><b>Nombres y apellidos:</b> ${nombre} ${apellido}</p>
 		<p><b>E-mail:</b> ${email}</p>
 		<p><b>Usuario:</b> ${usuario}</p>
