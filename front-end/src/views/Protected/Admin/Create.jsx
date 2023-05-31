@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import React from 'react'
-import AdminNav from '../components/PageComponents/AdminNav'
-import Footer from '../components/PageComponents/Footer'
+import AdminNav from '../../../components/PageComponents/AdminNav'
+import Footer from '../../../components/PageComponents/Footer'
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';

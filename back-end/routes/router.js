@@ -31,7 +31,10 @@ router.get("/card/", cardController.getCards); //Listar todas las tarjetas de cr
 
 //Rutas para los metodos del controlador de usuarios
 router.post("/users/role", userController.getUserRole); //Obtener el rol de un usuario
+router.post("/users/createAdmin", userController.createAdmin); //Crear un usuario
 router.get("/users/", userController.getAllUsers); //Listar todos los usuarios
+router.put("/users/update/:id", userController.updateUserAdmin); //Actualizar un usuario
+router.delete("/users/delete/:id", userController.deleteUser); //Eliminar un usuario
 
 
 //Rutas para el controlador de parqueaderos

@@ -43,7 +43,7 @@ function Estadisticas() {
       <AdminNav></AdminNav>
       <div id='acquisitions'>
         <div className='set-middle' style={{width:"500px"}}>
-          <Pie data={data} />;
+          <Pie data={data} />
         </div>
       </div>
       <Footer></Footer>

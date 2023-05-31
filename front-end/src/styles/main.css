@@ -1,24 +1,26 @@
 /* -------------------------------------------------------
   # General 
   -------------------------------------------------------*/
-.set-middle{
+.set-middle {
     display: flex;
     align-content: center;
     justify-content: center;
     margin: auto;
 }
 
-img{
-    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-    width: -moz-available;          /* WebKit-based browsers will ignore this. */
-    
+img {
+    width: -webkit-fill-available;
+    /* Mozilla-based browsers will ignore this. */
+    width: -moz-available;
+    /* WebKit-based browsers will ignore this. */
+
 }
 
-.text-left{
+.text-left {
     text-align: start;
 }
 
-.text-right{
+.text-right {
     text-align: end;
 }
 
@@ -204,6 +206,10 @@ a.logo-text {
     margin-right: 0rem;
 }
 
+.text-footer-parking {
+    text-align: justify;
+}
+
 .background-banner {
     background-image: url("../images/bannerParkud1.png");
     height: 30rem;
@@ -220,7 +226,7 @@ a.logo-text {
 
 /* captcha */
 
-.captcha{
+.captcha {
     display: flex;
     margin: auto;
     justify-content: center;

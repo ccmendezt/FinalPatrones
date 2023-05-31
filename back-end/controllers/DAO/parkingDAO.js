@@ -70,15 +70,17 @@ class ParkingDAO {
 	}
 
 	async updateParkingDao(parking) {
-		const { nombre,
+		const { nombreParqueadero,
 			direccion,
-			tarifa,
-			cupo,
+			tarifaCarro,
+			tarifaMoto,
+			tarifaBici,
 			cobertura,
 			idParqueadero } = parking;
-		const sql = 'UPDATE `parqueadero` SET `nombreParqueadero` = ?, `direccion` = ?, `tarifa` = ?, `cuposTotales` = ?, `idTipoParqueadero` = ? WHERE `parqueadero`.`idParqueadero` = ?';
+		console.log(cobertura)
+		const sql = 'UPDATE parqueadero SET nombreParqueadero = ?, direccion = ?, tarifaCarro = ?, tarifaMoto = ?, tarifaBici = ?, idTipoParqueadero = ? WHERE idParqueadero = ?';
 		return new Promise((resolve, reject) => {
-			this.dbConnection.query(sql, [nombre, direccion, tarifa, cupo, cobertura, idParqueadero], (err, result) => {
+			this.dbConnection.query(sql, [nombreParqueadero, direccion, tarifaCarro, tarifaMoto, tarifaBici, cobertura, idParqueadero], (err, result) => {
 				if (err) {
 					console.log(err);
 					reject(err);

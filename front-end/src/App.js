@@ -20,10 +20,11 @@ import Administracion from './views/Protected/Admin/Administracion.jsx';
 import Reportes from './views/Protected/Admin/Reportes';
 import Estadisticas from './views/Protected/Admin/Estadisticas';
 import Operatividad from './views/Protected/Admin/Operatividad.jsx';
+import RegistrarAdmin from './views/Protected/Admin/RegisterAdmin.jsx';
 
 
-import Create from './views/Create';
-import Edit from './views/Edit';
+import Create from './views/Protected/Admin/Create';
+import Edit from './views/Protected/Admin/Edit';
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
 
 
         {/* Rutas para el cliente */}
-        <Route element={<ProtectedRoute isAllowed={!!idRole && idRole===3}/>}>
+        <Route element={<ProtectedRoute isAllowed={!!idRole && idRole === 3} />}>
           <Route path="/home" element={<Home />} />
           <Route path="/conocenos" element={<Conocenos />} />
           <Route path="/reservas" element={<Reservas />} />
@@ -47,18 +48,19 @@ function App() {
 
 
         {/* rutas para la Administracion */}
-        <Route element={<ProtectedRoute isAllowed={!!idRole && idRole===1}/>}>
+        <Route element={<ProtectedRoute isAllowed={!!idRole && idRole === 1} />}>
           <Route path="/admin" element={<Administracion />} />
           <Route path="/reportes" element={<Reportes />} />
           <Route path="/estadisticas" element={<Estadisticas />} />
           <Route path="/operatividad" element={<Operatividad />} />
           <Route path="/PerfilAdmin" element={<PerfilAdmin />} />
+          <Route path="/registrarAdmin" element={<RegistrarAdmin />} />
+          <Route path="/sucursal/new" element={<Create />} />
+          <Route path="/sucursal/edit/:id" element={<Edit />} />
         </Route>
 
 
         {/* Rutas para los formularios */}
-        <Route path="/sucursal/new" element={<Create />} />
-        <Route path="/sucursal/edit" element={<Edit />} />
 
         {/* Rutas para el empleado */}
       </Routes>

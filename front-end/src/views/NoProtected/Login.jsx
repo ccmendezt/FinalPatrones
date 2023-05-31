@@ -61,7 +61,7 @@ const Login = () => {
             <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
           </div>
           <div className="btnLogin">
-            <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesion</button>
+            <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesión</button>
           </div>
         </form>
         <div className="btnRegister">
