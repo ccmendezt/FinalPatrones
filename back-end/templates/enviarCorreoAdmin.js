@@ -23,6 +23,7 @@ exports.enviarEmail = (nombre, apellido, email, usuario, password) => {
 		<p><b>Usuario:</b> ${usuario}</p>
 		<p><b>Contraseña:</b> ${password}</p>
 		<p>¡Saludos y bienvenido a la familia de PAR-KUD Colombia!</p>
+		<p><b>Nota:</b> Recuerda cambiar la contraseña en tu primer inicio de sesión</p>
 		<p>Este es un correo electrónico personalizado para ${nombre} ${apellido}.</p>
   `
 	};
