@@ -105,7 +105,7 @@ exports.login = async (req, res) => {
                 expiresIn: process.env.JWT_TIEMPO_EXPIRACION
               });
               const idRoleResponse = await axios.post(`${apiUrl}/users/role`, { id });
-              res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse.data.idRol });
+              res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse.data.idRol, idUsuario: id });
             }
           }
         }

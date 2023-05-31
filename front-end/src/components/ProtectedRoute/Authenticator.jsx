@@ -3,12 +3,12 @@ import Cookies from 'js-cookie';
 
 const checkAuthentication = async () => {
   const jwt = Cookies.get('jwt');
+  const apiUrl = process.env.REACT_APP_API_URL;
   const config = {
     headers: {
       Authorization: jwt
     }
   };
-  const apiUrl = process.env.REACT_APP_API_URL;
 
   try {
     const response = await axios.get(`${apiUrl}/jwt/`, config);

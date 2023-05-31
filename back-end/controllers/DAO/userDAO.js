@@ -21,6 +21,20 @@ class UserDAO {
 		});
 	}
 
+	async getUserById(idUser) {
+		const sql = 'SELECT * FROM usuario WHERE idUsuario = ?';
+		return new Promise((resolve, reject) => {
+			this.dbConnection.query(sql, [idUser], (err, result) => {
+				if (err) {
+					console.log(err);
+					reject(err);
+				} else {
+					resolve(result[0]);
+				}
+			});
+		});
+	}
+
 	async getRoleUser(idUser) {
 		const sql = 'SELECT idRol FROM usuario WHERE idUsuario = ?';
 		return new Promise((resolve, reject) => {

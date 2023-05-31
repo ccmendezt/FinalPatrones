@@ -27,12 +27,14 @@ router.post("/users/login", authController.login); //Logear un usuario
 //Rutas para los metodos del controlador de tarjetas de credito
 router.post("/card/", cardController.cardRegister); //Crear una tarjeta de credito
 router.get("/card/:cardnumber", cardController.getCardId); //Obtener id de tarjeta de credito
+router.get("/card/id/:id", cardController.getCardById); //Obtener una tarjeta de credito por id
 router.get("/card/", cardController.getCards); //Listar todas las tarjetas de credito
 
 //Rutas para los metodos del controlador de usuarios
 router.post("/users/role", userController.getUserRole); //Obtener el rol de un usuario
 router.post("/users/createAdmin", userController.createAdmin); //Crear un usuario
 router.get("/users/", userController.getAllUsers); //Listar todos los usuarios
+router.get("/users/:id", userController.getUserById); //Obtener un usuario por id
 router.put("/users/update/:id", userController.updateUserAdmin); //Actualizar un usuario
 router.delete("/users/delete/:id", userController.deleteUser); //Eliminar un usuario
 

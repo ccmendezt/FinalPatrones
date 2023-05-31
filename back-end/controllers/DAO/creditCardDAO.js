@@ -25,10 +25,22 @@ class CreditCardDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
+		});
+	}
+
+	async getCardById(idCard) {
+		const sql = 'SELECT numeroTarjeta FROM tarjetacredito WHERE idTarjeta = ?';
+		return new Promise((resolve, reject) => {
+			this.dbConnection.query(sql, [idCard], (err, result) => {
+				if (err) {
+					console.log(err);
+					reject(err);
+				} else {
+					resolve(result[0]);
+				}});
 		});
 	}
 
@@ -40,7 +52,6 @@ class CreditCardDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result[0]);
 				}
 			});

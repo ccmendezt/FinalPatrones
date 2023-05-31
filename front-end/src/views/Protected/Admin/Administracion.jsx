@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'
 import axios from 'axios'
-import Sucursal from '../../../components/Sucursal';
+import Sucursal from '../../../components/SucursalAdmin';
 
 function Administracion() {
   const apiUrl = process.env.REACT_APP_API_URL;

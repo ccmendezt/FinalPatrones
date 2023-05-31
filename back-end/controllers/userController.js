@@ -13,6 +13,12 @@ exports.getAllUsers = async (req, res) => {
 	res.json(result);
 }
 
+exports.getUserById = async (req, res) => {
+	const idUser = req.params.id;
+	const result = await userDao.getUserById(idUser);
+	res.json(result);
+}
+
 exports.createAdmin = async (req, res) => {
 	const user = req.body;
 	const result = await userDao.createAdmin(user);
