@@ -28,8 +28,9 @@ const Login = () => {
         console.log(response.data);
         Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
         Cookies.set('idRole', response.data.idRole, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
+        Cookies.set('idUser', response.data.idUsuario, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
         if (response.data.idRole === 1) {
-          window.location.href = '/admin';
+          window.location.href = '/admin/';
         }
         if (response.data.idRole === 2) {
 
@@ -61,7 +62,7 @@ const Login = () => {
             <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
           </div>
           <div className="btnLogin">
-            <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesion</button>
+            <button onClick={handleLogin} className="btn" id="btnIniciarSesion">Iniciar Sesión</button>
           </div>
         </form>
         <div className="btnRegister">

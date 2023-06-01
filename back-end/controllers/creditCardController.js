@@ -17,41 +17,22 @@ exports.identifyCreditCard = (creditCardNumber) => {
 exports.cardRegister = async (req, res) => {
   const cardNumber = req.body.cardNumber;
   const result = await cardDao.insertCard(cardNumber);
-  console.log(result);
   res.json(result);
-  // try {
-  //   connectionDB.query("INSERT INTO tarjetacredito (numeroTarjeta) VALUES (?)", [cardNumber], (err, result) => {
-  //     if (err) { console.log(err); }
-  //     res.status(200).send({ id: result.insertId });
-  //   })
-  // }
-  // catch (error) { console.log(error); }
 }
 
 exports.getCardId = async (req, res) => {
   const cardNumber = req.params.cardnumber;
   const result = await cardDao.getIdCard(cardNumber);
-  console.log(result);
   res.json(result);
-  // try {
-  //   connectionDB.query("SELECT idTarjeta FROM tarjetacredito WHERE numeroTarjeta = ?", [cardNumber], (err, result) => {
-  //     if (err) { console.log(err); }
-  //     else {
-  //       res.send(result)
-  //     }
-  //   })
-  // }
-  // catch (error) { console.log(error); }
+}
+
+exports.getCardById = async (req, res) => {
+  const idCard = req.params.id;
+  const result = await cardDao.getCardById(idCard);
+  res.json(result);
 }
 
 exports.getCards = async (req, res) => {
   const result = await cardDao.getAllCards();
   res.json(result);
-  // try {
-  //   const result = await cardDao.getAllCards();
-  //   res.json({ result });
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).json({ error: 'Error al obtener los datos de las tarjetas' });
-  // }
 }

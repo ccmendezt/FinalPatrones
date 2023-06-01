@@ -7,6 +7,7 @@ const connectionDB = require('../database/db');
 const jwtController = require('../controllers/jwtController');
 const parkingController = require('../controllers/parkingController');
 const cityController = require('../controllers/cityController');
+const reservController = require('../controllers/reservController');
 
 router.get('/', (req, res) => {
   connectionDB
@@ -27,11 +28,16 @@ router.post("/users/login", authController.login); //Logear un usuario
 //Rutas para los metodos del controlador de tarjetas de credito
 router.post("/card/", cardController.cardRegister); //Crear una tarjeta de credito
 router.get("/card/:cardnumber", cardController.getCardId); //Obtener id de tarjeta de credito
+router.get("/card/id/:id", cardController.getCardById); //Obtener una tarjeta de credito por id
 router.get("/card/", cardController.getCards); //Listar todas las tarjetas de credito
 
 //Rutas para los metodos del controlador de usuarios
 router.post("/users/role", userController.getUserRole); //Obtener el rol de un usuario
+router.post("/users/createAdmin", userController.createAdmin); //Crear un usuario
 router.get("/users/", userController.getAllUsers); //Listar todos los usuarios
+router.get("/users/:id", userController.getUserById); //Obtener un usuario por id
+router.put("/users/update/:id", userController.updateUserAdmin); //Actualizar un usuario
+router.delete("/users/delete/:id", userController.deleteUser); //Eliminar un usuario
 
 
 //Rutas para el controlador de parqueaderos
@@ -43,6 +49,13 @@ router.put("/parking/update", parkingController.updateParking); //Actualizar un 
 router.delete("/parking/delete/:id", parkingController.deleteParking); //Eliminar un parqueadero
 
 //Rutas para el controlador de reservas
+router.post("/reserv/create", reservController.createReserv); //Crear una reserva
+router.get("/reserv/", reservController.getAllReserv); //Listar todas las reservas
+router.get("/reserv/:id", reservController.getReservById); //Obtener una reserva por id
+router.get("/reserv/user/:iduser", reservController.getReservByUser); //Obtener una reserva por id
+router.get("/reserv/parking/:idparking", reservController.getReservByParking); //Obtener una reserva por id
+router.put("/reserv/update", reservController.updateReserv); //Actualizar una reserva
+router.delete("/reserv/delete/:id", reservController.deleteReserv); //Eliminar una reserva
 
 //Rutas para el controlador de ciudades
 router.get("/city/", cityController.getAllCities); //Listar todas las ciudades

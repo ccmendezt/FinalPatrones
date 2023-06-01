@@ -5,19 +5,12 @@ const parkingDao = new parkingDAO(connectionDB);
 exports.createParking = async (req, res) => {
   const parking = req.body;
   const result = await parkingDao.createParkingDao(parking);
-  res.json({ result });
+  res.json(result);
 }
 
 exports.getAllParking = async (req, res) => {
   const result = await parkingDao.getAllParkingDao();
   res.json(result);
-  // try {
-  //   const result = await parkingDao.getAllParkingDao();
-  //   res.json({ result });
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).json({ error: 'Error al obtener los datos de los parqueaderos' });
-  // }
 }
 
 exports.getParkingById = async (req, res) => {

@@ -8,16 +8,17 @@ class ParkingDAO {
 			ciudad,
 			direccion,
 			cupo,
-			tarifa,
 			cobertura } = parking;
-		const sql = 'INSERT INTO `parqueadero` (`nombreParqueadero`, `direccion`, `tarifa`, `cuposTotales`, `cuposDisp`, `cuposUtilizados`, `idCiudad`, `idTipoParqueadero`, `idHorParqInicio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-		await this.dbConnection.query(sql, [nombre, direccion, tarifa, cupo, cupo, '0', parseInt(ciudad), cobertura, '1'], (err, result) => {
-			if (err) {
-				console.log(err);
-			} else {
-				// console.log(result);
-				return result.insertId;
-			}
+		const sql = 'INSERT INTO `parqueadero` (`nombreParqueadero`, `direccion`, `tarifaCarro`, `tarifaMoto`, `tarifaBici`, `cuposTotales`, `cuposDisp`, `cuposUtilizados`, `idCiudad`, `idTipoParqueadero`, `idHorParqInicio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		return new Promise((resolve, reject) => {
+			this.dbConnection.query(sql, [nombre, direccion, '90', '35', '5', cupo, cupo, '0', ciudad, cobertura, '1'], (err, result) => {
+				if (err) {
+					console.log(err);
+					reject(err);
+				} else {
+					resolve(result.insertId);
+				}
+			});
 		});
 	}
 
@@ -29,7 +30,6 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
@@ -44,7 +44,6 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result[0]);
 				}
 			});
@@ -59,7 +58,6 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
@@ -67,20 +65,21 @@ class ParkingDAO {
 	}
 
 	async updateParkingDao(parking) {
-		const { nombre,
+		const { nombreParqueadero,
 			direccion,
-			tarifa,
-			cupo,
+			tarifaCarro,
+			tarifaMoto,
+			tarifaBici,
 			cobertura,
 			idParqueadero } = parking;
-		const sql = 'UPDATE `parqueadero` SET `nombreParqueadero` = ?, `direccion` = ?, `tarifa` = ?, `cuposTotales` = ?, `idTipoParqueadero` = ? WHERE `parqueadero`.`idParqueadero` = ?';
+		console.log(cobertura)
+		const sql = 'UPDATE parqueadero SET nombreParqueadero = ?, direccion = ?, tarifaCarro = ?, tarifaMoto = ?, tarifaBici = ?, idTipoParqueadero = ? WHERE idParqueadero = ?';
 		return new Promise((resolve, reject) => {
-			this.dbConnection.query(sql, [nombre, direccion, tarifa, cupo, cobertura, idParqueadero], (err, result) => {
+			this.dbConnection.query(sql, [nombreParqueadero, direccion, tarifaCarro, tarifaMoto, tarifaBici, cobertura, idParqueadero], (err, result) => {
 				if (err) {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
