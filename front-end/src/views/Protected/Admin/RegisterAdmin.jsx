@@ -27,7 +27,7 @@ function Register() {
         tokenCaptcha
       });
       if (response.status === 200) {
-        setMessage('Usuario registrado con éxito');
+        setMessage('Administrador registrado con éxito');
         setNombre('');
         setApellido('');
         setUsuario('');

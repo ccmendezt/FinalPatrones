@@ -19,6 +19,13 @@ exports.getUserById = async (req, res) => {
 	res.json(result);
 }
 
+exports.registerClient = async (req, res) => {
+	const user = req.body;
+	const numTarjeta = user.tarjeta;
+	const result = await userDao.createClient(user, tarjeta);
+	res.json(result);
+}
+
 exports.createAdmin = async (req, res) => {
 	const user = req.body;
 	const result = await userDao.createAdmin(user);

@@ -52,7 +52,8 @@ class CreditCardDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					resolve(result[0]);
+					// console.log(result);
+					resolve(result);
 				}
 			});
 		});

@@ -16,12 +16,10 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result.insertId);
 				}
 			});
 		});
-		
 	}
 
 	async getAllParkingDao() {
@@ -32,7 +30,6 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
@@ -47,7 +44,6 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result[0]);
 				}
 			});
@@ -62,7 +58,6 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
@@ -85,7 +80,6 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
