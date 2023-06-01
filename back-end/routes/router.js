@@ -7,6 +7,7 @@ const connectionDB = require('../database/db');
 const jwtController = require('../controllers/jwtController');
 const parkingController = require('../controllers/parkingController');
 const cityController = require('../controllers/cityController');
+const reservController = require('../controllers/reservController');
 
 router.get('/', (req, res) => {
   connectionDB
@@ -48,6 +49,13 @@ router.put("/parking/update", parkingController.updateParking); //Actualizar un 
 router.delete("/parking/delete/:id", parkingController.deleteParking); //Eliminar un parqueadero
 
 //Rutas para el controlador de reservas
+router.post("/reserv/create", reservController.createReserv); //Crear una reserva
+router.get("/reserv/", reservController.getAllReserv); //Listar todas las reservas
+router.get("/reserv/:id", reservController.getReservById); //Obtener una reserva por id
+router.get("/reserv/user/:iduser", reservController.getReservByUser); //Obtener una reserva por id
+router.get("/reserv/parking/:idparking", reservController.getReservByParking); //Obtener una reserva por id
+router.put("/reserv/update", reservController.updateReserv); //Actualizar una reserva
+router.delete("/reserv/delete/:id", reservController.deleteReserv); //Eliminar una reserva
 
 //Rutas para el controlador de ciudades
 router.get("/city/", cityController.getAllCities); //Listar todas las ciudades
