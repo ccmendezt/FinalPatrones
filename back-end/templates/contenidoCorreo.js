@@ -23,7 +23,7 @@ function contCorreo(nombre, apellido, email, usuario, password, tipoCorreo) {
 			subject: '¡Registro Exitoso! - PAR-KUD Colombia',
 			html: `
 			<h2>¡Hola ${nombre} ${apellido}!</h2>
-			<p>Desde PAR-KUD Colombia estamos felices de tenerte así que a continuación te proporcionaremos tus credenciales de inicio de sesión.</p>
+			<p>Desde PAR-KUD Colombia estamos felices de tenerte así que a continuación te proporcionaremos tus credenciales de inicio de sesión:</p>
 			<p><b>Usuario:</b> ${usuario}</p>
 			<p><b>Contraseña:</b> ${password}</p>
 			<p>¡Saludos!</p>
@@ -35,7 +35,7 @@ function contCorreo(nombre, apellido, email, usuario, password, tipoCorreo) {
 		return mensajeCorreoCambioPass = {
 			from: 'parkudcolombia@gmail.com',
 			to: email,
-			subject: '¡Cambio de contrasña! - PAR-KUD Colombia',
+			subject: '¡Cambio de contraseña! - PAR-KUD Colombia',
 			html: `
 			<h2>¡Hola ${nombre} ${apellido}!</h2>
 			<p>Hemos detectado 3 intentos de ingreso erróneos a tu cuenta, así que decidimos generar una nueva contraseña para que puedas iniciar sesión, a continuación te proporcionaremos tus credenciales:</p>
