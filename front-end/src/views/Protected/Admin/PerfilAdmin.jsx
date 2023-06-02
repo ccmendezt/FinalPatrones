@@ -5,6 +5,7 @@ import imagen from '../../../images/niceCar.jpg'
 import { Mailbox, Telephone, Person, PersonVcard } from 'react-bootstrap-icons'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function PerfilAdmin() {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -23,8 +24,10 @@ function PerfilAdmin() {
 
     fetchData();
   }, []);
+
   return (
-    <div>
+    <>
+      <div>
       <AdminNav></AdminNav>
       <div className='container'>
         <div className='card mb-5'>
@@ -51,8 +54,9 @@ function PerfilAdmin() {
                 <div className='col-6'><b>{user.usuario}</b></div>
               </div>
               <div className='row mb-5'>
-                <div className='col-6'><b><Telephone></Telephone> Telefono:</b></div>
-                <div className='col-6'><b>+57 3555454524</b></div>
+                <Link to='/perfil/edit'>
+                  <button className='btn btn-success mx-2' >Actualizar Datos</button>
+                </Link>
               </div>
               {/* {
                 (user.idTarjeta != null) ? (
@@ -67,6 +71,7 @@ function PerfilAdmin() {
       </div>
       <Footer></Footer>
     </div>
+    </>
   )
 }
 

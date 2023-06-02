@@ -112,26 +112,61 @@ class UserDAO {
 		});
 	}
 
-	async updateUserAdmin(user, idUser) {
+	async updateUserAdmin(user) {
 		const { nombre,
 			apellido,
 			usuario,
 			email,
 			password,
-			idTarjeta } = user;
+			idUser } = user;
+		
 		let passHash = await bcryptjs.hash(password, 8);
-		const sql = 'UPDATE usuario SET nombre = ?, apellido = ?, usuario = ?, email = ?, password = ?, idTarjeta = ? WHERE idUsuario = ?';
+		const sql = 'UPDATE usuario SET nombre = ?, apellido = ?, usuario = ?, email = ?, password = ? WHERE idUsuario = ?';
+		return new Promise((resolve, reject) => {
+			this.dbConnection.query(sql, [nombre, apellido, usuario, email, passHash, idUser], (err, result) => {
+				if (err) {
+					console.log(err);
+					reject(err);
+				} else {
+					if(result.affectedRows > 0) {
+						enviarCorreo.enviarEmail(nombre, apellido, email, usuario, password, 'cliente'); //Envio de correo electronico
+						resolve(result.insertId);
+					} else {
+						reject('Error al actualizar usuario');
+					}
+				}
+			});
+		});
+	}
+
+
+	async updateUserClient(user, idTarjeta) {
+		const { nombre,
+			apellido,
+			usuario,
+			email,
+			password,
+			idUser } = user;
+		
+		let passHash = await bcryptjs.hash(password, 8);
+		const sql = 'UPDATE usuario SET nombre = ?, apellido = ?, usuario = ?, email = ?, password = ?, idTarjeta  = ? WHERE idUsuario = ?';
 		return new Promise((resolve, reject) => {
 			this.dbConnection.query(sql, [nombre, apellido, usuario, email, passHash, idTarjeta, idUser], (err, result) => {
 				if (err) {
 					console.log(err);
 					reject(err);
 				} else {
-					resolve(result);
+					if(result.affectedRows > 0) {
+						enviarCorreo.enviarEmail(nombre, apellido, email, usuario, password, 'cliente'); //Envio de correo electronico
+						resolve(result.insertId);
+					} else {
+						reject('Error al actualizar usuario');
+					}
 				}
 			});
 		});
 	}
+
 
 	async updateLoginFailed (idUser) {
 		const sql = 'UPDATE usuario SET intentoIngreso = intentoIngreso + 1 WHERE idUsuario = ?';

@@ -13,6 +13,7 @@ import Conocenos from './views/Protected/Client/Conocenos';
 import Reservas from './views/Protected/Client/Reservas';
 import Sucursales from './views/Protected/Client/Sucursales';
 import Perfil from './views/Protected/Client/Perfil';
+import EditProfileClient from './views/Protected/Client/EditProfileClient.jsx';
 
 //Protected Admin
 import PerfilAdmin from './views/Protected/Admin/PerfilAdmin';
@@ -21,10 +22,10 @@ import Reportes from './views/Protected/Admin/Reportes';
 import Estadisticas from './views/Protected/Admin/Estadisticas';
 import Operatividad from './views/Protected/Admin/Operatividad.jsx';
 import RegistrarAdmin from './views/Protected/Admin/RegisterAdmin.jsx';
-
-
 import Create from './views/Protected/Admin/Create';
 import Edit from './views/Protected/Admin/Edit';
+import EditProfile from './views/Protected/Admin/EditProfile.jsx';
+
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/reservas" element={<Reservas />} />
           <Route path="/sucursales" element={<Sucursales />} />
           <Route path="/perfil" element={<Perfil />} />
+          <Route path="/perfil/editclient" element={<EditProfileClient />} />
         </Route>
 
 
@@ -57,6 +59,7 @@ function App() {
           <Route path="/registrarAdmin" element={<RegistrarAdmin />} />
           <Route path="/sucursal/new" element={<Create />} />
           <Route path="/sucursal/edit/:id" element={<Edit />} />
+          <Route path="/perfil/edit" element={<EditProfile />} />
         </Route>
 
 

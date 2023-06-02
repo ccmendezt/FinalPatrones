@@ -31,7 +31,7 @@ function AdminNav() {
             <li className="dropdown"><a className="nav-link scrollto" href="/PerfilAdmin"><PersonCircle></PersonCircle>Perfil</a>
               <ul>
                 <li><a href="/PerfilAdmin">Ver perfil</a></li>
-                <li><a href="/admin">Actualizar datos</a></li>
+                <li><a href="/admin">Actualizar Parqueaderos</a></li>
                 <li><a href="/" onClick={handleLogout}>Salir</a></li>
               </ul>
             </li>
