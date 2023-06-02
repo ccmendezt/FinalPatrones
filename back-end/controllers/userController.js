@@ -1,6 +1,9 @@
 const connectionDB = require('../database/db');
 const userDAO = require('./DAO/userDAO');
 const userDao = new userDAO(connectionDB);
+const cardDAO = require('./DAO/creditCardDAO');
+const cardDao = new cardDAO(connectionDB);
+const creditCardController = require('./creditCardController');
 
 exports.getUserRole = async (req, res) => {
 	const idUsuario = req.body.id;
@@ -33,10 +36,57 @@ exports.createAdmin = async (req, res) => {
 }
 
 exports.updateUserAdmin = async (req, res) => {
-	const user = req.body;
-	const idUser = req.params.id;
-	const result = await userDao.updateUserAdmin(user, idUser);
-	res.json(result);
+	
+	try{
+			const user = req.body;
+			if (user.email === "" || user.nombre === "" || user.apellido === "" || user.usuario === "" ||  user.password === "") {
+				res.status(500).send({ error: "Completa todos los campos" })
+			} else {
+				const result = await userDao.updateUserAdmin(user);
+				if (result.error) {
+				res.status(400).send({ error: result.error });
+				return;
+				}
+		}
+		res.json(result);
+	}catch(error){
+		console.log(error);
+	}
+}
+
+exports.updateUserClient = async (req, res) => {
+	try{
+		const user = req.body;
+		if (user.email === "" || user.nombre === "" || user.apellido === "" || user.usuario === "" || user.card === "" || user.password === "") {
+			res.status(500).send({ error: "Completa todos los campos" })
+		} else {
+			const isCreditCardValid = creditCardController.verifyCreditCard(user.card);// verificar si la tarjeta de credito es valida
+			if (!isCreditCardValid) {
+				res.status(400).send({ error: 'El número de tarjeta de crédito no es válido' });
+				return;
+			} else {
+				const identifierCard = creditCardController.identifyCreditCard(user.card);// identificar la tarjeta de credito
+				console.log(identifierCard);
+			}
+			var idTarjeta = null;
+			const responseCard = await cardDao.getIdCard(user.card);
+			if (responseCard.length > 0) {
+				idTarjeta = responseCard[0].idTarjeta;
+			} else {
+				console.log("No existe TC en la BD, se procede a insertar");
+				const responseCard = await cardDao.insertCard(user.card);
+				idTarjeta = responseCard;
+			}
+			const result = await userDao.updateUserClient(user, idTarjeta);
+			if (result.error) {
+			res.status(400).send({ error: result.error });
+			return;
+		}
+		res.json(result);
+		}
+	}catch(error){
+		console.log(error);
+	}
 }
 
 exports.deleteUser = async (req, res) => {
