@@ -6,6 +6,7 @@ import Footer from '../../../components/PageComponents/Footer'
 import { CarFront, HandThumbsUpFill, Mailbox, Telephone, Person } from 'react-bootstrap-icons'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function Perfil() {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -68,6 +69,9 @@ function Perfil() {
                 <div className='col-6'><b><HandThumbsUpFill></HandThumbsUpFill> Cliente fiel:</b></div>
                 <div className='col-6'><b>No</b></div>
               </div>
+              <Link to='/perfil/editclient'>
+                  <button className='btn btn-success mx-2' >Actualizar Datos</button>
+              </Link>
             </div>
           </div>
         </div>
