@@ -17,10 +17,8 @@ function Perfil() {
       try {
         const idUser = Cookies.get('idUser');
         const response = await axios.get(`${apiUrl}/users/${idUser}`);
-        console.log(response.data.idTarjeta);
         setUser(response.data);
         const responseCard = await axios.get(`${apiUrl}/card/id/${response.data.idTarjeta}`);
-        console.log(responseCard.data);
         setCard(responseCard.data.numeroTarjeta);
       } catch (error) {
         console.error(error);

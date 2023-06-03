@@ -4,9 +4,9 @@ class ReservDAO {
 	}
 
   async createReservDao(reserv) {
-    const sql = 'INSERT INTO `reserva`(`fechaReserva`, `horaInicioR`, `horaFinR`, `horaEntrada`, `horaSalida`, `idParqueadero`, `idUsuario`) VALUES (?,?,?,?,?,?,?)';
+    const sql = 'INSERT INTO `reserva`(`fechaReserva`, `horaInicioR`, `horaFinR`, `horaEntrada`, `horaSalida`, `idParqueadero`, `idUsuario`, `tipoVehiculo`) VALUES (?,?,?,?,?,?,?,?)';
     return new Promise((resolve, reject) => {
-      this.dbConnection.query(sql, [reserv.fechaReserva, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario], (err, result) => {
+      this.dbConnection.query(sql, [reserv.fechaReserva, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario, reserv.tipoVehiculo], (err, result) => {
         if (err) {
           console.log(err);
           reject(err);

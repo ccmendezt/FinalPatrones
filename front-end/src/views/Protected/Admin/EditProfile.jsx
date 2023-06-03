@@ -16,8 +16,6 @@ function EditProfile() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const idUser = Cookies.get('idUser');
 
-
-  //const [user, setUser] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {

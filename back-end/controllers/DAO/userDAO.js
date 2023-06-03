@@ -14,7 +14,6 @@ class UserDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
 					resolve(result);
 				}
 			});
@@ -129,7 +128,7 @@ class UserDAO {
 					reject(err);
 				} else {
 					if(result.affectedRows > 0) {
-						enviarCorreo.enviarEmail(nombre, apellido, email, usuario, password, 'cliente'); //Envio de correo electronico
+						enviarCorreo.enviarEmail(nombre, apellido, email, usuario, password, 'updateDatosCuenta'); //Envio de correo electronico
 						resolve(result.insertId);
 					} else {
 						reject('Error al actualizar usuario');
@@ -157,7 +156,7 @@ class UserDAO {
 					reject(err);
 				} else {
 					if(result.affectedRows > 0) {
-						enviarCorreo.enviarEmail(nombre, apellido, email, usuario, password, 'cliente'); //Envio de correo electronico
+						enviarCorreo.enviarEmail(nombre, apellido, email, usuario, password, 'updateDatosCuenta'); //Envio de correo electronico
 						resolve(result.insertId);
 					} else {
 						reject('Error al actualizar usuario');

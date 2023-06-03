@@ -46,6 +46,20 @@ function contCorreo(nombre, apellido, email, usuario, password, tipoCorreo) {
 			<p>Este es un correo electrónico personalizado para <i>${nombre} ${apellido}</i>.</p>
 		`
 		};
+	} else if (tipoCorreo == 'updateDatosCuenta') {
+		return mensajeCorreoCambioPass = {
+			from: 'parkudcolombia@gmail.com',
+			to: email,
+			subject: '¡Actualización de datos! - PAR-KUD Colombia',
+			html: `
+			<h2>¡Hola ${nombre} ${apellido}!</h2>
+			<p>De acuerdo con lo que acabas de hacer en el sistema enviamos todos tus datos actualizados a tu correo registrado:</p>
+			<p><b>Usuario:</b> ${usuario}</p>
+			<p><b>Contraseña:</b> ${password}</p>
+			<p>¡Saludos!</p>
+			<p>Este es un correo electrónico personalizado para <i>${nombre} ${apellido}</i>.</p>
+		`
+		};
 	}
 };
 
