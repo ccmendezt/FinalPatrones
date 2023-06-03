@@ -62,26 +62,26 @@ function EditProfile() {
   return (
     <>
       <AdminNav></AdminNav>
-        <div className='container'>
-          <h1>Actualizacion de Datos</h1>
-          <div className='set-middle'>
-            <form onSubmit={(e) => e.preventDefault()} className='d-grid'>
-              <input className='inputReg' type="text" id="nombre" defaultValue={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='Nombre' />
-              <input className='inputReg' type="text" id="apellido" defaultValue={apellido} onChange={(e) => setApellido(e.target.value)} placeholder='Apellido' />
-              <input className='inputReg' type="text" id="usuario" defaultValue={usuario} onChange={(e) => setUsuario(e.target.value)} placeholder='Usuario' />
-              <input className='inputReg' type="text" id="email" defaultValue={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo electrónico' />
-              <input className='inputReg' type='password' id='password' onChange={(e) => setPassword(e.target.value)} placeholder='Nueva Password' />
+      <div className='container'>
+        <h1>Actualizacion de Datos</h1>
+        <div className='set-middle'>
+          <form onSubmit={(e) => e.preventDefault()} className='d-grid'>
+            <input className='inputReg' type="text" id="nombre" defaultValue={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='Nombre' />
+            <input className='inputReg' type="text" id="apellido" defaultValue={apellido} onChange={(e) => setApellido(e.target.value)} placeholder='Apellido' />
+            <input className='inputReg' type="text" id="usuario" defaultValue={usuario} onChange={(e) => setUsuario(e.target.value)} placeholder='Usuario' />
+            <input className='inputReg' type="text" id="email" defaultValue={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo electrónico' />
+            <input className='inputReg' type='password' id='password' onChange={(e) => setPassword(e.target.value)} placeholder='Nueva Password' />
+            <Link to="/PerfilAdmin">
               <button onClick={handleSignup} className="btn" >Actualizar</button>
-              <Link to="/PerfilAdmin">
-                <div className="btnLogin">
-                  <button type="button" className="btn">Cancelar</button>
-                </div>
-              </Link>
-            </form>
-            </div>
+              <div className="btnLogin">
+                <button type="button" className="btn">Cancelar</button>
+              </div>
+            </Link>
+          </form>
+        </div>
       </div>
       <Footer></Footer>
-    
+
     </>
   );
 }

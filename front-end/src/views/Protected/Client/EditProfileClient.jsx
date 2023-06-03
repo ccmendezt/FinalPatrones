@@ -80,7 +80,7 @@ function EditProfileClient() {
               <input className='inputReg' type="text" id="card" defaultValue={card} onChange={(e) => setCard(e.target.value)} placeholder='Numero de Tarjeta' />
               <input className='inputReg' type='password' id='password' onChange={(e) => setPassword(e.target.value)} placeholder='Nueva Password' />
               <button onClick={handleSignup} className="btn" >Actualizar</button>
-              <Link to="/PerfilAdmin">
+              <Link to="/perfil">
                 <div className="btnLogin">
                   <button type="button" className="btn">Cancelar</button>
                 </div>
