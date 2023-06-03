@@ -18,8 +18,8 @@ function NewReserva() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const prueba = await axios.get(`${apiUrl}/parking/${id}`);
-        console.log(prueba.data.cuposDisp)
+        const response = await axios.get(`${apiUrl}/parking/${id}`);
+        console.log(response.data.cuposDisp)
       } catch (error) {
         console.error(error);
       }
@@ -57,9 +57,7 @@ function NewReserva() {
                 <button className="btn" id="btnIniciarSesion">Reservar</button>
               </div>
             </form>
-
           </div>
-
         </div>
       </div>
       <hr></hr>
