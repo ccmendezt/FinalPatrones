@@ -45,9 +45,9 @@ function NewReserva() {
                 <input type="time" className="form-control inputReg text-center" id="inputHoraFin" placeholder="Contraseña" />
                 <label className="inputLabel">Tipo de vehículo:</label><br></br>
                 <select name="tipoVehiculo" id="inputTipoVehiculo" className="form-select">
-                  <option value={"Carro"}>Carro</option>
-                  <option value={"Moto"}>Moto</option>
-                  <option value={"Cicla"}>Cicla</option>
+                  <option value={"C"}>Carro</option>
+                  <option value={"M"}>Moto</option>
+                  <option value={"B"}>Cicla</option>
                 </select>
               </div>
               <div></div>
