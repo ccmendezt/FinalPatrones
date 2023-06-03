@@ -12,7 +12,6 @@ function EditProfile() {
   const [email, setEmail] = useState('');
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
   const idUser = Cookies.get('idUser');
 
@@ -44,14 +43,15 @@ function EditProfile() {
         password,
         idUser
       });
+      console.log(response.status)
       if (response.status === 200) {
-        setMessage('Usuario registrado con éxito');
         setNombre('');
         setApellido('');
         setUsuario('');
         setEmail('');
         setPassword('');
-        window.location.href = '/admin';
+        alert('Usuario actualizado con éxito')
+        window.location.href = '/admin';     
       }
     } catch (e) {
       console.log(e.response.data);
@@ -71,8 +71,8 @@ function EditProfile() {
             <input className='inputReg' type="text" id="usuario" defaultValue={usuario} onChange={(e) => setUsuario(e.target.value)} placeholder='Usuario' />
             <input className='inputReg' type="text" id="email" defaultValue={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo electrónico' />
             <input className='inputReg' type='password' id='password' onChange={(e) => setPassword(e.target.value)} placeholder='Nueva Password' />
+            <button onClick={handleSignup} className="btn" >Actualizar</button>
             <Link to="/PerfilAdmin">
-              <button onClick={handleSignup} className="btn" >Actualizar</button>
               <div className="btnLogin">
                 <button type="button" className="btn">Cancelar</button>
               </div>

@@ -14,7 +14,6 @@ function EditProfileClient() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [card, setCard] = useState('');
-  const [message, setMessage] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
   const idUser = Cookies.get('idUser');
 
@@ -50,13 +49,13 @@ function EditProfileClient() {
         idUser
       });
       if (response.status === 200) {
-        setMessage('Usuario registrado con éxito');
         setNombre('');
         setApellido('');
         setUsuario('');
         setEmail('');
         setPassword('');
         setCard('');
+        alert('Usuario actualizado con éxito')
         window.location.href = '/home';
       }
     } catch (e) {

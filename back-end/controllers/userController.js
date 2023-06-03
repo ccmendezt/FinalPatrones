@@ -36,26 +36,25 @@ exports.createAdmin = async (req, res) => {
 }
 
 exports.updateUserAdmin = async (req, res) => {
-	
-	try{
-			const user = req.body;
-			if (user.email === "" || user.nombre === "" || user.apellido === "" || user.usuario === "" ||  user.password === "") {
-				res.status(500).send({ error: "Completa todos los campos" })
-			} else {
-				const result = await userDao.updateUserAdmin(user);
-				if (result.error) {
+	try {
+		const user = req.body;
+		if (user.email === "" || user.nombre === "" || user.apellido === "" || user.usuario === "" || user.password === "") {
+			res.status(500).send({ error: "Completa todos los campos" })
+		} else {
+			const result = await userDao.updateUserAdmin(user);
+			if (result.error) {
 				res.status(400).send({ error: result.error });
 				return;
-				}
+			}
+			res.json(result);
 		}
-		res.json(result);
-	}catch(error){
+	} catch (error) {
 		console.log(error);
 	}
 }
 
 exports.updateUserClient = async (req, res) => {
-	try{
+	try {
 		const user = req.body;
 		if (user.email === "" || user.nombre === "" || user.apellido === "" || user.usuario === "" || user.card === "" || user.password === "") {
 			res.status(500).send({ error: "Completa todos los campos" })
@@ -79,12 +78,12 @@ exports.updateUserClient = async (req, res) => {
 			}
 			const result = await userDao.updateUserClient(user, idTarjeta);
 			if (result.error) {
-			res.status(400).send({ error: result.error });
-			return;
+				res.status(400).send({ error: result.error });
+				return;
+			}
+			res.json(result);
 		}
-		res.json(result);
-		}
-	}catch(error){
+	} catch (error) {
 		console.log(error);
 	}
 }

@@ -47,11 +47,11 @@ function PerfilAdmin() {
               <hr className="mt-0 mb-4"></hr>
               <div className='row mb-5'>
                 <div className='col-6'><b><Mailbox></Mailbox> Email:</b></div>
-                <div className='col-6'><b>{user.email}</b></div>
+                <div className='col-6'>{user.email}</div>
               </div>
               <div className='row mb-5'>
                 <div className='col-6'><b><Person></Person> Usuario:</b></div>
-                <div className='col-6'><b>{user.usuario}</b></div>
+                <div className='col-6'>{user.usuario}</div>
               </div>
               <div className='row mb-5'>
                 <Link to='/perfil/edit'>
