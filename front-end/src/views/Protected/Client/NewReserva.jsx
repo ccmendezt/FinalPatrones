@@ -3,10 +3,12 @@ import Nav from '../../../components/PageComponents/Navbar';
 import Footer from '../../../components/PageComponents/Footer';
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 
 function NewReserva() {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const id = useParams().id;
   const fecha = new Date().toLocaleDateString();
   const hora = new Date().toLocaleTimeString();
 
@@ -16,7 +18,7 @@ function NewReserva() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const prueba = await axios.get(`${apiUrl}/parking/1`);
+        const prueba = await axios.get(`${apiUrl}/parking/${id}`);
         console.log(prueba.data.cuposDisp)
       } catch (error) {
         console.error(error);
