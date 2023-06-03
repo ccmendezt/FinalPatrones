@@ -8,6 +8,7 @@
     "concurrently": "^8.0.1"
   },
   "dependencies": {
+    "moment": "^2.29.4",
     "react-google-maps": "^9.4.5"
   }
 }

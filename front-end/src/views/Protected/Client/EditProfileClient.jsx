@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import "../../../styles/register.css"
 import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'
+import Nav from '../../../components/PageComponents/Navbar';
 
 function EditProfileClient() {
   const [nombre, setNombre] = useState('');
@@ -22,6 +23,8 @@ function EditProfileClient() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const prueba = await axios.get(`${apiUrl}/parking/1`);
+        console.log(prueba)
         const response = await axios.get(`${apiUrl}/users/${idUser}`);
         setNombre(response.data.nombre);
         setApellido(response.data.apellido);
@@ -68,8 +71,9 @@ function EditProfileClient() {
 
   return (
     <>
-      <AdminNav></AdminNav>
-        <div className='container'>
+      <Nav></Nav>
+      <div className='container'>
+        <div className='card cardLoggin m-auto my-5 py-5'>
           <h1>Actualizacion de Datos</h1>
           <div className='set-middle'>
             <form onSubmit={(e) => e.preventDefault()} className='d-grid'>
@@ -86,10 +90,11 @@ function EditProfileClient() {
                 </div>
               </Link>
             </form>
-            </div>
+          </div>
+        </div>
       </div>
       <Footer></Footer>
-    
+
     </>
   );
 }

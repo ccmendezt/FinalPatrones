@@ -36,6 +36,7 @@ const SucursalCliente = (props) => {
     }
   }
 
+  const linkPath = `/sucursales/${idSucursal}`
 
   return (
     <div className='col'>
@@ -43,10 +44,12 @@ const SucursalCliente = (props) => {
         <img src={imagen} className='cad-img-top'></img>
         <div className='card-body'>
           <h5 className="card-title">{nombre}</h5>
-          <p className="card-text">Tarifas (Carro, Moto y Bici): {tarifaCarro}, {tarifaMoto} y {tarifaBici} pesos/minuto</p>
+          <p className="card-text">Tarifa (Carro): {tarifaCarro} pesos/minuto
+            <br></br>Tarifa (Moto): {tarifaMoto} pesos/minuto
+            <br></br>Tarifa (Bici): {tarifaBici} pesos/minuto</p>
           <p className="card-text">Cupos Disponibles: {cuposDisp}</p>
           <p className="card-text"><small className="text-body-secondary">{diccionarioCiudades[ciudad]}, {direccion}</small></p>
-          <button className='btn btn-success'>Reservar</button>
+          <a href={linkPath}><button className='btn btn-success'>Reservar</button></a>
         </div>
       </div>
     </div>

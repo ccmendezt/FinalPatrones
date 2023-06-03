@@ -218,6 +218,11 @@ a.logo-text {
     background-position-y: center;
 }
 
+.backgroundFadeGreen{
+    background: rgb(2,152,177);
+    background: linear-gradient(90deg, rgba(2,152,177,1) 0%, rgba(60,182,135,1) 50%, rgba(114,211,96,1) 100%); 
+}
+
 /* Conocenos */
 
 .text-align-justify {
@@ -231,4 +236,15 @@ a.logo-text {
     margin: auto;
     justify-content: center;
     align-content: center;
+}
+
+/* inputs */
+
+.inputLabel {
+    color: green;
+    font-weight: bold;
+}
+
+.form-control{
+    border: var(--bs-border-width) solid #000;
 }

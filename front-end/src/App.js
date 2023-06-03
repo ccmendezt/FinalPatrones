@@ -25,6 +25,7 @@ import RegistrarAdmin from './views/Protected/Admin/RegisterAdmin.jsx';
 import Create from './views/Protected/Admin/Create';
 import Edit from './views/Protected/Admin/Edit';
 import EditProfile from './views/Protected/Admin/EditProfile.jsx';
+import NewReserva from './views/Protected/Client/NewReserva.jsx';
 
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/conocenos" element={<Conocenos />} />
           <Route path="/reservas" element={<Reservas />} />
           <Route path="/sucursales" element={<Sucursales />} />
+          <Route path="/sucursales/:id" element={<NewReserva/>} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/perfil/editclient" element={<EditProfileClient />} />
         </Route>
