@@ -52,6 +52,7 @@ function NewReserva() {
         tipoVehiculo
       });
       if (response.status === 200) {
+        document.getElementById('exampleModal').modal('show');
         window.location.href = '/reservas';
       }
     } catch (e) {
@@ -68,33 +69,33 @@ function NewReserva() {
           <div className='card cardLoggin m-auto my-5 py-5'>
             <h1 className='titleIniciarSesion'>Nueva Reserva</h1>
             <h5 className='inputLabel'>Datos Sucursal:</h5>
-              {datos ? 
-                <div className='row'>
-                  <div className='col-6'>
-                    <h5 className='inputLabel'>Nombre:</h5>
-                    <p type="text" className="form-control inputReg text-center" id="Nombre" placeholder="Nombre">{nombre}</p>
-                    <h5 className='inputLabel'>Direccion:</h5>
-                    <p type="text" className="form-control inputReg text-center" id="Direccion" placeholder="Direccion">{direccion}</p>
-                  </div>
+            {datos ?
+              <div className='row'>
+                <div className='col-6 m-auto'>
+                  <h5 className='inputLabel'>Nombre:</h5>
+                  <p type="text" className="form-control inputReg text-center" id="Nombre" placeholder="Nombre">{nombre}</p>
+                  <h5 className='inputLabel'>Direccion:</h5>
+                  <p type="text" className="form-control inputReg text-center" id="Direccion" placeholder="Direccion">{direccion}</p>
                 </div>
-                : 
-                  <div className='row'>
-                    <div className='col-6'>
-                      <p>....Cargando</p>
-                    </div>
-                  </div>
-                }
+              </div>
+              :
+              <div className='row'>
+                <div className='col-6 m-auto'>
+                  <p>....Cargando</p>
+                </div>
+              </div>
+            }
             <h5 className='inputLabel'>Cupos:</h5>
             {datos ?
               <div className='row'>
-                <div className='col-6'>
+                <div className='col-6 m-auto'>
                   <p type="text" className="form-control inputReg text-center" id="Cupos" placeholder="Cupos">{cupos}</p>
                 </div>
               </div>
               :
               <div className='row'>
               </div>
-              }
+            }
             <form>
               <div style={{ display: "inline-block" }}>
                 <label className="inputLabel">Fecha de la reserva:</label>
@@ -112,13 +113,31 @@ function NewReserva() {
               </div>
               <div></div>
               <div className="btnLogin">
-                <button className="btn" id="btnIniciarSesion" onClick={handleReserv}>Reservar</button>
-              </div> 
+                <button className="btn" id="btnIniciarSesion" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleReserv}>Reservar</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
       <hr></hr>
+
+      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Reserva</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              !Se ha realizado su reserva con exito!
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <Footer></Footer>
     </>
   )
