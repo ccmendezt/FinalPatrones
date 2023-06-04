@@ -14,12 +14,12 @@ exports.register = async (req, res) => {
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_CAPTCHA}&response=${tokenCaptcha}`
   );
   if (response.data.success == false) {
-    res.status(400).send("Captcha no verificado")
+    res.status(500).send("Captcha no verificado")
   } else {
     try {
       const user = req.body;
       if (user.email === "" || user.nombre === "" || user.apellido === "" || user.usuario === "" || user.cardNumber === "") {
-        res.status(500).send({ error: "Completa todos los campos" })
+        res.status(400).send({ error: "Completa todos los campos" })
       } else {
         const isCreditCardValid = creditCardController.verifyCreditCard(user.cardNumber);// verificar si la tarjeta de credito es valida
         if (!isCreditCardValid) {
@@ -40,12 +40,12 @@ exports.register = async (req, res) => {
         }
         const resRegisterUser = await userDao.createClient(user, idTarjeta);
         if (resRegisterUser.error) {
-          res.status(400).send({ error: resRegisterUser.error });
+          res.status(500).send({ error: resRegisterUser.error });
           return;
         }
         res.send("Usuario registrado correctamente")
       }
-    } catch (error) { console.log(error); }
+    } catch (error) { return res.status(500).send({ error: "Error al registrar usuario" }); }
   }
 }
 
@@ -62,26 +62,28 @@ exports.login = async (req, res) => {
     if (!credenciales.usuario || !credenciales.password) {
       return res.status(400).send({ error: "Introduce un usuario y una contraseña" });
     }
-    const resLogin = await userDao.getUserByUser(credenciales);
-    const id = resLogin.idUsuario;
-    if (resLogin) {
-      if (!(await bcryptjs.compare(credenciales.password, resLogin.password))) {
-        await userDao.updateLoginFailed(id);
-        if(await userDao.getLoginFailed(id) >= 3){
-          await userDao.changePassword(id);
-          return res.status(400).send({ error: "Usuario bloqueado" });
-        }else{
-          return res.status(400).send({ error: "Contraseña incorrecta" });
+    try {
+      const resLogin = await userDao.getUserByUser(credenciales);
+      const id = resLogin.idUsuario;
+      if (resLogin) {
+        if (!(await bcryptjs.compare(credenciales.password, resLogin.password))) {
+          await userDao.updateLoginFailed(id);
+          if (await userDao.getLoginFailed(id) >= 3) {
+            await userDao.changePassword(id);
+            return res.status(400).send({ error: "Usuario bloqueado" });
+          } else {
+            return res.status(400).send({ error: "Contraseña incorrecta" });
+          }
+        } else {
+          const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_TIEMPO_EXPIRACION
+          });
+          const idRoleResponse = await userDao.getRoleUser(id);
+          res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse, idUsuario: id });
         }
-      } else {
-        const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
-          expiresIn: process.env.JWT_TIEMPO_EXPIRACION
-        });
-        const idRoleResponse = await userDao.getRoleUser(id);
-        res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse, idUsuario: id });
       }
-    } else {
-      return res.status(400).send({ error: "El usuario no existe" });
+    } catch (error) {
+      return res.status(500).json({ mensaje: "Error usuario no existe" });
     }
   }
 }
