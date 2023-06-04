@@ -9,6 +9,7 @@ const parkingController = require('../controllers/parkingController');
 const cityController = require('../controllers/cityController');
 const reservController = require('../controllers/reservController');
 const vistaReservaController = require('../controllers/vistaReservaController')
+const billController = require('../controllers/billController');
 const estadisticasController = require('../controllers/estadisticasController')
 
 router.get('/', (req, res) => {
@@ -40,7 +41,6 @@ router.get("/users/:id", userController.getUserById); //Obtener un usuario por i
 router.put("/users/update/:id", userController.updateUserAdmin); //Actualizar un usuario
 router.delete("/users/delete/:id", userController.deleteUser); //Eliminar un usuario
 
-
 //Rutas para el controlador de parqueaderos
 router.post("/parking/create", parkingController.createParking); //Crear un parqueadero
 router.get("/parking/", parkingController.getAllParking); //Listar todos los parqueaderos
@@ -57,6 +57,9 @@ router.get("/reserv/user/:iduser", reservController.getReservByUser); //Obtener 
 router.get("/reserv/parking/:idparking", reservController.getReservByParking); //Obtener una reserva por id
 router.put("/reserv/update", reservController.updateReserv); //Actualizar una reserva
 router.delete("/reserv/delete/:id", reservController.deleteReserv); //Eliminar una reserva
+
+//Rutas para el controlador de facturas
+router.post("/bill/create", billController.createBill); //Crear una factura
 
 //Rutas para el controlador de ciudades
 router.get("/city/", cityController.getAllCities); //Listar todas las ciudades

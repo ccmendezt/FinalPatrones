@@ -5,7 +5,7 @@ import axios from 'axios'
 import ReporteParqueadero from '../../../components/ReporteParqueadero';
 
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+//<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 function Reportes() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [reportes, setReportes] = useState([]);

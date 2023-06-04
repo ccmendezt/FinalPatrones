@@ -9,6 +9,9 @@ function Reservas() {
   const idUser = Cookies.get('idUser');
   const apiUrl = process.env.REACT_APP_API_URL;
   const [reservas, setReservas] = useState([]);
+  const [data, setData] = useState(false);
+  const [selectedReserva, setSelectedReserva] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,7 +36,11 @@ function Reservas() {
           responseReserva.data[i].tiempoReserva = diferenciaEnMinutos;
         }
         console.log(responseReserva.data);
+        responseReserva.data.map((reserva) => {
+          reserva.ingresado = false;
+        });
         setReservas(responseReserva.data);
+        setData(true);
       } catch (error) {
         console.error(error);
       }
@@ -41,6 +48,85 @@ function Reservas() {
 
     fetchData();
   }, []);
+
+  const handleCancel = async (idReserva) => {
+    try {
+      const response = await axios.delete(`${apiUrl}/reserv/delete/${idReserva}`);
+      if (response.status === 200) {
+        window.location.href = '/reservas';
+      }
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  };
+
+  const handleIngreso = async (idReserva) => {
+    const fechaLocal = new Date().toLocaleDateString();
+    const horaLocal = new Date().toLocaleTimeString();
+    setSelectedReserva(idReserva);
+
+    for (let i = 0; i < reservas.length; i++) {
+      if (parseInt(idReserva) === parseInt(reservas[i].idReserva)) {
+        const horaInicio = new Date(reservas[i].fechaReserva);
+        const horaFin = new Date(reservas[i].fechaReserva);
+
+
+        const horaInicioP = new Date(reservas[i].fechaReserva);
+        const [horas, minutos] = reservas[i].horaInicioR.split(':');
+        const [horasF, minutosF] = reservas[i].horaFinR.split(':');
+        const [horasL, minutosL] = horaLocal.split(':');
+
+        console.log(horaLocal);
+
+        horaInicio.setHours(horas);
+        horaFin.setHours(horasF);
+        horaFin.setMinutes(minutosF);
+
+        horaInicioP.setHours(horas);
+        horaInicioP.setMinutes(minutos);
+
+        const horaInicioMenos5 = new Date(horaInicioP.getTime() - 5 * 60000); // Restar 5 minutos en milisegundos
+
+        const horaInicioMenos5_Horas = horaInicioMenos5.getHours();
+        const horaInicioMenos5_Minutos = horaInicioMenos5.getMinutes();
+
+        const horaFinHoras = horaFin.getHours();
+        const horaFinMinutos = horaFin.getMinutes();
+
+        console.log(reservas[i].idParqueadero.idParqueadero);
+        console.log(reservas[i].idUsuario);
+
+        
+        if (fechaLocal === new Date(reservas[i].fechaReserva).toLocaleDateString()) {
+          alert('Puedes ingresar');
+          try {
+            const response = await axios.put(`${apiUrl}/reserv/update/`, {
+              fechaReserva: reservas[i].fechaReserva,
+              horaInicioR : reservas[i].horaInicioR,
+              horaFinR : reservas[i].horaFinR,
+              horaEntrada: horaLocal,
+              horaSalida: null,
+              idParqueadero: reservas[i].idParqueadero.idParqueadero,
+              idUsuario: reservas[i].idUsuario,
+              tipoVehiculo: reservas[i].tipoVehiculo,
+              idReserva: reservas[i].idReserva,
+            });
+            if (response.status === 200) {
+              window.location.href = '/reservas';
+            }
+          } catch (e) {
+            console.log(e.response.data);
+          }
+        }
+      }
+    }
+  };
+
+  const handleSalida = async (idReserva) => {
+    
+  }
+
+  console.log(reservas);
 
   return (
     <>
@@ -50,7 +136,7 @@ function Reservas() {
           <h1>Reservas</h1>
           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt quo reprehenderit error officiis sit recusandae ab voluptate consequuntur, modi reiciendis tempora impedit ullam unde, doloribus cumque iure enim, accusantium fugit.</p>
         </div>
-        {
+        { data ? (
           reservas.map((reserva) => {
             return (<div className='d-flex' key={reserva.idReserva}>
               <div className='col-6'>
@@ -61,7 +147,24 @@ function Reservas() {
                   <div className='card-title'>
                     <h3>{reserva.idParqueadero.nombreParqueadero}</h3>
                     <h4>{reserva.total}</h4>
-                    <button className='btn btn-success'>Pagar</button>
+
+                    {reserva.horaEntrada != null ? 
+                      (
+                      <div>
+                        <h5>Ya ingresaste</h5>
+                        <button className='btn btn-success' onClick={() => handleSalida(reserva.idReserva)}>Salida</button>
+                      </div>
+                      )
+
+                    :
+                      (<div>
+                        <button className='btn btn-danger' onClick={() => handleCancel(reserva.idReserva)}>Cancelar</button>
+                        <h5>Recuerda que para ingresar debes estar como maximo 5 min antes de la hora de la reserva</h5>
+                        <h5>Todo listo? Ingresa!</h5>
+                        <button className='btn btn-success' onClick={() => handleIngreso(reserva.idReserva)}>Ingresa</button>
+                      </div>)
+                    }
+                  
                   </div>
                 </div>
               </div>
@@ -76,6 +179,7 @@ function Reservas() {
                     ) : (
                       <div className='col-4'>${reserva.tarifa = reserva.idParqueadero.tarifaBici} pesos/minuto</div>
                     )
+
                   }
                 </div>
                 <div className='row mb-5'>
@@ -100,7 +204,15 @@ function Reservas() {
                 </div>
               </div>
             </div>)
-          })
+          }))
+          :
+          (
+            <div className='text-center'>
+              <h1>No tienes reservas</h1>
+              <p>Reserva un parqueadero para poder verlo aquí</p>
+            </div>
+          )
+
         }
       </div>
       <Footer></Footer>

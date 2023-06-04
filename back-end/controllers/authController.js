@@ -51,39 +51,43 @@ exports.register = async (req, res) => {
 
 //Metodo para logear un usuario
 exports.login = async (req, res) => {
-  const tokenCaptcha = req.body.tokenCaptcha;
-  const response = await axios.post(
-    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_CAPTCHA}&response=${tokenCaptcha}`
-  );
-  if (response.data.success == false) {
-    res.status(400).send("Captcha no verificado")
-  } else {
-    const credenciales = req.body;
-    if (!credenciales.usuario || !credenciales.password) {
-      return res.status(400).send({ error: "Introduce un usuario y una contraseña" });
-    }
-    try {
-      const resLogin = await userDao.getUserByUser(credenciales);
-      const id = resLogin.idUsuario;
-      if (resLogin) {
-        if (!(await bcryptjs.compare(credenciales.password, resLogin.password))) {
-          await userDao.updateLoginFailed(id);
-          if (await userDao.getLoginFailed(id) >= 3) {
-            await userDao.changePassword(id);
-            return res.status(400).send({ error: "Usuario bloqueado" });
-          } else {
-            return res.status(400).send({ error: "Contraseña incorrecta" });
-          }
-        } else {
-          const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_TIEMPO_EXPIRACION
-          });
-          const idRoleResponse = await userDao.getRoleUser(id);
-          res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse, idUsuario: id });
-        }
+  try{
+    const tokenCaptcha = req.body.tokenCaptcha;
+    const response = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY_CAPTCHA}&response=${tokenCaptcha}`
+    );
+    if (response.data.success == false) {
+      res.status(400).send("Captcha no verificado")
+    } else {
+      const credenciales = req.body;
+      if (!credenciales.usuario || !credenciales.password) {
+        return res.status(400).send({ error: "Introduce un usuario y una contraseña" });
       }
-    } catch (error) {
-      return res.status(500).json({ mensaje: "Error usuario no existe" });
+      try {
+        const resLogin = await userDao.getUserByUser(credenciales);
+        const id = resLogin.idUsuario;
+        if (resLogin) {
+          if (!(await bcryptjs.compare(credenciales.password, resLogin.password))) {
+            await userDao.updateLoginFailed(id);
+            if (await userDao.getLoginFailed(id) >= 3) {
+              await userDao.changePassword(id);
+              return res.status(400).send({ error: "Usuario bloqueado" });
+            } else {
+              return res.status(400).send({ error: "Contraseña incorrecta" });
+            }
+          } else {
+            const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+              expiresIn: process.env.JWT_TIEMPO_EXPIRACION
+            });
+            const idRoleResponse = await userDao.getRoleUser(id);
+            res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse, idUsuario: id });
+          }
+        }
+      } catch (error) {
+        return res.status(500).json({ mensaje: "Error usuario no existe" });
+      }
     }
+  }catch(error){
+    console.log(error);
   }
 }
