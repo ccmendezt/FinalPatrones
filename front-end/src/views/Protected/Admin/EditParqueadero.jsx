@@ -61,22 +61,22 @@ function Edit() {
         <h1 className="titleIniciarSesion">Editar parqueadero</h1>
         <form>
           <div style={{ display: "inline-block" }}>
-            <label htmlFor="inputNombre">Nombre Parqueadero:</label>
+          <label htmlFor="inputNombre"><b>Nombre Parqueadero:</b></label>
             <input type="text" className="form-control my-3" id="inputNombre" placeholder="Nombre parqueadero" defaultValue={nombre} onChange={(e) => setNombre(e.target.value)}/>
-            <label htmlFor="inputCiudad">Dirección:</label>
+            <label htmlFor="inputDir"><b>Dirección:</b></label>
             <input type="text" className="form-control my-3" id="inputDir" placeholder="Dirección" defaultValue={direccion} onChange={(e) => setDireccion(e.target.value)}/>
-            <label htmlFor="inputTarifa">Tarifa Carro:</label>
-            <input type="text" className="form-control my-3" id="inputTarifa" placeholder="Tarifa Carro" defaultValue={tarifaCarro} onChange={(e) => setTarifaCarro(e.target.value)}/>
-            <label htmlFor="inputTarifa">Tarifa Moto:</label>
-            <input type="text" className="form-control my-3" id="inputTarifa" placeholder="Tarifa Moto" defaultValue={tarifaMoto} onChange={(e) => setTarifaMoto(e.target.value)}/>
-            <label htmlFor="inputTarifa">Tarifa Bici:</label>
-            <input type="text" className="form-control my-3" id="inputTarifa" placeholder="Tarifa Bici" defaultValue={tarifaBici} onChange={(e) => setTarifaBici(e.target.value)}/>
+            <label htmlFor="inputTarifa1"><b>Tarifa Carro:</b></label>
+            <input type="text" className="form-control my-3" id="inputTarifa1" placeholder="Tarifa Carro" defaultValue={tarifaCarro} onChange={(e) => setTarifaCarro(e.target.value)}/>
+            <label htmlFor="inputTarifa2"><b>Tarifa Moto:</b></label>
+            <input type="text" className="form-control my-3" id="inputTarifa2" placeholder="Tarifa Moto" defaultValue={tarifaMoto} onChange={(e) => setTarifaMoto(e.target.value)}/>
+            <label htmlFor="inputTarifa3"><b>Tarifa Bici:</b></label>
+            <input type="text" className="form-control my-3" id="inputTarifa3" placeholder="Tarifa Bici" defaultValue={tarifaBici} onChange={(e) => setTarifaBici(e.target.value)}/>
+            <label htmlFor="inputCobertura"><b>Cobertura:</b></label><br />
             <select type="select" className="my-3" id="inputCobertura" value={cobertura} onChange={(e) => setCobertura(e.target.value)} placeholder="Cobertura">
               <option value="1" >Cubierto</option>
               <option value="2">Semi-cubierto</option>
               <option value="3">Descubierto</option>
-            </select><br></br>
-            <p>Opción seleccionada: {cobertura}</p>
+            </select><br />
           </div>
           <Link to="/admin">
             <div className="btnSave">
@@ -94,27 +94,3 @@ function Edit() {
 }
 
 export default Edit
-
-
-
-        // <div className='container'>
-        //     <AdminNav></AdminNav>
-        //     <Form>
-        //         <Form.Group className="mb-3" controlId="formBasicEmail">
-        //             <Form.Label>Email address</Form.Label>
-        //             <div className='col-4 set-middle'><Form.Control type="email" placeholder="Enter email" /></div>
-        //         </Form.Group>
-
-        //         <Form.Group className="mb-3" controlId="formBasicPassword">
-        //             <Form.Label>Password</Form.Label>
-        //             <div className='col-4 set-middle'><Form.Control type="password" placeholder="Password" /></div>
-        //         </Form.Group>
-        //         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        //             <Form.Check type="checkbox" label="Check me out" />
-        //         </Form.Group>
-        //         <Button variant="primary" type="submit">
-        //             Submit
-        //         </Button>
-        //     </Form>
-        //     <Footer></Footer>
-        // </div>

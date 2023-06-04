@@ -25,11 +25,11 @@ const Login = () => {
         tokenCaptcha
       });
       if (response.status === 200) {
-        console.log(response.data);
-        //Cookies para guardar el token y el id del usuario logueado con expiración de 24 horas
-        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 60 * 24 }); // 24 horas
-        Cookies.set('idRole', response.data.idRole, { expires: (1 / 24 / 60) * 60 * 24 }); // 24 horas
-        Cookies.set('idUser', response.data.idUsuario, { expires: (1 / 24 / 60) * 60 * 24 }); // 24 horas
+        alert('¡Bienvenido a PAR-KUD Colombia!');
+        //Cookies para guardar el token y el id del usuario logueado con expiración de 24 horas cada una
+        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 60 * 24 });
+        Cookies.set('idRole', response.data.idRole, { expires: (1 / 24 / 60) * 60 * 24 });
+        Cookies.set('idUser', response.data.idUsuario, { expires: (1 / 24 / 60) * 60 * 24 });
         if (response.data.idRole === 1) {
           window.location.href = '/admin/';
         }
@@ -41,16 +41,13 @@ const Login = () => {
         }
       }
     } catch (error) {
-      alert(error.response.data.error);
-      console.log(error.response.data);
+      alert(error.response.data.mensaje);
     }
   }
 
   return (
-
     <div className="container">
       <div className="card cardLoggin m-auto my-5 py-5">
-
         <div id="logo">
           <img src={Logo} style={{ width: 'auto' }} alt="Logotipo" />
         </div>

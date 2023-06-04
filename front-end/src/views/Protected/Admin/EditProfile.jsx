@@ -51,7 +51,7 @@ function EditProfile() {
         setEmail('');
         setPassword('');
         alert('Usuario actualizado con éxito')
-        window.location.href = '/admin';     
+        window.location.href = '/admin';
       }
     } catch (e) {
       console.log(e.response.data);

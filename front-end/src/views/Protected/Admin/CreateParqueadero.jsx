@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import React from 'react'
 import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'
@@ -11,6 +11,7 @@ function Create() {
   const [ciudad, setCiudad] = useState('');
   const [direccion, setDireccion] = useState('');
   const [cupo, setCupo] = useState('');
+  const [ciudades, setCiudades] = useState([]);
   const [tarifaCarro, setTarifaCarro] = useState('');
   const [tarifaMoto, setTarifaMoto] = useState('');
   const [tarifaBici, setTarifaBici] = useState('');
@@ -18,6 +19,19 @@ function Create() {
   const [inicioHorario, setInicioHorario] = useState('');
   const [finHorario, setFinHorario] = useState('');
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/city`);
+        setCiudades(response.data);
+        setCiudad(response.data[0].idCiudad);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleCreateParking = async () => {
     try {
@@ -56,20 +70,28 @@ function Create() {
         <h1 className="titleIniciarSesion">Nuevo parqueadero</h1>
         <form>
           <div style={{ display: "inline-block" }}>
+            <label htmlFor="inputNombre"><b>Nombre Parqueadero:</b></label>
             <input type="text" className="form-control my-3" id="inputNombre" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Nombre parqueadero" />
-            <input type="text" className="form-control my-3" id="inputCiu" value={ciudad} onChange={(e) => setCiudad(e.target.value)} placeholder="Ciudad" />
+            <label htmlFor="inputCiu"><b>Ciudad:</b></label><br />
+            <select type="select" className="my-3" id="inputCiu" value={ciudad} onChange={(e) => setCiudad(e.target.value)} placeholder="Ciudad">
+              {
+                ciudades.map((ciudad) => (
+                  <option key={ciudad.idCiudad} value={ciudad.idCiudad}>{ciudad.nombreCiudad}</option>
+                ))
+              }
+            </select><br></br>
+            <label htmlFor="inputDir"><b>Dirección:</b></label>
             <input type="text" className="form-control my-3" id="inputDir" value={direccion} onChange={(e) => setDireccion(e.target.value)} placeholder="Dirección" />
+            <label htmlFor="inputCupo"><b>Cupos:</b></label>
             <input type="text" className="form-control my-3" id="inputCupo" value={cupo} onChange={(e) => setCupo(e.target.value)} placeholder="Cupos" />
-            {/* <input type="text" className="form-control my-3" id="inputTarifa" value={tarifaCarro} onChange={(e) => setTarifaCarro(e.target.value)} placeholder="Tarifa Carro" />
-            <input type="text" className="form-control my-3" id="inputTarifa" value={tarifaMoto} onChange={(e) => setTarifaMoto(e.target.value)} placeholder="Tarifa Moto" />
-            <input type="text" className="form-control my-3" id="inputTarifa" value={tarifaBici} onChange={(e) => setTarifaBici(e.target.value)} placeholder="Tarifa Bici" /> */}
+            <label htmlFor="inputCobertura"><b>Cobertura:</b></label><br />
             <select type="select" className="my-3" id="inputCobertura" value={cobertura} onChange={(e) => setCobertura(e.target.value)} placeholder="Cobertura">
               <option value="1" >Cubierto</option>
               <option value="2">Semi-cubierto</option>
               <option value="3">Descubierto</option>
-            </select><br></br>
-            <p>Opción seleccionada: {cobertura}</p>
+            </select><br />
 
+            <label htmlFor="checkHorario"><b>Horario:</b></label><br />
             <input type="checkbox" className="my-3" id="checkHorario" name='checkHorario' />
             <label htmlFor="checkHorario"> 24/7</label>
             <select type="select" className="m-3 " id="inicioHorario" >
