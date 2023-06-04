@@ -76,7 +76,6 @@ function Reservas() {
                     ) : (
                       <div className='col-4'>${reserva.tarifa = reserva.idParqueadero.tarifaBici} pesos/minuto</div>
                     )
-
                   }
                 </div>
                 <div className='row mb-5'>

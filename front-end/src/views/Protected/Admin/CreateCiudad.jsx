@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import React from 'react'
 import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'

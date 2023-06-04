@@ -21,7 +21,7 @@ function Sucursales() {
     fetchData();
   }, []);
 
-  
+
   return (
     <div>
       <Nav></Nav>

@@ -3,7 +3,7 @@ import Footer from '../../../components/PageComponents/Footer'
 import Nav from '../../../components/PageComponents/Navbar'
 import imagen from '../../../images/CAR.jpg';
 import Ciudad from '../../../components/CiudadById';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios'
 
 function CiudadesId() {

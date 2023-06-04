@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'
-// import { Button, Form } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios'
 
@@ -29,7 +28,7 @@ function EditCiudad() {
       const response = await axios.put(`${apiUrl}/city/update/${id}`, {
         nombreCiudad: nombre,
       });
-      alert('Parqueadero editado correctamente');
+      alert('Ciudad editado correctamente');
       window.location.href = '/operatividad';
     } catch (error) {
       console.error(error);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import "../../../styles/register.css"

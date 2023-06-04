@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const CiudadCliente = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;

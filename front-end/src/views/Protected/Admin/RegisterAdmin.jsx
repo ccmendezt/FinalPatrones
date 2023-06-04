@@ -27,12 +27,12 @@ function Register() {
         tokenCaptcha
       });
       if (response.status === 200) {
-        setMessage('Administrador registrado con éxito');
         setNombre('');
         setApellido('');
         setUsuario('');
         setEmail('');
         setRegistrado(true);
+        alert('Administrador registrado con éxito');
         window.location.href = '/admin';
       }
     } catch (e) {

@@ -2,8 +2,8 @@ import React from 'react'
 import Nav from '../../../components/PageComponents/Navbar';
 import Footer from '../../../components/PageComponents/Footer';
 import axios from 'axios';
-import { useState, useRef, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 function NewReserva() {
@@ -52,6 +52,7 @@ function NewReserva() {
         tipoVehiculo
       });
       if (response.status === 200) {
+        alert('Reserva creada correctamente');
         window.location.href = '/reservas';
       }
     } catch (e) {
