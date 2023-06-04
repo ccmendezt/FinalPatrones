@@ -90,9 +90,9 @@ class ReservDAO {
   }
 
   async updateReservDao(reserv) {
-    const sql = 'UPDATE `reserva` SET `fechaReserva`=?, `horaInicioR`=?, `horaFinR`=?, `horaEntrada`=?, `horaSalida`=?, `idParqueadero`=?, `idUsuario`=? WHERE idReserva = ?';
+    const sql = 'UPDATE `reserva` SET `fechaReserva`=?, `horaInicioR`=?, `horaFinR`=?, `horaEntrada`=?, `horaSalida`=?, `idParqueadero`=?, `idUsuario`=?, `tipoVehiculo` =? WHERE idReserva = ?';
     return new Promise((resolve, reject) => {
-      this.dbConnection.query(sql, [reserv.fechaReserva, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario, reserv.idReserva], (err, result) => {
+      this.dbConnection.query(sql, [reserv.fechaReserva, reserv.horaInicioR, reserv.horaFinR, reserv.horaEntrada, reserv.horaSalida, reserv.idParqueadero, reserv.idUsuario,reserv.tipoVehiculo , reserv.idReserva], (err, result) => {
         if (err) {
           console.log(err);
           reject(err);

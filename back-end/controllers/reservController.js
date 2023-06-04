@@ -20,9 +20,15 @@ exports.getReservById = async (req, res) => {
 }
 
 exports.getReservByUser = async (req, res) => {
-  const id = req.params.iduser;
-  const result = await reservDao.getReservByUserDao(id);
-  res.json(result);
+  try{
+    const id = req.params.iduser;
+    const result = await reservDao.getReservByUserDao(id);
+    res.json(result);
+  }catch(error){
+    console.log(error);
+  }
+
+  
 }
 
 exports.getReservByParking = async (req, res) => {
@@ -32,9 +38,13 @@ exports.getReservByParking = async (req, res) => {
 }
 
 exports.updateReserv = async (req, res) => {
-  const reserv = req.body;
-  const result = await reservDao.updateReservDao(reserv);
-  res.json(result);
+  try{
+    const reserv = req.body;
+    const result = await reservDao.updateReservDao(reserv);
+    res.json(result);
+  }catch(error){
+    console.log(error);
+  }
 }
 
 exports.deleteReserv = async (req, res) => {
