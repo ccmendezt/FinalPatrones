@@ -16,23 +16,39 @@ exports.identifyCreditCard = (creditCardNumber) => {
 
 exports.cardRegister = async (req, res) => {
   const cardNumber = req.body.cardNumber;
-  const result = await cardDao.insertCard(cardNumber);
-  res.json(result);
+  try {
+    const result = await cardDao.insertCard(cardNumber);
+    res.json(result);
+  } catch (error) {
+    return res.status(500).json({ mensaje: "Error al registrar la tarjeta" });
+  }
 }
 
 exports.getCardId = async (req, res) => {
   const cardNumber = req.params.cardnumber;
-  const result = await cardDao.getIdCard(cardNumber);
-  res.json(result);
+  try {
+    const result = await cardDao.getIdCard(cardNumber);
+    res.json(result);
+  } catch (error) {
+    return res.status(500).json({ mensaje: "Error al obtener el id de la tarjeta" });
+  }
 }
 
 exports.getCardById = async (req, res) => {
   const idCard = req.params.id;
-  const result = await cardDao.getCardById(idCard);
-  res.json(result);
+  try {
+    const result = await cardDao.getCardById(idCard);
+    res.json(result);
+  } catch (error) {
+    return res.status(500).json({ mensaje: `Error al obtener la tarjeta con id ${idCard}` });
+  }
 }
 
 exports.getCards = async (req, res) => {
-  const result = await cardDao.getAllCards();
-  res.json(result);
+  try {
+    const result = await cardDao.getAllCards();
+    res.json(result);
+  } catch (error) {
+    return res.status(500).json({ mensaje: "Error al obtener las tarjetas" });
+  }
 }

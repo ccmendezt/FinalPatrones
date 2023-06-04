@@ -26,9 +26,6 @@ function Create() {
         ciudad,
         direccion,
         cupo,
-        // tarifaCarro,
-        // tarifaMoto,
-        // tarifaBici,
         cobertura
         // inicioHorario,
         // finHorario

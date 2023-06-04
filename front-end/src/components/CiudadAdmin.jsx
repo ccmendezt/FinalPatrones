@@ -4,7 +4,7 @@ const CiudadCliente = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const { nombre, imagen, idCiudad } = props
 
-  const linkPath = `/ciudades/${idCiudad}`
+  const linkPath = `operatividad/edit/${idCiudad}`
 
   return (
     <>
@@ -13,7 +13,7 @@ const CiudadCliente = (props) => {
           <img src={imagen} className='cad-img-top'></img>
           <div className='card-body'>
             <h5 className="card-title">{nombre}</h5>
-            <a href={linkPath}><button className='btn btn-success'>Ver sucursales</button></a>
+            <a href={linkPath}><button className='btn btn-success'>Editar</button></a>
           </div>
         </div>
       </div>

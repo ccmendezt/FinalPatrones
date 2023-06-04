@@ -25,6 +25,9 @@ class CreditCardDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if (result.length == 0) {
+						reject('No se encontraron tarjetas');
+					}
 					resolve(result);
 				}
 			});
@@ -39,6 +42,9 @@ class CreditCardDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if (result.length == 0) {
+						reject('No se encontro la tarjeta');
+					}
 					resolve(result[0]);
 				}});
 		});
@@ -52,7 +58,9 @@ class CreditCardDAO {
 					console.log(err);
 					reject(err);
 				} else {
-					// console.log(result);
+					if (result.length == 0) {
+						reject('No se encontro la tarjeta');
+					}
 					resolve(result);
 				}
 			});

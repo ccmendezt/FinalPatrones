@@ -14,6 +14,9 @@ class UserDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if (result.length == 0) {
+						reject('No se encontraron usuarios');
+					}
 					resolve(result);
 				}
 			});
@@ -54,6 +57,9 @@ class UserDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if(result.length == 0) {
+						reject('No se encontro el usuario');
+					}
 					resolve(result[0]);
 				}
 			});
@@ -69,6 +75,9 @@ class UserDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if(result.length == 0) {
+						reject('No se encontro el usuario');
+					}
 					resolve(result[0]);
 				}});
 		});
@@ -82,6 +91,7 @@ class UserDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					// if(result[0].)
 					resolve(result[0].idRol);
 				}
 			});
@@ -188,6 +198,9 @@ class UserDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if(result[0].length == 0) {
+						reject('Usuario no encontrado');
+					}
 					resolve(result[0].intentoIngreso);
 				}});
 		});

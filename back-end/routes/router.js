@@ -32,7 +32,6 @@ router.get("/card/id/:id", cardController.getCardById); //Obtener una tarjeta de
 router.get("/card/", cardController.getCards); //Listar todas las tarjetas de credito
 
 //Rutas para los metodos del controlador de usuarios
-router.post("/users/role", userController.getUserRole); //Obtener el rol de un usuario
 router.post("/users/createAdmin", userController.createAdmin); //Crear un usuario
 router.get("/users/", userController.getAllUsers); //Listar todos los usuarios
 router.get("/users/:id", userController.getUserById); //Obtener un usuario por id
@@ -60,7 +59,8 @@ router.delete("/reserv/delete/:id", reservController.deleteReserv); //Eliminar u
 //Rutas para el controlador de ciudades
 router.get("/city/", cityController.getAllCities); //Listar todas las ciudades
 router.get("/city/:id", cityController.getCityById); //Obtener una ciudad por id
-
+router.post("/city/create", cityController.createCity); //Crear una ciudad
+router.put("/city/update/:id", cityController.updateCity); //Actualizar una ciudad
 
 //Rutas para la actualizacion de datos de los usuarios y admins
 router.put("/users/update", userController.updateUserAdmin); //Actualizar un admin
