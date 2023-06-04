@@ -139,7 +139,9 @@ function Reservas() {
               idReserva: reservas[i].idReserva,
             });
             if (response.status === 200) {
+              handleCancel(idReserva);
               window.location.href = '/reservas';
+              Cookies.set('horaEntrada', horaLocal);
             }
           } catch (e) {
             console.log(e.response.data);
@@ -150,7 +152,69 @@ function Reservas() {
   };
 
   const handleSalida = async (idReserva) => {
+    const fechaLocal = new Date().toLocaleDateString();
+    const horaLocal = new Date().toLocaleTimeString();
+    setSelectedReserva(idReserva);
+    const horaEntrada = Cookies.get('horaEntrada');
+    console.log(horaEntrada);
 
+    for (let i = 0; i < reservas.length; i++) {
+      if (parseInt(idReserva) === parseInt(reservas[i].idReserva)) {
+        const horaInicio = new Date(reservas[i].fechaReserva);
+        const horaFin = new Date(reservas[i].fechaReserva);
+
+
+        const horaInicioP = new Date(reservas[i].fechaReserva);
+        const [horas, minutos] = reservas[i].horaInicioR.split(':');
+        const [horasF, minutosF] = reservas[i].horaFinR.split(':');
+        const [horasL, minutosL] = horaLocal.split(':');
+
+        console.log(horaLocal);
+
+        horaInicio.setHours(horas);
+        horaFin.setHours(horasF);
+        horaFin.setMinutes(minutosF);
+
+        horaInicioP.setHours(horas);
+        horaInicioP.setMinutes(minutos);
+
+        const horaInicioMenos5 = new Date(horaInicioP.getTime() - 5 * 60000); // Restar 5 minutos en milisegundos
+
+        const horaInicioMenos5_Horas = horaInicioMenos5.getHours();
+        const horaInicioMenos5_Minutos = horaInicioMenos5.getMinutes();
+
+        const horaFinHoras = horaFin.getHours();
+        const horaFinMinutos = horaFin.getMinutes();
+
+        console.log(reservas[i].idParqueadero.idParqueadero);
+        console.log(reservas[i].idUsuario);
+
+        
+        if (fechaLocal === new Date(reservas[i].fechaReserva).toLocaleDateString()) {
+          alert('Puedes ingresar');
+          try {
+            const response = await axios.put(`${apiUrl}/reserv/update/`, {
+              fechaReserva: reservas[i].fechaReserva,
+              horaInicioR : reservas[i].horaInicioR,
+              horaFinR : reservas[i].horaFinR,
+              horaEntrada: horaEntrada,
+              horaSalida: horaLocal,
+              idParqueadero: reservas[i].idParqueadero.idParqueadero,
+              idUsuario: reservas[i].idUsuario,
+              tipoVehiculo: reservas[i].tipoVehiculo,
+              idReserva: reservas[i].idReserva,
+            });
+            if (response.status === 200) {
+
+              window.location.href = '/reservas';
+              Cookies.set('horaEntrada', horaLocal);
+            }
+          } catch (e) {
+            console.log(e.response.data);
+          }
+        }
+      }
+    }
   }
 
   console.log(reservas);
