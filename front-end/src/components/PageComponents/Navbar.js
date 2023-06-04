@@ -24,7 +24,7 @@ function Nav() {
           <ul>
             <li><a className="nav-link scrollto" href="/home"><House></House>Inicio</a></li>
             <li><a className="nav-link scrollto" href="/conocenos"><PersonBadge></PersonBadge>Conócenos</a></li>
-            <li><a className="nav-link scrollto" href="/sucursales"><Shop></Shop>Sucursales</a></li>
+            <li><a className="nav-link scrollto" href="/ciudades"><Shop></Shop>Sucursales</a></li>
             <li><a className="nav-link scrollto" href="/reservas"><PCircle></PCircle>Reservas</a></li>
             <li className="dropdown"><a className="nav-link scrollto" href="/perfil"><PersonCircle></PersonCircle>Perfil</a>
               <ul>

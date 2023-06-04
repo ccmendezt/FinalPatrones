@@ -26,6 +26,8 @@ import Create from './views/Protected/Admin/Create';
 import Edit from './views/Protected/Admin/Edit';
 import EditProfile from './views/Protected/Admin/EditProfile.jsx';
 import NewReserva from './views/Protected/Client/NewReserva.jsx';
+import Ciudades from './views/Protected/Client/Ciudades.jsx';
+import CiudadesId from './views/Protected/Client/CiudadesId.jsx';
 
 
 
@@ -48,6 +50,8 @@ function App() {
           <Route path="/sucursales/:id" element={<NewReserva/>} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/perfil/editclient" element={<EditProfileClient />} />
+          <Route path="/ciudades" element={<Ciudades />} />
+          <Route path="/ciudades/:id" element={<CiudadesId />} />
         </Route>
 
 
