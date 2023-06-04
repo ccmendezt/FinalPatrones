@@ -45,16 +45,16 @@ function Estadisticas() {
   console.log(repetidos)
   //separa los resultados nulos
   let repetidosNN = repetidos.filter(dato => dato != null);
-  //console.log(repetidosNN)
+
   //busca las veces que se repite cada valor
   const resultado = repetidosNN.reduce((prev, cur) => ((prev[cur] = prev[cur] + 1 || 1), prev), {});
-  //console.log(resultado)
+
   //se dejan los valores sin repetir para poner los labels de la gráfica
   let dataGraph = new Set(repetidosNN);
-  //console.log(dataGraph)
+
   //quita el valor de null
   let respGraph = [...dataGraph].filter(dato => dato != null);
-  //console.log(respGraph)
+
   //se eliminan los valores nulos
   let resultGraph = Object.values(resultado);
   console.log(resultGraph)
