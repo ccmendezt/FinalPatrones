@@ -6,7 +6,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-
 function NewReserva() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const id = useParams().id;

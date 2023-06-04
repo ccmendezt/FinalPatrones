@@ -59,6 +59,7 @@ router.delete("/reserv/delete/:id", reservController.deleteReserv); //Eliminar u
 
 //Rutas para el controlador de ciudades
 router.get("/city/", cityController.getAllCities); //Listar todas las ciudades
+router.get("/city/:id", cityController.getCityById); //Obtener una ciudad por id
 
 
 //Rutas para la actualizacion de datos de los usuarios y admins
