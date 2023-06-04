@@ -248,3 +248,16 @@ a.logo-text {
 .form-control{
     border: var(--bs-border-width) solid #000;
 }
+
+/* Tablas */
+.dataTables_filter{
+    text-align: end;
+}
+
+.btn-group{
+    text-align: end;
+}
+
+.pagination{
+    --bs-pagination-active-bg: #007F3F;
+}

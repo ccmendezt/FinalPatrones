@@ -8,8 +8,16 @@
     "concurrently": "^8.0.1"
   },
   "dependencies": {
+    "datatables.net-bs5": "^1.13.4",
+    "datatables.net-buttons-bs5": "^2.3.6",
     "datatables.net-dt": "^1.13.4",
+    "datatables.net-fixedheader-bs5": "^3.3.2",
+    "datatables.net-responsive-bs5": "^2.4.1",
+    "datatables.net-searchpanes-bs5": "^2.1.2",
+    "datatables.net-select-bs5": "^1.6.2",
+    "jszip": "^3.10.1",
     "moment": "^2.29.4",
+    "pdfmake": "^0.2.7",
     "react-data-table-component": "^7.5.3",
     "react-google-maps": "^9.4.5",
     "styled-components": "^5.3.11"
