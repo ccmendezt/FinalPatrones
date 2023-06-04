@@ -12,16 +12,33 @@ function Reservas() {
   const [data, setData] = useState(false);
   const [selectedReserva, setSelectedReserva] = useState(null);
 
-  const horaInicioR = "12:35:00";
+  const horaInicioR = "1:32:00";
   const [horasR, minutosR] = horaInicioR.split(':');
-  console.log("Inicio Reserva: "+parseInt(horasR)+":"+parseInt(minutosR))
-  const horaFinR = "13:35:00";
+  console.log("Inicio Reserva: " + parseInt(horasR) + ":" + parseInt(minutosR))
+  const horaFinR = "1:37:00";
   const [horasF, minutosF] = horaFinR.split(':');
-  console.log("Fin Reserva: "+parseInt(horasF)+":"+parseInt(minutosF))
+  console.log("Fin Reserva: " + parseInt(horasF) + ":" + parseInt(minutosF))
   const horaLocal = new Date().toLocaleTimeString();
   const [horasL, minutosL] = horaLocal.split(':');
-  console.log("Local: "+ parseInt(horasL)+":"+parseInt(minutosL))
-  
+  console.log("Local: " + parseInt(horasL) + ":" + parseInt(minutosL))
+
+  const horaInicioRMinutos = parseInt(horasR) * 60 + parseInt(minutosR);
+  const horaFinRMinutos = parseInt(horasF) * 60 + parseInt(minutosF);
+  const horaLocalMinutos = parseInt(horasL) * 60 + parseInt(minutosL);
+
+  // Validar la diferencia de tiempo
+  const maxMinutosAntes = 5;
+  const diferenciaMinutosEntrada = horaInicioRMinutos - horaLocalMinutos;
+  console.log("Diferencia mins entrada: " + diferenciaMinutosEntrada);
+  const diferenciaMinutosSalida = horaLocalMinutos - horaFinRMinutos;
+  console.log("Diferencia mins salida: " + diferenciaMinutosSalida);
+  if (diferenciaMinutosSalida >= 0){ //No permite entrar si ya paso la hora de salida de la reserva
+    console.log("NO Puede entrar al parqueadero");
+  } else if (diferenciaMinutosEntrada <= maxMinutosAntes) { //Permite entrar 5 minutos antes de la hora de ingreso
+    const esValido = diferenciaMinutosEntrada <= maxMinutosAntes;
+    console.log("Valido?: " + esValido);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -106,14 +123,14 @@ function Reservas() {
         console.log(reservas[i].idParqueadero.idParqueadero);
         console.log(reservas[i].idUsuario);
 
-        
+
         if (fechaLocal === new Date(reservas[i].fechaReserva).toLocaleDateString()) {
           alert('Puedes ingresar');
           try {
             const response = await axios.put(`${apiUrl}/reserv/update/`, {
               fechaReserva: reservas[i].fechaReserva,
-              horaInicioR : reservas[i].horaInicioR,
-              horaFinR : reservas[i].horaFinR,
+              horaInicioR: reservas[i].horaInicioR,
+              horaFinR: reservas[i].horaFinR,
               horaEntrada: horaLocal,
               horaSalida: null,
               idParqueadero: reservas[i].idParqueadero.idParqueadero,
@@ -133,7 +150,7 @@ function Reservas() {
   };
 
   const handleSalida = async (idReserva) => {
-    
+
   }
 
   console.log(reservas);
@@ -146,7 +163,7 @@ function Reservas() {
           <h1>Reservas</h1>
           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt quo reprehenderit error officiis sit recusandae ab voluptate consequuntur, modi reiciendis tempora impedit ullam unde, doloribus cumque iure enim, accusantium fugit.</p>
         </div>
-        { data ? (
+        {data ? (
           reservas.map((reserva) => {
             return (<div className='d-flex' key={reserva.idReserva}>
               <div className='col-6'>
@@ -158,15 +175,15 @@ function Reservas() {
                     <h3>{reserva.idParqueadero.nombreParqueadero}</h3>
                     <h4>{reserva.total}</h4>
 
-                    {reserva.horaEntrada != null ? 
+                    {reserva.horaEntrada != null ?
                       (
-                      <div>
-                        <h5>Ya ingresaste</h5>
-                        <button className='btn btn-success' onClick={() => handleSalida(reserva.idReserva)}>Salida</button>
-                      </div>
+                        <div>
+                          <h5>Ya ingresaste</h5>
+                          <button className='btn btn-success' onClick={() => handleSalida(reserva.idReserva)}>Salida</button>
+                        </div>
                       )
 
-                    :
+                      :
                       (<div>
                         <button className='btn btn-danger' onClick={() => handleCancel(reserva.idReserva)}>Cancelar</button>
                         <h5>Recuerda que para ingresar debes estar como maximo 5 min antes de la hora de la reserva</h5>
@@ -174,7 +191,7 @@ function Reservas() {
                         <button className='btn btn-success' onClick={() => handleIngreso(reserva.idReserva)}>Ingresa</button>
                       </div>)
                     }
-                  
+
                   </div>
                 </div>
               </div>

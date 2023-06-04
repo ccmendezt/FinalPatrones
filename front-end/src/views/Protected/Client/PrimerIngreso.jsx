@@ -19,8 +19,6 @@ function PrimerIngreso() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const prueba = await axios.get(`${apiUrl}/parking/1`);
-        console.log(prueba)
         const response = await axios.get(`${apiUrl}/users/${idUser}`);
         setNombre(response.data.nombre);
         setApellido(response.data.apellido);

@@ -22,6 +22,7 @@ function NewReserva() {
   const [horaIni, setHoraIni] = useState('');
   const [horaFin, setHoraFin] = useState('');
   const [tipoVehiculo, setTipoVehiculo] = useState('C');
+  const [placa, setPlaca] = useState(undefined);
 
 
   useEffect(() => {
@@ -49,8 +50,10 @@ function NewReserva() {
         horaFinR: horaFin,
         idParqueadero: id,
         idUsuario: idUser,
+        placaVehiculo: placa,
         tipoVehiculo
       });
+      console.log(response.status);
       if (response.status === 200) {
         window.location.href = '/reservas';
       }
@@ -109,6 +112,8 @@ function NewReserva() {
                   <option value={"M"}>Moto</option>
                   <option value={"B"}>Cicla</option>
                 </select>
+                <input type="text" name="placaVehiculo" id="placaVehiculo" value={placa} onChange={(e) => setPlaca(e.target.value)} placeholder='Ingrese la placa del vehiculo' />
+                <p>La placa es: {placa}</p>
               </div>
               <div></div>
               <div className="btnLogin">
