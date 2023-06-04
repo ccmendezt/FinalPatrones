@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'
 import imagen from '../../../images/niceCar.jpg'
-import { Mailbox, Telephone, Person, PersonVcard } from 'react-bootstrap-icons'
+import { Mailbox, Person } from 'react-bootstrap-icons'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { Link } from 'react-router-dom';

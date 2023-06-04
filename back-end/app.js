@@ -39,6 +39,12 @@ app.get('/', (req, res) => {
 
 app.use('/api', require('./routes/router'))
 
+app.use((req, res, next) => {
+    res.status(404).json({
+        message: "Endpoint not found"
+    })
+})
+
 app.listen(5000, () => {
     console.log('Server is running on port 5000')
 })

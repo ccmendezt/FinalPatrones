@@ -5,34 +5,44 @@ const cardDAO = require('./DAO/creditCardDAO');
 const cardDao = new cardDAO(connectionDB);
 const creditCardController = require('./creditCardController');
 
-exports.getUserRole = async (req, res) => {
-	const idUsuario = req.body.id;
-	const result = await userDao.getRoleUser(idUsuario);
-	res.json(result);
-}
-
 exports.getAllUsers = async (req, res) => {
-	const result = await userDao.getAllUsers();
-	res.json(result);
+	try {
+		const result = await userDao.getAllUsers();
+		res.json(result);
+	} catch (error) {
+		return res.status(500).json({ mensaje: "Error al obtener los usuarios" });
+	}
 }
 
 exports.getUserById = async (req, res) => {
 	const idUser = req.params.id;
-	const result = await userDao.getUserById(idUser);
-	res.json(result);
+	try {
+		const result = await userDao.getUserById(idUser);
+		res.json(result);
+	} catch (error) {
+		return res.status(500).json({ mensaje: `Error al obtener el usuario con id ${idUser}` });
+	}
 }
 
 exports.registerClient = async (req, res) => {
 	const user = req.body;
 	const numTarjeta = user.tarjeta;
-	const result = await userDao.createClient(user, tarjeta);
-	res.json(result);
+	try {
+		const result = await userDao.createClient(user, tarjeta);
+		res.json(result);
+	} catch (error) {
+		return res.status(500).json({ mensaje: "Error al crear el usuario" });
+	}
 }
 
 exports.createAdmin = async (req, res) => {
 	const user = req.body;
-	const result = await userDao.createAdmin(user);
-	res.json(result);
+	try {
+		const result = await userDao.createAdmin(user);
+		res.json(result);
+	} catch (error) {
+		return res.status(500).json({ mensaje: "Error al crear el usuario" });
+	}
 }
 
 exports.updateUserAdmin = async (req, res) => {
@@ -90,6 +100,10 @@ exports.updateUserClient = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
 	const idUser = req.params.id;
-	const result = await userDao.deleteUser(idUser);
-	res.json(result);
+	try {
+		const result = await userDao.deleteUser(idUser);
+		res.json(result);
+	} catch (error) {
+		return res.status(500).json({ mensaje: `Error al eliminar el usuario con id ${idUser}` });
+	}
 }

@@ -30,6 +30,9 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if (result.length == 0) {
+						reject('No se encontraron parqueaderos');
+					}
 					resolve(result);
 				}
 			});
@@ -44,6 +47,9 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if (result.length == 0) {
+						reject('No se encontro el parqueadero');
+					}
 					resolve(result[0]);
 				}
 			});
@@ -58,6 +64,9 @@ class ParkingDAO {
 					console.log(err);
 					reject(err);
 				} else {
+					if (result.length == 0) {
+						reject('No se encontraron parqueaderos en la ciudad especificada');
+					}
 					resolve(result);
 				}
 			});
@@ -99,7 +108,6 @@ class ParkingDAO {
 			});
 		});
 	}
-
 }
 
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'
-// import { Button, Form } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios'
 

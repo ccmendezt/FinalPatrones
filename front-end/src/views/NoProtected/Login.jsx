@@ -26,9 +26,10 @@ const Login = () => {
       });
       if (response.status === 200) {
         console.log(response.data);
-        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
-        Cookies.set('idRole', response.data.idRole, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
-        Cookies.set('idUser', response.data.idUsuario, { expires: (1 / 24 / 60) * 30 }); // 30 minutos
+        //Cookies para guardar el token y el id del usuario logueado con expiración de 24 horas
+        Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 60 * 24 }); // 24 horas
+        Cookies.set('idRole', response.data.idRole, { expires: (1 / 24 / 60) * 60 * 24 }); // 24 horas
+        Cookies.set('idUser', response.data.idUsuario, { expires: (1 / 24 / 60) * 60 * 24 }); // 24 horas
         if (response.data.idRole === 1) {
           window.location.href = '/admin/';
         }

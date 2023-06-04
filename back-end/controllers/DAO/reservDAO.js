@@ -11,7 +11,9 @@ class ReservDAO {
           console.log(err);
           reject(err);
         } else {
-          // console.log(result);
+          if (result.affectedRows == 0) {
+            reject('No se pudo crear la reserva');
+          }
           resolve(result.insertId);
         }
       });
@@ -27,7 +29,9 @@ class ReservDAO {
           console.log(err);
           reject(err);
         } else {
-          // console.log(result);
+          if (result.length == 0) {
+            reject('No se encontraron reservas');
+          }
           resolve(result);
         }
       });
@@ -42,7 +46,9 @@ class ReservDAO {
           console.log(err);
           reject(err);
         } else {
-          // console.log(result);
+          if (result.length == 0) {
+            reject('No se encontro la reserva');
+          }
           resolve(result[0]);
         }
       });
@@ -57,7 +63,9 @@ class ReservDAO {
           console.log(err);
           reject(err);
         } else {
-          // console.log(result);
+          if (result.length == 0) {
+            reject('No se encontraron reservas');
+          }
           resolve(result);
         }
       });
@@ -72,7 +80,9 @@ class ReservDAO {
           console.log(err);
           reject(err);
         } else {
-          // console.log(result);
+          if (result.length == 0) {
+            reject('No se encontraron reservas');
+          }
           resolve(result);
         }
       });
@@ -87,7 +97,6 @@ class ReservDAO {
           console.log(err);
           reject(err);
         } else {
-          // console.log(result);
           resolve(result);
         }
       });
@@ -103,7 +112,6 @@ class ReservDAO {
           console.log(err);
           reject(err);
         } else {
-          // console.log(result);
           resolve(result);
         }
       });

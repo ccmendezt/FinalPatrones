@@ -4,6 +4,7 @@ import { House, PersonCircle, PersonBadge, PCircle, Shop } from 'react-bootstrap
 
 function handleLogout() {
   document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  document.cookie = 'idUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   document.cookie = 'idRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   window.location.href = '/home';
 }
