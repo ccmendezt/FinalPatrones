@@ -11,10 +11,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Estadisticas() {
 
-  
-  let key="";
-  let tipoVehiculo="";
-  let parqueadero="";
   const apiUrl = process.env.REACT_APP_API_URL;
   const [estadisticas, setEstadisticas] = useState([]);
   useEffect(() => {
@@ -22,8 +18,6 @@ function Estadisticas() {
       try {
         const response = await axios.get(`${apiUrl}/estadisticas`);
         setEstadisticas(response.data);
-        console.log(response.data)
-        console.log(estadisticas)
       } catch (error) {
         console.error(error);
       }
@@ -31,18 +25,18 @@ function Estadisticas() {
 
     fetchData();
   }, []);
-  
+
   var repetidos = [];
   estadisticas.forEach(e => {
     if (e.tipoVehiculo == "C") {
       repetidos.push("Carro");
-    }else if (e.tipoVehiculo == "M") {
-        repetidos.push("Moto");
-    }else{
+    } else if (e.tipoVehiculo == "M") {
+      repetidos.push("Moto");
+    } else {
       repetidos.push("Bicicleta")
     }
   });
-  console.log(repetidos)
+
   //separa los resultados nulos
   let repetidosNN = repetidos.filter(dato => dato != null);
 
@@ -57,7 +51,7 @@ function Estadisticas() {
 
   //se eliminan los valores nulos
   let resultGraph = Object.values(resultado);
-  console.log(resultGraph)
+
   const data = {
     labels: respGraph,
     datasets: [
@@ -87,18 +81,26 @@ function Estadisticas() {
   return (
     <div>
       <AdminNav></AdminNav>
-      <div id='acquisitions'>
-        <div className='set-middle' style={{width:"500px"}}>
-          <Pie data={data} />
+      <div className='container'>
+        <h1 className="titleIniciarSesion">Estadísticas</h1>
+        <div className='d-flex mb-3 set-middle'>
+          <a href='/estadisticas'><button type="button" className="btn btn-success mx-3" style={{ maxWidth: "200px" }}>Estadísticas vehículos</button></a>
+          <a href='/estadisticas/parqueadero'><button type="button" className="btn btn-success" style={{ maxWidth: "250px" }}>Estadísticas parqueadero</button></a>
         </div>
-        <div >
-          Se han usado {resultGraph[0]} cupos para Carros 
-        </div>
-        <div>
-          Se han usado {resultGraph[1]} cupos para Motos 
-        </div>
-        <div>
-          Se han usado {resultGraph[2]} cupos para Ciclas 
+        <div id='acquisitions'>
+          <h3 className='inputLabel'>Estadísticas de los cupos segun el vehiculo usado</h3>
+          <div className='text-left'>
+            Se han usado <b>{resultGraph[0]} </b>cupos para Carros segun las reservas.
+          </div>
+          <div className='text-left'>
+            Se han usado <b>{resultGraph[1]}</b> cupos para Motos segun las reservas.
+          </div>
+          <div className='text-left'>
+            Se han usado <b>{resultGraph[2]}</b> cupos para Ciclas segun las reservas.
+          </div>
+          <div className='set-middle' style={{ width: "500px" }}>
+            <Pie data={data} />
+          </div>
         </div>
       </div>
       <Footer></Footer>

@@ -57,7 +57,7 @@ function Register() {
             <div className="captcha">
               <ReCaptcha sitekey={process.env.REACT_APP_SITE_KEY} ref={captchaRef} />
             </div>
-            <button onClick={handleSignup} className="btn" >Registrar Administrador</button>
+            <button onClick={handleSignup} className="btn" style={{ maxWidth: "250px" }}>Registrar Administrador</button>
             <Link to="/admin">
               <div className="btnLogin">
                 <button type="button" className="btn">Cancelar</button>
