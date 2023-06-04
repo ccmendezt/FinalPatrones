@@ -12,6 +12,16 @@ function Reservas() {
   const [data, setData] = useState(false);
   const [selectedReserva, setSelectedReserva] = useState(null);
 
+  const horaInicioR = "12:35:00";
+  const [horasR, minutosR] = horaInicioR.split(':');
+  console.log("Inicio Reserva: "+parseInt(horasR)+":"+parseInt(minutosR))
+  const horaFinR = "13:35:00";
+  const [horasF, minutosF] = horaFinR.split(':');
+  console.log("Fin Reserva: "+parseInt(horasF)+":"+parseInt(minutosF))
+  const horaLocal = new Date().toLocaleTimeString();
+  const [horasL, minutosL] = horaLocal.split(':');
+  console.log("Local: "+ parseInt(horasL)+":"+parseInt(minutosL))
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

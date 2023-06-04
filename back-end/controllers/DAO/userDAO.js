@@ -31,9 +31,9 @@ class UserDAO {
 		const password = generarPassword();
 		const idTarjeta = tarjeta;
 		let passHash = await bcryptjs.hash(password, 8);
-		const sql = 'INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta, intentoIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+		const sql = 'INSERT INTO usuario (nombre, apellido, usuario, email, password, idRol, idTarjeta, intentoIngreso, primerIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		return new Promise((resolve, reject) => {
-			this.dbConnection.query(sql, [nombre, apellido, usuario, email, passHash, '3', idTarjeta, '0'], (err, result) => {
+			this.dbConnection.query(sql, [nombre, apellido, usuario, email, passHash, '3', idTarjeta, '0', 1], (err, result) => {
 				if (err) {
 					console.log(err);
 					reject(err);
