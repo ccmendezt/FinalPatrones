@@ -30,6 +30,8 @@ const Login = () => {
         Cookies.set('jwt', response.data.token, { expires: (1 / 24 / 60) * 60 * 24 });
         Cookies.set('idRole', response.data.idRole, { expires: (1 / 24 / 60) * 60 * 24 });
         Cookies.set('idUser', response.data.idUsuario, { expires: (1 / 24 / 60) * 60 * 24 });
+        Cookies.set('primerIngreso', response.data.primerIngreso, { expires: (1 / 24 / 60) * 60 * 24 });
+        console.log(response.data);
         if (response.data.idRole === 1) {
           window.location.href = '/admin/';
         }
@@ -37,7 +39,11 @@ const Login = () => {
 
         }
         if (response.data.idRole === 3) {
-          window.location.href = '/home';
+          if (parseInt(response.data.primerIngreso) === 1) {
+            window.location.href = '/primerIngreso';
+          }else{  
+            window.location.href = '/home';
+          }
         }
       }
     } catch (error) {

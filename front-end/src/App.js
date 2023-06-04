@@ -17,6 +17,7 @@ import EditProfileClient from './views/Protected/Client/EditProfileClient.jsx';
 import Ciudades from './views/Protected/Client/Ciudades.jsx';
 import CiudadesId from './views/Protected/Client/CiudadesId.jsx';
 import NewReserva from './views/Protected/Client/NewReserva.jsx';
+import PrimerIngreso from './views/Protected/Client/PrimerIngreso.jsx';
 
 //Protected Admin
 import PerfilAdmin from './views/Protected/Admin/PerfilAdmin';
@@ -33,26 +34,39 @@ import CreateCiudad from './views/Protected/Admin/CreateCiudad.jsx';
 
 function App() {
   const idRole = parseInt(Cookies.get('idRole'));
+  const primerIngreso = parseInt(Cookies.get('primerIngreso'));
   return (
     <div className="App">
       <Routes>
         {/* Rutas sin proteccion */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
+        <Route path="*" element={<Login />} />
 
         {/* Rutas para el cliente */}
-        <Route element={<ProtectedRoute isAllowed={!!idRole && idRole === 3} />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/conocenos" element={<Conocenos />} />
-          <Route path="/reservas" element={<Reservas />} />
-          <Route path="/sucursales" element={<Sucursales />} />
-          <Route path="/sucursales/:id" element={<NewReserva/>} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/perfil/editclient" element={<EditProfileClient />} />
-          <Route path="/ciudades" element={<Ciudades />} />
-          <Route path="/ciudades/:id" element={<CiudadesId />} />
-        </Route>
+
+        {primerIngreso === 0 ?
+          (
+            <Route element={<ProtectedRoute isAllowed={!!idRole && idRole === 3 && primerIngreso === 0} />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/conocenos" element={<Conocenos />} />
+              <Route path="/reservas" element={<Reservas />} />
+              <Route path="/sucursales" element={<Sucursales />} />
+              <Route path="/sucursales/:id" element={<NewReserva/>} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/perfil/editclient" element={<EditProfileClient />} />
+              <Route path="/ciudades" element={<Ciudades />} />
+              <Route path="/ciudades/:id" element={<CiudadesId />} />
+            </Route>
+          )
+        :
+          (
+            <Route element={<ProtectedRoute isAllowed={!!idRole && idRole === 3 && primerIngreso === 1} />}>
+              <Route path="/primerIngreso" element={<PrimerIngreso />} />
+            </Route>
+          )
+        }
+        
 
 
         {/* rutas para la Administracion */}

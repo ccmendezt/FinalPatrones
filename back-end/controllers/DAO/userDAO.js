@@ -155,12 +155,13 @@ class UserDAO {
 			usuario,
 			email,
 			password,
+			primerIngreso,
 			idUser } = user;
 		
 		let passHash = await bcryptjs.hash(password, 8);
-		const sql = 'UPDATE usuario SET nombre = ?, apellido = ?, usuario = ?, email = ?, password = ?, idTarjeta  = ? WHERE idUsuario = ?';
+		const sql = 'UPDATE usuario SET nombre = ?, apellido = ?, usuario = ?, email = ?, password = ?, idTarjeta  = ?, primerIngreso = ? WHERE idUsuario = ?';
 		return new Promise((resolve, reject) => {
-			this.dbConnection.query(sql, [nombre, apellido, usuario, email, passHash, idTarjeta, idUser], (err, result) => {
+			this.dbConnection.query(sql, [nombre, apellido, usuario, email, passHash, idTarjeta, primerIngreso, idUser], (err, result) => {
 				if (err) {
 					console.log(err);
 					reject(err);
