@@ -225,7 +225,6 @@ function Reservas() {
       <div className='container'>
         <div className='text-center'>
           <h1>Reservas</h1>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt quo reprehenderit error officiis sit recusandae ab voluptate consequuntur, modi reiciendis tempora impedit ullam unde, doloribus cumque iure enim, accusantium fugit.</p>
         </div>
         {data ? (
           reservas.map((reserva) => {

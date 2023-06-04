@@ -12,8 +12,8 @@ export default function Home() {
         <img src={banner} style={{ height: "90%" }}></img>
       </div>
       <div className='d-flex container'>
-        <div className='col-6 mt-5'>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt modi reiciendis quia cupiditate vero possimus, ipsam eos nihil, id hic debitis assumenda vitae expedita at molestiae doloribus recusandae necessitatibus!</p>
+        <div className='col-6 mt-5 mx-3'>
+          <p>Parkud Colombia cuenta con un amplio catálogo de sucursales en todo el país, en donde podrás encontrar distribuidos por ciudad los distintos parqueaderos, junto a su información completa, dirección, tarifa, horario de atención y mucho más,! Reserva ahora con nosotros!</p>
           <button className='btn btn-success'>Reserva Ahora</button>
         </div>
         <div className='col-6 mt-5 card-group'>

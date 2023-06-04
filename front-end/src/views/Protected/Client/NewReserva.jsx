@@ -73,7 +73,7 @@ function NewReserva() {
             <h5 className='inputLabel'>Datos Sucursal:</h5>
               {datos ? 
                 <div className='row'>
-                  <div className='col-6'>
+                  <div className='col-6 m-auto'>
                     <h5 className='inputLabel'>Nombre:</h5>
                     <p type="text" className="form-control inputReg text-center" id="Nombre" placeholder="Nombre">{nombre}</p>
                     <h5 className='inputLabel'>Direccion:</h5>
@@ -90,7 +90,7 @@ function NewReserva() {
             <h5 className='inputLabel'>Cupos:</h5>
             {datos ?
               <div className='row'>
-                <div className='col-6'>
+                <div className='col-6 m-auto'>
                   <p type="text" className="form-control inputReg text-center" id="Cupos" placeholder="Cupos">{cupos}</p>
                 </div>
               </div>
