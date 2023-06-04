@@ -30,6 +30,7 @@ import EditParqueadero from './views/Protected/Admin/EditParqueadero.jsx';
 import EditProfile from './views/Protected/Admin/EditProfile.jsx';
 import EditCiudad from './views/Protected/Admin/EditCiudad.jsx';
 import CreateCiudad from './views/Protected/Admin/CreateCiudad.jsx';
+import EstadisticasParqueadero from './views/Protected/Admin/EstadisticasParqueadero.jsx';
 
 function App() {
   const idRole = parseInt(Cookies.get('idRole'));
@@ -60,6 +61,7 @@ function App() {
           <Route path="/admin" element={<Administracion />} />
           <Route path="/reportes" element={<Reportes />} />
           <Route path="/estadisticas" element={<Estadisticas />} />
+          <Route path="/estadisticas/parqueadero" element={<EstadisticasParqueadero />} />
           <Route path="/operatividad" element={<Operatividad />} />
           <Route path="/operatividad/new" element={<CreateCiudad />} />
           <Route path="/operatividad/edit/:id" element={<EditCiudad />} />

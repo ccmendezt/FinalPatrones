@@ -25,23 +25,25 @@ function Operatividad() {
     <div>
       <AdminNav></AdminNav>
       {/* <Mapa></Mapa> */}
-      <h1 className='inputLabel'>Ciudades</h1>
-      <div className='d-flex' style={{ justifyContent: "end" }}>
-        <a href='/operatividad/new'><button className='btn btn-success mx-2'>Añadir ciudad</button></a>
-      </div>
       <div className='container'>
-        <div className='row row-cols-1 row-cols-md-4 g-4'>
-          {
-            sucursales.map((sucursal) => {
-              return (
-                <Ciudad key={sucursal.idCiudad}
-                  idCiudad={sucursal.idCiudad}
-                  nombre={sucursal.nombreCiudad}
-                  imagen={imagen}
-                />
-              )
-            })
-          }
+        <h1 className='inputLabel'>Ciudades</h1>
+        <div className='d-flex' style={{ justifyContent: "end" }}>
+          <a href='/operatividad/new'><button className='btn btn-success mx-2'>Añadir ciudad</button></a>
+        </div>
+        <div className='container'>
+          <div className='row row-cols-1 row-cols-md-4 g-4'>
+            {
+              sucursales.map((sucursal) => {
+                return (
+                  <Ciudad key={sucursal.idCiudad}
+                    idCiudad={sucursal.idCiudad}
+                    nombre={sucursal.nombreCiudad}
+                    imagen={imagen}
+                  />
+                )
+              })
+            }
+          </div>
         </div>
       </div>
       <Footer></Footer>
