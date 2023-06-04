@@ -3,7 +3,7 @@ import AdminNav from '../../../components/PageComponents/AdminNav'
 import Footer from '../../../components/PageComponents/Footer'
 import axios from 'axios'
 import ReporteParqueadero from '../../../components/ReporteParqueadero';
-import DataTable from 'react-data-table-component';
+
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 function Reportes() {

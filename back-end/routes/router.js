@@ -9,6 +9,7 @@ const parkingController = require('../controllers/parkingController');
 const cityController = require('../controllers/cityController');
 const reservController = require('../controllers/reservController');
 const vistaReservaController = require('../controllers/vistaReservaController')
+const estadisticasController = require('../controllers/estadisticasController')
 
 router.get('/', (req, res) => {
   connectionDB
@@ -65,6 +66,7 @@ router.put("/city/update/:id", cityController.updateCity); //Actualizar una ciud
 
 //Rutas para el controlador de vistaReserva
 router.get("/reportes",vistaReservaController.getVistaReserva); //Lista todas los registros asociados a una reserva, su usuario y su factura
+router.get("/estadisticas",estadisticasController.getEstadisticas); //Lista las estadisticas
 
 //Rutas para la actualizacion de datos de los usuarios y admins
 router.put("/users/update", userController.updateUserAdmin); //Actualizar un admin
