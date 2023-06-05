@@ -61,7 +61,7 @@ function Perfil() {
               </div>
               <div className='row mb-5'>
                 <div className='col-6'><b><CarFront></CarFront> Cantidad de reservas:</b></div>
-                <div className='col-6'><b>5</b></div>
+                <div className='col-6'><b>0</b></div>
               </div>
               <div className='row mb-5'>
                 <div className='col-6'><b><HandThumbsUpFill></HandThumbsUpFill> Cliente fiel:</b></div>
