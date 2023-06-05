@@ -60,6 +60,20 @@ function contCorreo(nombre, apellido, email, usuario, password, tipoCorreo) {
 			<p>Este es un correo electrónico personalizado para <i>${nombre} ${apellido}</i>.</p>
 		`
 		};
+	} else if (tipoCorreo == 'factura') {
+		return mensajeCorreoFactura = {
+			from: 'parkudcolombia@gmail.com',
+			to: email,
+			subject: '¡Nueva factura! - PAR-KUD Colombia',
+			html: `
+			<h2>¡Hola!</h2>
+			<p>Realizaste un pago de Parkudcol</p>
+			<p><b>Monto:</b> ${nombre}</p>
+			<p><b>Si tienes algun reclamo dale este id a alguno de nuestros empleados:</b> ${apellido}</p>
+			<p>¡Saludos!</p>
+			<p>Este es un correo electrónico personalizado de <i>PARKUDCOL</i>.</p>
+		`
+		};
 	}
 };
 

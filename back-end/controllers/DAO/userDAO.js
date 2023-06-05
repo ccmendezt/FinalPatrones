@@ -210,7 +210,7 @@ class UserDAO {
 	async changePassword (idUser) {
 		const password = generarPassword();
 		let passHash = await bcryptjs.hash(password, 8);
-		const sql = 'UPDATE usuario SET password = ?, intentoIngreso = 0 WHERE idUsuario = ?';
+		const sql = 'UPDATE usuario SET password = ?, intentoIngreso = 0, primerIngreso = 1 WHERE idUsuario = ?';
 		const emailUser = await this.getUserById(idUser);
 		return new Promise((resolve, reject) => {
 			this.dbConnection.query(sql, [passHash, idUser], (err, result) => {
