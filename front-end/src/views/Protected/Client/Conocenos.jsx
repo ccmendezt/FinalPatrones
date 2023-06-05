@@ -21,7 +21,6 @@ function Conocenos() {
             <p className='text-align-justify container'>
               PAR-KUD se encuentra presente en múltiples ciudades de Colombia ofreciendo sus servicios con parqueaderos, cubiertos, descubiertos y semi-cubierto, ofreciendo precios excelentes para nuestro público.
             </p>
-            <button className='btn btn-success'>Síganos</button>
           </div>
         </div>
       </div>

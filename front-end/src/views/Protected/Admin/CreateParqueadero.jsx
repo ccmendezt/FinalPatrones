@@ -92,9 +92,9 @@ function Create() {
             </select><br />
 
             <label htmlFor="checkHorario"><b>Horario:</b></label><br />
-            <input type="checkbox" className="my-3" id="checkHorario" name='checkHorario' />
+            <input type="checkbox" className="my-3" id="checkHorario" name='checkHorario' checked/>
             <label htmlFor="checkHorario"> 24/7</label>
-            <select type="select" className="m-3 " id="inicioHorario" >
+            {/* <select type="select" className="m-3 " id="inicioHorario" >
               <option value="1">00:00</option>
               <option value="2">01:00</option>
               <option value="02">02:00</option>
@@ -147,7 +147,7 @@ function Create() {
               <option value="22">22:00</option>
               <option value="23">23:00</option>
               <option value="24">24:00</option>
-            </select>
+            </select> */}
           </div>
           <Link to="/admin">
             <div className="btnSave">

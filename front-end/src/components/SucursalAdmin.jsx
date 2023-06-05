@@ -32,7 +32,7 @@ const Sucursal = (props) => {
       window.location.href = '/admin';
       alert('Parqueadero eliminado correctamente');
     } catch (error) {
-      console.error(error);
+      alert('No se pudo eliminar el parqueadero');
     }
   }
 

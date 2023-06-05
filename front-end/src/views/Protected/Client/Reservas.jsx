@@ -171,7 +171,7 @@ function Reservas() {
 
         const correo = Cookies.get('responseCorreo')
         if (fechaLocal === new Date(reservas[i].fechaReserva).toLocaleDateString()) {
-          alert('Puedes ingresar');
+
           try {
             const response = await axios.put(`${apiUrl}/reserv/update/`, {
               fechaReserva: reservas[i].fechaReserva,
@@ -193,6 +193,7 @@ function Reservas() {
                   email: correo
                 });
                 if (response.status === 200) {  
+                  alert('Gracias por usar nuestros servicios, una copida de la factura fue enviada a tu correo registrado');
                   window.location.href = '/reservas';
                 }
 

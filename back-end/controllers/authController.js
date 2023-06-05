@@ -61,7 +61,7 @@ exports.login = async (req, res) => {
     } else {
       const credenciales = req.body;
       if (!credenciales.usuario || !credenciales.password) {
-        return res.status(400).send({ error: "Introduce un usuario y una contraseña" });
+        return res.status(400).send({  mensaje: "Introduce un usuario y una contraseña" });
       }
       try {
         const resLogin = await userDao.getUserByUser(credenciales);
@@ -72,9 +72,9 @@ exports.login = async (req, res) => {
             await userDao.updateLoginFailed(id);
             if (await userDao.getLoginFailed(id) >= 3) {
               await userDao.changePassword(id);
-              return res.status(400).send({ error: "Usuario bloqueado" });
+              return res.status(400).send({  mensaje: "Usuario bloqueado" });
             } else {
-              return res.status(400).send({ error: "Contraseña incorrecta" });
+              return res.status(400).send({  mensaje: "Contraseña incorrecta" });
             }
           } else {
             const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
