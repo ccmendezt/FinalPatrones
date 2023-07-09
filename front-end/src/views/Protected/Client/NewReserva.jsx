@@ -10,15 +10,17 @@ function NewReserva() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const id = useParams().id;
   const idUser = parseInt(Cookies.get('idUser'));
-  // const fecha = new Date().toLocaleDateString();
-  // const hora = new Date().toLocaleTimeString();
+
+  const [numeroReservas, setNumeroReservas] = useState(0);
 
   const [datos, setDatos] = useState({});
   const [nombre, setNombre] = useState('');
   const [direccion, setDireccion] = useState('');
   const [cupos, setCupos] = useState('');
 
+  const [tipoReserva, setTipoReserva] = useState('U');
   const [fecha, setFecha] = useState('');
+  const [fechaFin, setFechaFin] = useState('');
   const [horaIni, setHoraIni] = useState('');
   const [horaFin, setHoraFin] = useState('');
   const [tipoVehiculo, setTipoVehiculo] = useState('C');
@@ -34,6 +36,9 @@ function NewReserva() {
         setNombre(response.data.nombreParqueadero);
         setDireccion(response.data.direccion);
         setCupos(response.data.cuposDisp);
+
+        const response2 = await axios.get(`${apiUrl}/users/${idUser}`);
+        setNumeroReservas(response2.data.maximoReservas);
       } catch (error) {
         console.error(error);
       }
@@ -43,19 +48,109 @@ function NewReserva() {
   }, []);
 
   const handleReserv = async () => {
+    if (numeroReservas === 5) {
+      alert('Ya tiene el maximo de reservas activas');
+      return;
+    }
+    if (tipoReserva === 'S') {
+      if (fecha === '' || fechaFin === '') {
+        alert('Debe ingresar las fechas de inicio y fin de la reserva');
+        return;
+      }
+    }
+
+    if (tipoReserva === 'U') {
+      if (fecha === '') {
+        alert('Debe ingresar la fecha de la reserva');
+        return;
+      }
+    }
+
+    if (horaIni === '' || horaFin === '') {
+      alert('Debe ingresar las horas de inicio y fin de la reserva');
+      return;
+    }
+
+    if(tipoVehiculo === 'C' || tipoVehiculo === 'M') {
+      if (placa === undefined) {
+        alert('Debe ingresar la placa del vehiculo');
+        return;
+      }
+    }
+
+    if (tipoReserva === 'S') {
+      if (new Date(fecha) > new Date(fechaFin)) {
+        alert('La fecha de inicio debe ser menor a la fecha de finalización');
+        return;
+      }
+    }
+
+    const fechaActual = new Date();
+    const year = fechaActual.getFullYear();
+    const month = String(fechaActual.getMonth() + 1).padStart(2, '0');
+    const day = String(fechaActual.getDate()).padStart(2, '0');
+    const fechaActualFormatted = `${year}-${month}-${day}`;
+
+    console.log(fecha);
+    console.log(fechaActualFormatted);
+
+    if (fecha < fechaActualFormatted) {
+      alert('La fecha de la reserva debe ser mayor a la fecha actual');
+      return;
+    }
+
+    if (new Date(fecha) === new Date()) {
+      if (new Date(horaIni) < new Date().getHours()) {
+        alert('La hora de inicio debe ser mayor a la hora actual');
+        return;
+      }
+    }
+
+    if (new Date(fecha) === new Date()) {
+      if (new Date(horaIni) === new Date().getHours()) {
+        if (new Date(horaIni) < new Date().getMinutes()) {
+          alert('La hora de inicio debe ser mayor a la hora actual');
+          return;
+        }
+      }
+    }
+
+    const FechaSisR = fechaActualFormatted;
+
     try {
-      const response = await axios.post(`${apiUrl}/reserv/create`, {
-        fechaReserva: fecha,
-        horaInicioR: horaIni,
-        horaFinR: horaFin,
-        idParqueadero: id,
-        idUsuario: idUser,
-        placaVehiculo: placa,
-        tipoVehiculo
-      });
-      console.log(response.status);
-      if (response.status === 200) {
-        window.location.href = '/reservas';
+      if(tipoReserva === 'U') {
+        const response = await axios.post(`${apiUrl}/reserv/create`, {
+          fechaReserva: fecha,
+          horaInicioR: horaIni,
+          horaFinR: horaFin,
+          idParqueadero: id,
+          idUsuario: idUser,
+          placaVehiculo: placa,
+          tipoVehiculo,
+          tipoReserva,
+          FechaSisR
+        });
+        console.log(response.status);
+        if (response.status === 200) {
+          window.location.href = '/reservas';
+        }
+      } else {
+        const response = await axios.post(`${apiUrl}/reserv/create`, {
+          fechaReserva: fecha,
+          fechaFinReserva: fechaFin,
+          horaInicioR: horaIni,
+          horaFinR: horaFin,
+          idParqueadero: id,
+          idUsuario: idUser,
+          placaVehiculo: placa,
+          tipoVehiculo,
+          tipoReserva,
+          FechaSisR
+        });
+        console.log(response.status);
+        if (response.status === 200) {
+          window.location.href = '/reservas';
+        }
       }
     } catch (e) {
       console.log(e.response.data);
@@ -100,8 +195,24 @@ function NewReserva() {
               }
             <form>
               <div style={{ display: "inline-block" }}>
-                <label className="inputLabel">Fecha de la reserva:</label>
-                <input type="date" className="form-control inputReg text-center" id="inputDate" onChange={(e) => setFecha(e.target.value)} placeholder="Usuario" />
+                <label className="inputLabel">Tipo de reserva:</label><br></br>
+                  <select name="tipoReserva" id="inputTipoReserva" className="form-select" onChange={(e) => setTipoReserva(e.target.value)}>
+                    <option value={"U"}>Unica</option>
+                    <option value={"S"}>Semanal</option>
+                  </select>
+                {tipoReserva === 'S' ?
+                  <>
+                    <label className="inputLabel">Fecha de inicio reserva:</label>
+                    <input type="date" className="form-control inputReg text-center" id="inputDate" onChange={(e) => setFecha(e.target.value)} placeholder="Usuario" />
+                    <label className="inputLabel">Fecha de finalización reserva:</label>
+                    <input type="date" className="form-control inputReg text-center" id="inputDate" onChange={(e) => setFechaFin(e.target.value)} placeholder="Usuario" />
+                  </>
+                  :
+                  <>
+                    <label className="inputLabel">Fecha de la reserva:</label>
+                    <input type="date" className="form-control inputReg text-center" id="inputDate" onChange={(e) => setFecha(e.target.value)} placeholder="Usuario" />
+                  </>
+                }
                 <label className="inputLabel">Hora de inicio reserva:</label>
                 <input type="time" className="form-control inputReg text-center" id="inputHoraIni" onChange={(e) => setHoraIni(e.target.value)} placeholder="Usuario" />
                 <label className="inputLabel">Hora de finalización reserva:</label>
@@ -112,8 +223,16 @@ function NewReserva() {
                   <option value={"M"}>Moto</option>
                   <option value={"B"}>Cicla</option>
                 </select>
-                <input type="text" name="placaVehiculo" id="placaVehiculo" value={placa} onChange={(e) => setPlaca(e.target.value)} placeholder='Ingrese la placa del vehiculo' />
-                <p>La placa es: {placa}</p>
+                {tipoVehiculo === 'C' || tipoVehiculo === 'M' ?
+                  <>
+                    <label className="inputLabel">Placa del vehículo:</label>
+                    <input type="text" className="form-control inputReg text-center" id="placaVehiculo" value={placa} onChange={(e) => setPlaca(e.target.value)} placeholder='Ingrese la placa' />
+                  </>
+                    :
+                  <>
+                  </>
+                }
+                
               </div>
               <div></div>
               <div className="btnLogin">

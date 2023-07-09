@@ -4,9 +4,27 @@ class ReservDAO {
 	}
 
   async createReservDao(reserv) {
-    const sql = 'INSERT INTO `reserva`(`fechaReserva`, `horaInicioR`, `horaFinR`, `horaEntrada`, `horaSalida`, `idParqueadero`, `idUsuario`, `tipoVehiculo`, `placaVehiculo`) VALUES (?,?,?,?,?,?,?,?,?)';
+    const sql = 'INSERT INTO `reserva`(`tipoReserva`,	`EstadoR`, `fechaReserva`, `fechaFinReserva`, `FechaSisR`, `horaInicioR`, `horaFinR`, `horaEntrada`, `horaSalida`, `idParqueadero`, `idUsuario`, `tipoVehiculo`, `placaVehiculo`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
     return new Promise((resolve, reject) => {
-      this.dbConnection.query(sql, [reserv.fechaReserva, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario, reserv.tipoVehiculo, reserv.placaVehiculo], (err, result) => {
+      this.dbConnection.query(sql, [reserv.tipoReserva, 'R', reserv.fechaReserva, null, reserv.FechaSisR, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario, reserv.tipoVehiculo, reserv.placaVehiculo], (err, result) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          if (result.affectedRows == 0) {
+            reject('No se pudo crear la reserva');
+          }
+          resolve(result.insertId);
+        }
+      });
+    }
+    );
+  }
+
+  async createReservSemanalDao(reserv) {
+    const sql = 'INSERT INTO `reserva`(`tipoReserva`,	`EstadoR`, `fechaReserva`, `fechaFinReserva`, `FechaSisR`, `horaInicioR`, `horaFinR`, `horaEntrada`, `horaSalida`, `idParqueadero`, `idUsuario`, `tipoVehiculo`, `placaVehiculo`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    return new Promise((resolve, reject) => {
+      this.dbConnection.query(sql, [reserv.tipoReserva, 'P', reserv.fechaReserva, reserv.fechaFinReserva, reserv.FechaSisR, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario, reserv.tipoVehiculo, reserv.placaVehiculo], (err, result) => {
         if (err) {
           console.log(err);
           reject(err);

@@ -15,7 +15,7 @@ function EditProfileClient() {
   const [card, setCard] = useState('');
   const apiUrl = process.env.REACT_APP_API_URL;
   const idUser = Cookies.get('idUser');
-
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,20}$/;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,6 +37,11 @@ function EditProfileClient() {
   }, []);
 
   const handleSignup = async () => {
+    if (!passwordRegex.test(password)) {
+      alert('La contraseña debe tener minimo 8 caracteres y maximo 20, una mayúscula, una minúscula, un número y un caracter especial (!@#$%^&*())');
+      return;
+    }
+
     try {
       const response = await axios.put(`${apiUrl}/users/updateclient`, {
         nombre,
