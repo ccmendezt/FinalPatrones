@@ -5,8 +5,13 @@ const reservDao = new reservDAO(connectionDB);
 exports.createReserv = async (req, res) => {
   const reserv = req.body;
   try {
+    if(reserv.tipoReserva == 'U'){
     const result = await reservDao.createReservDao(reserv);
     res.json(result);
+    }else{
+      const result = await reservDao.createReservSemanalDao(reserv);
+      res.json(result);
+    }
   } catch (error) {
     return res.status(500).json({ mensaje: "Error al crear la reserva" });
   }

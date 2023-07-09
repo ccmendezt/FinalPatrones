@@ -32,7 +32,7 @@ function Reservas() {
           // Calcular la diferencia en minutos
           const diferenciaEnMilisegundos = hora2 - hora1;
           const diferenciaEnMinutos = Math.floor(diferenciaEnMilisegundos / 60000);
-          responseReserva.data[i].tiempoReserva = diferenciaEnMinutos;
+          responseReserva.data[i].tiempoReserva = Math.abs(diferenciaEnMinutos);
         }
         //console.log(responseReserva.data);
         responseReserva.data.map((reserva) => {
@@ -124,6 +124,8 @@ function Reservas() {
             } catch (e) {
               console.log(e.response.data);
             }
+          }else{
+            alert("No puedes ingresar a esta reserva porque es muy pronto");
           }
         }else{
           alert("No puedes ingresar a esta reserva porque es de otro día");
