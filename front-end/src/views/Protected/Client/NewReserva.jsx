@@ -17,6 +17,9 @@ function NewReserva() {
   const [nombre, setNombre] = useState('');
   const [direccion, setDireccion] = useState('');
   const [cupos, setCupos] = useState('');
+  const [tarifaCarro, setTarifaCarro] = useState(0);
+  const [tarifaMoto, setTarifaMoto] = useState(0);
+  const [tarifaCicla, setTarifaCicla] = useState(0);
 
   const [tipoReserva, setTipoReserva] = useState('U');
   const [fecha, setFecha] = useState('');
@@ -36,6 +39,9 @@ function NewReserva() {
         setNombre(response.data.nombreParqueadero);
         setDireccion(response.data.direccion);
         setCupos(response.data.cuposDisp);
+        setTarifaCarro(response.data.tarifaCarro);
+        setTarifaMoto(response.data.tarifaMoto);
+        setTarifaCicla(response.data.tarifaBici);
 
         const response2 = await axios.get(`${apiUrl}/users/${idUser}`);
         setNumeroReservas(response2.data.maximoReservas);
@@ -84,7 +90,7 @@ function NewReserva() {
         return;
       }
     }
-
+    
     const fechaActual = new Date();
     const year = fechaActual.getFullYear();
     const month = String(fechaActual.getMonth() + 1).padStart(2, '0');
@@ -115,6 +121,14 @@ function NewReserva() {
       }
     }
 
+    if(tipoReserva === 'S') {
+      if (fecha === fechaFin) {
+        alert('La fecha de inicio y fin de la reserva no pueden ser iguales');
+        return;
+      }
+    }
+        
+
     const FechaSisR = fechaActualFormatted;
 
     try {
@@ -132,7 +146,9 @@ function NewReserva() {
         });
         console.log(response.status);
         if (response.status === 200) {
+          alert('Reserva creada con exito!!');
           window.location.href = '/reservas';
+          alert('Recuerda!! tienes 5 minutos para llegar al parqueadero despues de la hora de inicio de la reserva o esta sera cancelada');
         }
       } else {
         const response = await axios.post(`${apiUrl}/reserv/create`, {
@@ -149,7 +165,9 @@ function NewReserva() {
         });
         console.log(response.status);
         if (response.status === 200) {
+          alert('Reserva realizada con exito!!');
           window.location.href = '/reservas';
+          alert('Recuerda!! Esta reserva ya fue pagada, la puedes cancelar antes de entrar al parqueadero y recibir el reembolso, una vez ingreses al parqueadero no se hara reembolso');
         }
       }
     } catch (e) {

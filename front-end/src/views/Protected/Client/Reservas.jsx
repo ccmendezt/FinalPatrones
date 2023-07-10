@@ -17,22 +17,86 @@ function Reservas() {
         const responseReserva = await axios.get(`${apiUrl}/reserv/user/${idUser}`);
         var responseParking;
         for (let i = 0; i < responseReserva.data.length; i++) {
+          const idParking = responseReserva.data[i].idParqueadero;
           // Obtener el parqueadero de la reserva
           responseParking = await axios.get(`${apiUrl}/parking/${responseReserva.data[i].idParqueadero}`);
           responseReserva.data[i].idParqueadero = responseParking.data;
 
-          // Calcular el tiempo de reserva
-          const [horaInicioR, minInicioR, segInicioR] = responseReserva.data[i].horaInicioR.split(':');
-          const [horaFinR, minFinR, segFinR] = responseReserva.data[i].horaFinR.split(':');
-          const hora1 = new Date();
-          hora1.setHours(horaInicioR, minInicioR, segInicioR);
-          const hora2 = new Date();
-          hora2.setHours(horaFinR, minFinR, segFinR);
+          if(responseReserva.data[i].tipoReserva === 'U'){
+            // Calcular el tiempo de reserva
+            const [horaInicioR, minInicioR, segInicioR] = responseReserva.data[i].horaInicioR.split(':');
+            const [horaFinR, minFinR, segFinR] = responseReserva.data[i].horaFinR.split(':');
+            const hora1 = new Date();
+            hora1.setHours(horaInicioR, minInicioR, segInicioR);
+            const hora2 = new Date();
+            hora2.setHours(horaFinR, minFinR, segFinR);
 
-          // Calcular la diferencia en minutos
-          const diferenciaEnMilisegundos = hora2 - hora1;
-          const diferenciaEnMinutos = Math.floor(diferenciaEnMilisegundos / 60000);
-          responseReserva.data[i].tiempoReserva = Math.abs(diferenciaEnMinutos);
+            // Calcular la diferencia en minutos
+            const diferenciaEnMilisegundos = hora2 - hora1;
+            const diferenciaEnMinutos = Math.floor(diferenciaEnMilisegundos / 60000);
+            responseReserva.data[i].tiempoReserva = Math.abs(diferenciaEnMinutos);
+          }
+          
+          if(responseReserva.data[i].tipoReserva === 'S'){
+            // Calcular el tiempo de reserva
+            const [anoInicioR, mesInicioR, diaInicioR] = responseReserva.data[i].fechaReserva.split('-');
+            const [anoFinR, mesFinR, diaFinR] = responseReserva.data[i].fechaFinReserva.split('-');
+            const [horaInicioR, minInicioR, segInicioR] = responseReserva.data[i].horaInicioR.split(':');
+            const [horaFinR, minFinR, segFinR] = responseReserva.data[i].horaFinR.split(':');
+
+            const fechaInicioR = new Date(parseInt(anoInicioR), parseInt(mesInicioR) - 1, parseInt(diaInicioR), parseInt(horaInicioR), parseInt(minInicioR), parseInt(segInicioR));
+            const fechaFinR = new Date(parseInt(anoFinR), parseInt(mesFinR) - 1, parseInt(diaFinR), parseInt(horaFinR), parseInt(minFinR), parseInt(segFinR));
+
+            const diferenciaEnMilisegundos = fechaFinR - fechaInicioR;
+            const diferenciaEnMinutos = Math.floor(diferenciaEnMilisegundos / 60000);
+            responseReserva.data[i].tiempoReserva = Math.abs(diferenciaEnMinutos);
+
+            if(responseReserva.data[i].tipoVehiculo === 'C'){
+              responseReserva.data[i].tarifa = responseReserva.data[i].idParqueadero.tarifaCarro;
+            }
+            if(responseReserva.data[i].tipoVehiculo === 'M'){
+              responseReserva.data[i].tarifa = responseReserva.data[i].idParqueadero.tarifaMoto;
+            }
+            if(responseReserva.data[i].tipoVehiculo === 'B'){
+              responseReserva.data[i].tarifa = responseReserva.data[i].idParqueadero.tarifaBici;
+            }
+
+            const precio = responseReserva.data[i].tarifa * responseReserva.data[i].tiempoReserva;
+            const correo = Cookies.get('responseCorreo')
+            if(responseReserva.data[i].EstadoR === 'R'){
+              try{
+                const response = await axios.post(`${apiUrl}/bill/create`, {
+                  costo: precio,
+                  idReserva: responseReserva.data[i].idReserva,
+                  email: correo
+                });
+                  if (response.status === 200) {  
+                    try{
+                      const response = await axios.put(`${apiUrl}/reserv/update`, {
+                        EstadoR: 'P',
+                        fechaReserva: responseReserva.data[i].fechaReserva,
+                        horaInicioR: responseReserva.data[i].horaInicioR,
+                        horaFinR: responseReserva.data[i].horaFinR,
+                        horaEntrada: responseReserva.data[i].horaEntrada,
+                        horaSalida: responseReserva.data[i].horaSalida,
+                        idParqueadero: idParking,
+                        idUsuario: responseReserva.data[i].idUsuario,
+                        tipoVehiculo: responseReserva.data[i].tipoVehiculo,
+                        placaVehiculo: responseReserva.data[i].placaVehiculo,
+                        idReserva: responseReserva.data[i].idReserva
+                      });
+                        if (response.status === 200) {  
+                          console.log("Reserva pagada");
+                        }
+                    }catch(e){
+                      console.log(e.response.data);
+                    }
+                  }
+              }catch(e){
+                console.log(e.response.data);
+              }
+            }
+          }
         }
         //console.log(responseReserva.data);
         responseReserva.data.map((reserva) => {
@@ -48,14 +112,33 @@ function Reservas() {
     fetchData();
   }, []);
 
-  const handleCancel = async (idReserva) => {
-    try {
-      const response = await axios.delete(`${apiUrl}/reserv/delete/${idReserva}`);
-      if (response.status === 200) {
-        window.location.href = '/reservas';
+  const handleCancel = async (idReserva, tipoReserva) => {
+    if(tipoReserva === 'U'){
+      try {
+        const response = await axios.delete(`${apiUrl}/reserv/delete/${idReserva}`);
+        if (response.status === 200) {
+          window.location.href = '/reservas';
+        }
+      } catch (e) {
+        console.log(e.response.data);
       }
-    } catch (e) {
-      console.log(e.response.data);
+    }else{
+      try {
+        const response = await axios.delete(`${apiUrl}/bill/reserv/delete/${idReserva}`);
+        if (response.status === 200) {
+          try {
+            const response = await axios.delete(`${apiUrl}/reserv/delete/${idReserva}`);
+            if (response.status === 200) {
+              window.location.href = '/reservas';
+            }
+          } catch (e) {
+            console.log(e.response.data);
+          }
+        }
+      } catch (e) {
+        console.log(e.response.data);
+      }
+
     }
   };
 
@@ -105,6 +188,7 @@ function Reservas() {
             console.log("Valido?: " + esValido);
             try {
               const response = await axios.put(`${apiUrl}/reserv/update`, {
+                EstadoR: 'U',
                 fechaReserva: reservas[i].fechaReserva,
                 horaInicioR: reservas[i].horaInicioR,
                 horaFinR: reservas[i].horaFinR,
@@ -176,6 +260,7 @@ function Reservas() {
 
           try {
             const response = await axios.put(`${apiUrl}/reserv/update/`, {
+              EstadoR: 'F',
               fechaReserva: reservas[i].fechaReserva,
               horaInicioR : reservas[i].horaInicioR,
               horaFinR : reservas[i].horaFinR,
@@ -239,7 +324,7 @@ function Reservas() {
                           </div>
                         ) : (
                           <div>
-                            <button className='btn btn-danger' onClick={() => handleCancel(reserva.idReserva)}>Cancelar</button>
+                            <button className='btn btn-danger' onClick={() => handleCancel(reserva.idReserva,reserva.tipoReserva)}>Cancelar</button>
                             <h5>Recuerda que para ingresar debes estar como máximo 5 min antes de la hora de la reserva</h5>
                             <h5>Todo listo? Ingresa!</h5>
                             <button className='btn btn-success' onClick={() => handleIngreso(reserva.idReserva)}>Ingresa</button>
@@ -271,10 +356,6 @@ function Reservas() {
                       <div className='col-6'><b>Tiempo utilizado:</b></div>
                       <div className='col-4'>{reserva.tiempoReserva} minutos</div>
                     </div>
-                    {/* <div className='row mb-5'>
-                      <div className='col-6'><b>Descuento</b></div>
-                      <div className='col-4'><b>$0</b></div>
-                    </div> */}
                     <div className='row mb-5'>
                       <div className='col-6'><b>Valor Total:</b></div>
                       <div className='col-4'>${reserva.total = reserva.tarifa * reserva.tiempoReserva}</div>

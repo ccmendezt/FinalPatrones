@@ -57,9 +57,12 @@ router.get("/reserv/user/:iduser", reservController.getReservByUser); //Obtener 
 router.get("/reserv/parking/:idparking", reservController.getReservByParking); //Obtener una reserva por id
 router.put("/reserv/update", reservController.updateReserv); //Actualizar una reserva
 router.delete("/reserv/delete/:id", reservController.deleteReserv); //Eliminar una reserva
+setInterval(reservController.cancelarReservasPendientes, 6000); //Cancelar reservas pendientes
 
 //Rutas para el controlador de facturas
 router.post("/bill/create", billController.createBill); //Crear una factura
+router.get("/bill/reserv/:id", billController.getBillByReserv); //Listar todas las facturas
+router.delete("/bill/reserv/delete/:id", billController.deleteBillForReserv); //Eliminar una factura por su numero de reserva
 
 //Rutas para el controlador de ciudades
 router.get("/city/", cityController.getAllCities); //Listar todas las ciudades

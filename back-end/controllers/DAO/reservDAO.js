@@ -24,7 +24,7 @@ class ReservDAO {
   async createReservSemanalDao(reserv) {
     const sql = 'INSERT INTO `reserva`(`tipoReserva`,	`EstadoR`, `fechaReserva`, `fechaFinReserva`, `FechaSisR`, `horaInicioR`, `horaFinR`, `horaEntrada`, `horaSalida`, `idParqueadero`, `idUsuario`, `tipoVehiculo`, `placaVehiculo`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
     return new Promise((resolve, reject) => {
-      this.dbConnection.query(sql, [reserv.tipoReserva, 'P', reserv.fechaReserva, reserv.fechaFinReserva, reserv.FechaSisR, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario, reserv.tipoVehiculo, reserv.placaVehiculo], (err, result) => {
+      this.dbConnection.query(sql, [reserv.tipoReserva, 'R', reserv.fechaReserva, reserv.fechaFinReserva, reserv.FechaSisR, reserv.horaInicioR, reserv.horaFinR, null, null, reserv.idParqueadero, reserv.idUsuario, reserv.tipoVehiculo, reserv.placaVehiculo], (err, result) => {
         if (err) {
           console.log(err);
           reject(err);
@@ -49,6 +49,23 @@ class ReservDAO {
         } else {
           if (result.length == 0) {
             reject('No se encontraron reservas');
+          }
+          resolve(result);
+        }
+      });
+    });
+  }
+
+  async getReservByEstado(estado, fechaActual) {
+    const sql = 'SELECT * FROM `reserva` WHERE EstadoR = ? AND fechaReserva = ?';
+    return new Promise((resolve, reject) => {
+      this.dbConnection.query(sql, [estado, fechaActual], (err, result) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          if (result.length == 0) {
+            //reject('No se encontraron reservas');
           }
           resolve(result);
         }
@@ -108,9 +125,9 @@ class ReservDAO {
   }
 
   async updateReservDao(reserv) {
-    const sql = 'UPDATE `reserva` SET `fechaReserva`=?, `horaInicioR`=?, `horaFinR`=?, `horaEntrada`=?, `horaSalida`=?, `idParqueadero`=?, `idUsuario`=?, `tipoVehiculo` =? WHERE idReserva = ?';
+    const sql = 'UPDATE `reserva` SET `EstadoR`=?, `fechaReserva`=?, `horaInicioR`=?, `horaFinR`=?, `horaEntrada`=?, `horaSalida`=?, `idParqueadero`=?, `idUsuario`=?, `tipoVehiculo` =? WHERE idReserva = ?';
     return new Promise((resolve, reject) => {
-      this.dbConnection.query(sql, [reserv.fechaReserva, reserv.horaInicioR, reserv.horaFinR, reserv.horaEntrada, reserv.horaSalida, reserv.idParqueadero, reserv.idUsuario,reserv.tipoVehiculo , reserv.idReserva], (err, result) => {
+      this.dbConnection.query(sql, [reserv.EstadoR, reserv.fechaReserva, reserv.horaInicioR, reserv.horaFinR, reserv.horaEntrada, reserv.horaSalida, reserv.idParqueadero, reserv.idUsuario,reserv.tipoVehiculo , reserv.idReserva], (err, result) => {
         if (err) {
           console.log(err);
           reject(err);
@@ -131,6 +148,22 @@ class ReservDAO {
           reject(err);
         } else {
           resolve(result);
+        }
+      });
+    });
+  }
+
+  //mala paractica pero se necesita para gestion, verificacion y validacion 
+
+  async getUserByIdDao(idUser) {
+    const sql = 'SELECT * FROM `usuario` WHERE idUsuario = ?';
+    return new Promise((resolve, reject) => {
+      this.dbConnection.query(sql, [idUser], (err, result) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(result[0]);
         }
       });
     });

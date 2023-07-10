@@ -74,6 +74,17 @@ function contCorreo(nombre, apellido, email, usuario, password, tipoCorreo) {
 			<p>Este es un correo electrónico personalizado de <i>PARKUDCOL</i>.</p>
 		`
 		};
+	} else if (tipoCorreo == 'cancelacion') {
+		return mensajeCorreoCancelacion = {
+			from: 'parkudcolombia@gmail.com',
+			to: email,
+			subject: '¡Cancelación de reserva! - PAR-KUD Colombia',
+			html: `
+			<h2>¡Hola ${nombre}!</h2>
+			<p>Tu reserva, <b>con Id:</b> ${apellido}, ha sido cancelada por no acceder dentro del tiempo límite.</p>
+			<p>¡Saludos!</p>
+		`
+		};
 	}
 };
 
