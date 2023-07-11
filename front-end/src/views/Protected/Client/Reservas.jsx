@@ -179,13 +179,43 @@ function Reservas() {
         //console.log("Diferencia mins entrada: " + diferenciaMinutosEntrada);
         const diferenciaMinutosSalida = horaLocalMinutos - horaFinRMinutos;
         //console.log("Diferencia mins salida: " + diferenciaMinutosSalida);
-
-        if (fechaLocal === new Date(reservas[i].fechaReserva).toLocaleDateString()) {
-          if (diferenciaMinutosSalida >= 0){ //No permite entrar si ya paso la hora de salida de la reserva
-            console.log("NO Puede entrar al parqueadero");
-          } else if (diferenciaMinutosEntrada <= maxMinutosAntes) { //Permite entrar 5 minutos antes de la hora de ingreso
-            const esValido = diferenciaMinutosEntrada <= maxMinutosAntes;
-            console.log("Valido?: " + esValido);
+        if(reservas[i].tipoReserva === 'U'){
+          if (fechaLocal === new Date(reservas[i].fechaReserva).toLocaleDateString()) {
+            if (diferenciaMinutosSalida >= 0){ //No permite entrar si ya paso la hora de salida de la reserva
+              console.log("NO Puede entrar al parqueadero");
+            } else if (diferenciaMinutosEntrada <= maxMinutosAntes) { //Permite entrar 5 minutos antes de la hora de ingreso
+              const esValido = diferenciaMinutosEntrada <= maxMinutosAntes;
+              console.log("Valido?: " + esValido);
+              try {
+                const response = await axios.put(`${apiUrl}/reserv/update`, {
+                  EstadoR: 'U',
+                  fechaReserva: reservas[i].fechaReserva,
+                  horaInicioR: reservas[i].horaInicioR,
+                  horaFinR: reservas[i].horaFinR,
+                  horaEntrada: horaLocal,
+                  horaSalida: null,
+                  idParqueadero: reservas[i].idParqueadero.idParqueadero,
+                  idUsuario: reservas[i].idUsuario,
+                  tipoVehiculo: reservas[i].tipoVehiculo,
+                  placaVehiculo: reservas[i].placaVehiculo,
+                  idReserva: reservas[i].idReserva
+                });
+                if (response.status === 200) {
+                  Cookies.set('horaEntrada', horaLocal);
+                  Cookies.set('responseCorreo', responseCorreo);
+                  window.location.href = '/reservas';
+                }
+              } catch (e) {
+                console.log(e.response.data);
+              }
+            }else{
+              alert("No puedes ingresar a esta reserva porque es muy pronto");
+            }
+          }else{
+            alert("No puedes ingresar a esta reserva porque es de otro día");
+          }
+        }else{
+          if (diferenciaMinutosEntrada <= maxMinutosAntes) {
             try {
               const response = await axios.put(`${apiUrl}/reserv/update`, {
                 EstadoR: 'U',
@@ -208,11 +238,11 @@ function Reservas() {
             } catch (e) {
               console.log(e.response.data);
             }
+
           }else{
             alert("No puedes ingresar a esta reserva porque es muy pronto");
           }
-        }else{
-          alert("No puedes ingresar a esta reserva porque es de otro día");
+
         }
       }
     }
@@ -273,19 +303,24 @@ function Reservas() {
               idReserva: reservas[i].idReserva
             });
             if (response.status === 200) {
-              try{
-                const response = await axios.post(`${apiUrl}/bill/create`, {
-                  costo: reservas[i].total,
-                  idReserva: reservas[i].idReserva,
-                  email: correo
-                });
-                if (response.status === 200) {  
-                  alert('Gracias por usar nuestros servicios, una copida de la factura fue enviada a tu correo registrado');
-                  window.location.href = '/reservas';
+              if(reservas[i].tipoReserva === 'U'){
+                try{
+                  const response = await axios.post(`${apiUrl}/bill/create`, {
+                    costo: reservas[i].total,
+                    idReserva: reservas[i].idReserva,
+                    email: correo
+                  });
+                  if (response.status === 200) {  
+                    alert('Gracias por usar nuestros servicios, una copida de la factura fue enviada a tu correo registrado');
+                    window.location.href = '/reservas';
+                  }
+  
+                }catch(e){
+                  console.log(e.response.data);
                 }
-
-              }catch(e){
-                console.log(e.response.data);
+              }else{
+                alert('Gracias por usar nuestros servicios');
+                window.location.href = '/reservas';
               }
             }
           } catch (e) {

@@ -67,6 +67,7 @@ exports.login = async (req, res) => {
         const resLogin = await userDao.getUserByUser(credenciales);
         const id = resLogin.idUsuario;
         const primerIngreso = resLogin.primerIngreso;
+        const email = resLogin.email;
         if (resLogin) {
           if (!(await bcryptjs.compare(credenciales.password, resLogin.password))) {
             await userDao.updateLoginFailed(id);
@@ -81,7 +82,7 @@ exports.login = async (req, res) => {
               expiresIn: process.env.JWT_TIEMPO_EXPIRACION
             });
             const idRoleResponse = await userDao.getRoleUser(id);
-            res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse, idUsuario: id, primerIngreso: primerIngreso });
+            res.status(200).send({ message: 'Inicio de sesión exitoso', token, idRole: idRoleResponse, idUsuario: id, primerIngreso: primerIngreso, email: email });
           }
         }
       } catch (error) {

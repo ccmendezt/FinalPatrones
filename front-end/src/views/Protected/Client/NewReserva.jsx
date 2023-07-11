@@ -90,6 +90,7 @@ function NewReserva() {
         return;
       }
     }
+
     
     const fechaActual = new Date();
     const year = fechaActual.getFullYear();
